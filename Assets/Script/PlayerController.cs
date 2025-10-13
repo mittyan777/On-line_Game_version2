@@ -13,8 +13,13 @@ public class PlayerController : MonoBehaviourPunCallbacks
 {
     [SerializeField] int gameManager;
     [SerializeField] GameObject camera_Object;
+
+    [Header("アウトライン")]
+    [SerializeField] Outline outline_Script;
     float side;
     float ver;
+
+    bool Is_PlayMode = false;
 
     Rigidbody rb;
     Ray ray;
@@ -24,11 +29,16 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject rayObject;
 
     [SerializeField] Text select;
-    string collar = "red";
+    string collar = "";
     // Start is called before the first frame update
     void Start()
     {
-        select = GameObject.FindGameObjectWithTag("selectUI").GetComponent<Text>();
+        string sceneName = SceneManager.GetActiveScene().name;
+        if (sceneName == "main")
+        {
+            Is_PlayMode = true;
+            select = GameObject.FindGameObjectWithTag("selectUI").GetComponent<Text>();
+        }
         //Roll Check
         Invoke("test", 5);
 
@@ -64,10 +74,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
             if (players.Length == 0)
             {
                 gameObject.tag = "Player";
+                photonView.RPC(nameof(ChangeColor), RpcTarget.AllBuffered, "red");
             }
             else if (players.Length == 1)
             {
                 gameObject.tag = "Player2";
+                photonView.RPC(nameof(ChangeColor), RpcTarget.AllBuffered, "blue");
             }
 
             Debug.Log("あなたは Survivor です！");
@@ -114,7 +126,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
         if (photonView.IsMine)
         {
-            photonView.RPC("SetRay", RpcTarget.AllBuffered);
+            //Rayのエラーのため、無効化
+            //photonView.RPC("SetRay", RpcTarget.AllBuffered);
 
             float h = Input.GetAxis("Mouse X");
             float v = Input.GetAxis("Mouse Y");
@@ -153,7 +166,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
 
             RaycastHit hit;
-            string sceneName = SceneManager.GetActiveScene().name;
 
             // Ray飛ばす
             if (Physics.Raycast(ray, out hit, rayDistance))
@@ -210,7 +222,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     select.text = "";
                 }
             }
-            else if (sceneName == "main")
+            else if (Is_PlayMode)
             {
                 // 何にも当たらなかったら非表示
                 select.text = "";
@@ -227,11 +239,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             if (collar == "red")
             {
-                photonView.RPC("ChangeColor", RpcTarget.AllBuffered, "blue");
+                photonView.RPC(nameof(ChangeColor), RpcTarget.AllBuffered, "blue");
             }
             else if (collar == "blue")
             {
-                photonView.RPC("ChangeColor", RpcTarget.AllBuffered, "red");
+                photonView.RPC(nameof(ChangeColor), RpcTarget.AllBuffered, "red");
             }
         }
 

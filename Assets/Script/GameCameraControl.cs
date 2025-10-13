@@ -17,6 +17,8 @@ public class GameCameraControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //使う場面がないので、いったん無効化
+        return;
         if (Input.GetKeyDown(KeyCode.C))
         {
             useFixed = !useFixed;

@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "On-lineGame.sln"
+    "dotnet.defaultSolution": "On-line_Game_version2.sln"
 }
