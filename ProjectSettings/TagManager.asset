@@ -12,6 +12,8 @@ TagManager:
   - red
   - blue
   - Shelf
+  - selectUI
+  - GameManager
   layers:
   - Default
   - TransparentFX

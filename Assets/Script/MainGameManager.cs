@@ -12,86 +12,98 @@ public class MainGameManager : MonoBehaviourPunCallbacks
 
     float CountTimer;
     bool gameEnd = false;
-    float timerSendInterval = 0.2f;
+    float timerSendInterval = 1.0f;
     float timerSendCounter = 0f;
 
     void Start()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
-
         CountTimer = GameTime;
-
-        TrySetRoleLabel(PhotonNetwork.LocalPlayer);
     }
 
     void Update()
     {
-        if (!PhotonNetwork.IsMasterClient || gameEnd) return;
+        if (gameEnd) return;
 
-        CountTimer -= Time.deltaTime;
-        if (CountTimer <= 0f)
+        if (PhotonNetwork.IsMasterClient)
         {
-            CountTimer = 0f;
-            gameEnd = true;
+            CountTimer -= Time.deltaTime;
+            if (CountTimer <= 0f)
+            {
+                CountTimer = 0f;
+                gameEnd = true;
+                PhotonNetwork.CurrentRoom.SetCustomProperties(new Hashtable { ["GameEnd"] = true });
+            }
 
-            // ゲーム終了同期
-            Hashtable props = new Hashtable { ["GameEnd"] = true };
-            PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+            timerSendCounter += Time.deltaTime;
+            if (timerSendCounter >= timerSendInterval)
+            {
+                timerSendCounter = 0f;
+                PhotonNetwork.CurrentRoom.SetCustomProperties(new Hashtable { ["GameTimer"] = CountTimer });
+            }
         }
 
-        // タイマー同期は間隔を開けて送る
-        timerSendCounter += Time.deltaTime;
-        if (timerSendCounter >= timerSendInterval)
-        {
-            timerSendCounter = 0f;
-            Hashtable timerProp = new Hashtable { ["GameTimer"] = CountTimer };
-            PhotonNetwork.CurrentRoom.SetCustomProperties(timerProp);
-        }
-
-        TimerLabel.text = $"{(int)CountTimer}";
-
-      
+        if (TimerLabel != null)
+            TimerLabel.text = $"{(int)CountTimer}";
     }
 
-    private void TrySetRoleLabel(Player player)
+    [PunRPC]
+    public string TrySetRoleLabel(Player player)
     {
-        if (player.CustomProperties.TryGetValue("Role", out object roleObj))
-        {
-            string role = roleObj as string;
-            if (role == "killer")
-            {
-                CurrentRoll_Label.text = "あなたは Killer です！";
-                player.NickName = "Killer";
-            }
-            else if (role == "survivor")
-            {
-                CurrentRoll_Label.text = "あなたは Survivor です！";
-                player.NickName = "Survivor";
-            }
-        }
-        else
+        if (player == null || !player.CustomProperties.ContainsKey("Role"))
         {
             Debug.Log("ロール未設定 (後で反映されます)");
+            return "";
         }
+
+        string role = (string)player.CustomProperties["Role"];
+
+        // --- 色プロパティ設定 ---
+        string color = "clear";
+        if (role == "killer") color = "clear";
+        else if (role == "survivor1") color = "blue";
+        else if (role == "survivor2") color = "red";
+
+        player.SetCustomProperties(new Hashtable { ["Color"] = color });
+
+        // --- 自分だけUI更新 ---
+        if (player == PhotonNetwork.LocalPlayer && CurrentRoll_Label != null)
+        {
+            CurrentRoll_Label.text = $"あなたは {role} です！";
+        }
+
+        return role;
+    }
+
+    //色変更（ローカル）
+    public void ChangeColor(string newColor)
+    {
+        var player = PhotonNetwork.LocalPlayer;
+        ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
+        hash["Color"] = newColor;
+        player.SetCustomProperties(hash);
+    }
+
+    public string Get_ColorType(Player player)
+    {
+        if (player.CustomProperties.TryGetValue("Color", out object color))
+            return color as string;
+        return null;
     }
 
     public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
     {
-        // タイマー更新
         if (propertiesThatChanged.ContainsKey("GameTimer"))
         {
             CountTimer = System.Convert.ToSingle(propertiesThatChanged["GameTimer"]);
         }
 
-        // ゲーム終了判定
         if (propertiesThatChanged.ContainsKey("GameEnd"))
         {
             gameEnd = (bool)propertiesThatChanged["GameEnd"];
             if (gameEnd)
                 Debug.Log("ゲーム終了 (同期)");
         }
-
-        TimerLabel.text = $"{(int)CountTimer}";
     }
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
