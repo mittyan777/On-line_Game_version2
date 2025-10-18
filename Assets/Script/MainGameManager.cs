@@ -18,6 +18,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
 
     [SerializeField] GameObject Player;
     [SerializeField] GameObject Player2;
+    [SerializeField] GameObject killer;
     bool a = false;
 
     void Start()
@@ -27,15 +28,32 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         CountTimer = GameTime;
 
         TrySetRoleLabel(PhotonNetwork.LocalPlayer);
-        photonView.RPC(nameof(SyncColor), RpcTarget.All, a);
+
+       
     }
 
     void Update()
     {
-      
 
-
-
+        while (Player == null)
+        {
+            Player = GameObject.FindGameObjectWithTag("Player");
+           
+            
+            Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.blue);
+            
+        }
+        while(Player2 == null)
+        {
+            Player2 = GameObject.FindGameObjectWithTag("Player2");
+            Player2.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.red);
+           
+        }
+        while (killer == null)
+        {
+            killer = GameObject.FindGameObjectWithTag("Killer");
+            killer.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", new Color32(0, 0, 0, 0));
+        }
 
         //photonView.RPC(nameof(ChangeColor), RpcTarget.AllBuffered);
         if (!PhotonNetwork.IsMasterClient || gameEnd) return;
@@ -117,21 +135,16 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     void SyncColor(bool colorState)
     {
         a = colorState;
+       
 
-        Player = GameObject.FindGameObjectWithTag("Player");
-        Player2 = GameObject.FindGameObjectWithTag("Player2");
-
-            Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.blue);
+        Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.blue);
             Player2.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.red);
-        
+       
     }
     [PunRPC]
     void SyncColor2(bool colorState)
     {
         a = colorState;
-
-        Player = GameObject.FindGameObjectWithTag("Player");
-        Player2 = GameObject.FindGameObjectWithTag("Player2");
 
             Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.red);
             Player2.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.blue);

@@ -969,6 +969,7 @@ MonoBehaviour:
   rayDistance: 2
   rayObject: {fileID: 1906820299283000518}
   select: {fileID: 0}
+  Manager: {fileID: 0}
 --- !u!135 &-9134305321685838708
 SphereCollider:
   m_ObjectHideFlags: 0

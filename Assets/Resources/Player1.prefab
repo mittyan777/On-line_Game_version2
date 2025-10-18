@@ -818,6 +818,7 @@ MonoBehaviour:
   rayDistance: 2
   rayObject: {fileID: 2383115006748058790}
   select: {fileID: 0}
+  Manager: {fileID: 0}
 --- !u!114 &5914042319032669370
 MonoBehaviour:
   m_ObjectHideFlags: 0
