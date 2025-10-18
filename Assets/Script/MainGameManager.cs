@@ -4,6 +4,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using ExitGames.Client.Photon;
 using System.Drawing;
+using System.Linq;
 
 public class MainGameManager : MonoBehaviourPunCallbacks
 {
@@ -19,6 +20,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     [SerializeField] GameObject Player;
     [SerializeField] GameObject Player2;
     [SerializeField] GameObject killer;
+
     bool a = false;
 
     void Start()
@@ -53,6 +55,59 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         {
             killer = GameObject.FindGameObjectWithTag("Killer");
             killer.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", new Color32(0, 0, 0, 0));
+        }
+        if (a == false)
+        {
+            // BlueとRedのオブジェクトを取得
+            GameObject[] blues = GameObject.FindGameObjectsWithTag("blue");
+            GameObject[] reds = GameObject.FindGameObjectsWithTag("red");
+            Collider killer = GameObject.FindGameObjectWithTag("Killer").GetComponent<Collider>();
+            Collider playerCol = Player.GetComponent<Collider>();
+            Collider player2Col = Player2.GetComponent<Collider>();
+
+            // Player と Blue/Red の衝突を無効化
+            foreach (var b in blues)
+            {
+                Collider col = b.GetComponent<Collider>();
+                Physics.IgnoreCollision(playerCol, col, true);
+                Physics.IgnoreCollision(player2Col, col, false);
+                Physics.IgnoreCollision(killer, col, false);
+            }
+
+            foreach (var r in reds)
+            {
+                Collider col = r.GetComponent<Collider>();
+                Physics.IgnoreCollision(playerCol, col, false);
+                Physics.IgnoreCollision(player2Col, col, true);
+                Physics.IgnoreCollision(killer, col, false);
+            }
+        }
+
+        if (a == true) 
+        {
+            // BlueとRedのオブジェクトを取得
+            GameObject[] blues = GameObject.FindGameObjectsWithTag("blue");
+            GameObject[] reds = GameObject.FindGameObjectsWithTag("red");
+            Collider killer = GameObject.FindGameObjectWithTag("Killer").GetComponent<Collider>();
+            Collider playerCol = Player.GetComponent<Collider>();
+            Collider player2Col = Player2.GetComponent<Collider>();
+
+            // Player と Blue/Red の衝突を無効化
+            foreach (var b in blues)
+            {
+                Collider col = b.GetComponent<Collider>();
+                Physics.IgnoreCollision(playerCol, col, false);
+                Physics.IgnoreCollision(player2Col, col, true);
+                Physics.IgnoreCollision(killer, col, false);
+            }
+
+            foreach (var r in reds)
+            {
+                Collider col = r.GetComponent<Collider>();
+                Physics.IgnoreCollision(playerCol, col, true);
+                Physics.IgnoreCollision(player2Col, col, false);
+                Physics.IgnoreCollision(killer, col, false);
+            }
         }
 
         //photonView.RPC(nameof(ChangeColor), RpcTarget.AllBuffered);
@@ -134,17 +189,17 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void SyncColor(bool colorState)
     {
-        a = colorState;
-       
-
+        a = false;
+        
         Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.blue);
             Player2.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.red);
-       
+        
+
     }
     [PunRPC]
     void SyncColor2(bool colorState)
     {
-        a = colorState;
+        a = true;
 
             Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.red);
             Player2.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.blue);

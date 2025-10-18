@@ -54,8 +54,26 @@ public class PlayerController : MonoBehaviourPunCallbacks
             // 全員に共有する
             photonView.RPC("SetRole", RpcTarget.AllBuffered, role);
 
-
+            if (this.gameObject.tag == "Killer")
+            {
+                GameObject.Find("killerImage").SetActive(true);
+                GameObject.Find("PlayerImage").SetActive(false);
+                GameObject.Find("Player2Image").SetActive(false);
+            }
+            else if (this.gameObject.tag == "Player")
+            {
+                GameObject.Find("killerImage").SetActive(false);
+                GameObject.Find("PlayerImage").SetActive(true);
+                GameObject.Find("Player2Image").SetActive(false);
+            }
+            else if (this.gameObject.tag == "Player2")
+            {
+                GameObject.Find("killerImage").SetActive(false);
+                GameObject.Find("PlayerImage").SetActive(false);
+                GameObject.Find("Player2Image").SetActive(true);
+            }
         }
+
     }
 
     [PunRPC]
@@ -137,33 +155,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             ver = Mathf.Clamp(ver, -90f, 90f);
             transform.rotation = Quaternion.Euler(0f, side, 0f);
             camera.transform.rotation = Quaternion.Euler(-ver, camera.transform.eulerAngles.y, camera.transform.eulerAngles.z);
-            if (gameObject.layer == 7)
-            {
-                // gameObject.tag = ("Killer");
-            }
-            else if (gameObject.layer == 6)
-            {
-                // gameObject.tag = ("Player");
-            }
 
-            //if (this.gameObject.tag == "Killer")
-            //{
-            //    GameObject.Find("killerImage").SetActive(true);
-            //    GameObject.Find("PlayerImage").SetActive(false);
-            //    GameObject.Find("Player2Image").SetActive(false);
-            //}
-            //else if (this.gameObject.tag == "Player")
-            //{
-            //    GameObject.Find("killerImage").SetActive(false);
-            //    GameObject.Find("PlayerImage").SetActive(true);
-            //    GameObject.Find("Player2Image").SetActive(false);
-            //}
-            //else if (this.gameObject.tag == "Player2")
-            //{
-            //    GameObject.Find("killerImage").SetActive(false);
-            //    GameObject.Find("PlayerImage").SetActive(false);
-            //    GameObject.Find("Player2Image").SetActive(true);
-            //}
 
 
             RaycastHit hit;
