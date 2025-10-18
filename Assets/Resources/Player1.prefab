@@ -813,12 +813,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManager: 0
   camera_Object: {fileID: 0}
-  outline_Script: {fileID: -5679506862975433025}
   camera: {fileID: 8290998772160396286}
   rayDistance: 2
   rayObject: {fileID: 2383115006748058790}
-  selectTextLabel: {fileID: 0}
-  _outline: {fileID: 0}
+  select: {fileID: 0}
 --- !u!114 &5914042319032669370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -919,7 +917,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 1
-  outlineWidth: 5
+  outlineWidth: 10
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []

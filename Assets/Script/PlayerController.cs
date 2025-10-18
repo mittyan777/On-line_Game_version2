@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Photon.Pun.Demo.PunBasics;
+using System.Drawing;
+using System.Runtime.ConstrainedExecution;
 using Photon.Realtime;
-using ExitGames.Client.Photon.StructWrapping;
 
 public class PlayerController : MonoBehaviourPunCallbacks
 {
@@ -21,69 +23,75 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     Rigidbody rb;
     Ray ray;
-    MainGameManager mainGameManager;
     [SerializeField] GameObject camera;
 
-    [SerializeField] private float rayDistance = 2f;
+    [SerializeField] private float rayDistance = 0.01f;
     [SerializeField] private GameObject rayObject;
 
-    [SerializeField] Text selectTextLabel;
-
-    GameObject[] Barrier_red;
-    GameObject[] Barrier_blue;
-    string PlayerColor = "";
-    string PlayerRoleName = "";
-    private Outline _outline;
+    [SerializeField] Text select;
+    string collar = "";
     // Start is called before the first frame update
     void Start()
     {
-        _outline = GetComponent<Outline>();
-        if (_outline == null)
-        {
-            Debug.LogError("Outline component not found on this player.");
-            return;
-        }
-
         string sceneName = SceneManager.GetActiveScene().name;
         if (sceneName == "main")
         {
             Is_PlayMode = true;
-            // 自分自身のUIのみを検索する
-            if (photonView.IsMine)
-            {
-                selectTextLabel = GameObject.FindGameObjectWithTag("selectUI").GetComponent<Text>();
-            }
-            mainGameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<MainGameManager>();
+            select = GameObject.FindGameObjectWithTag("selectUI").GetComponent<Text>();
         }
+        //Roll Check
+        Invoke("test", 5);
 
-
-        if (photonView.IsMine && Is_PlayMode)
-        {
-            StartCoroutine(Test());
-        }
     }
-
-    System.Collections.IEnumerator Test()
+    void test()
     {
-        yield return new WaitForSeconds(1.0f);
-
-        Barrier_red = GameObject.FindGameObjectsWithTag("red");
-        Barrier_blue = GameObject.FindGameObjectsWithTag("blue");
-        PlayerRoleName = mainGameManager.TrySetRoleLabel(PhotonNetwork.LocalPlayer);
-        rb = GetComponent<Rigidbody>();
-
-        // 初期色の設定
-        object colorValue;
-        if (photonView.Owner.CustomProperties.TryGetValue("Color", out colorValue))
+        if (photonView.IsMine)
         {
-            string initialColor = mainGameManager.Get_ColorType(PhotonNetwork.LocalPlayer);
-            if (!string.IsNullOrEmpty(initialColor))
-            {
-                PlayerColor = initialColor;
-            }
-        }
+            rb = GetComponent<Rigidbody>();
+            string role = (string)PhotonNetwork.LocalPlayer.CustomProperties["Role"];
 
+            // 全員に共有する
+            photonView.RPC("SetRole", RpcTarget.AllBuffered, role);
+
+
+        }
     }
+
+    [PunRPC]
+    void SetRole(string role)
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
+        if (role == "killer")
+        {
+            gameObject.layer = LayerMask.NameToLayer("Killer");
+            gameObject.tag = "Killer";
+            Debug.Log("あなたは Killer です！");
+        }
+        else if (role == "survivor")
+        {
+            gameObject.layer = LayerMask.NameToLayer("Player");
+            if (players.Length == 0)
+            {
+                gameObject.tag = "Player";
+                photonView.RPC(nameof(ChangeColor), RpcTarget.AllBuffered, "red");
+            }
+            else if (players.Length == 1)
+            {
+                gameObject.tag = "Player2";
+                photonView.RPC(nameof(ChangeColor), RpcTarget.AllBuffered, "blue");
+            }
+
+            Debug.Log("あなたは Survivor です！");
+        }
+        else
+        {
+            Debug.Log("ロールが設定されていません。");
+        }
+    }
+
+
+
     // Update is called once per frame
 
     private void FixedUpdate()
@@ -118,10 +126,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
         if (photonView.IsMine)
         {
-            ApplyOutlineColor(PlayerColor);
-
             //Rayのエラーのため、無効化
             //photonView.RPC("SetRay", RpcTarget.AllBuffered);
+
             float h = Input.GetAxis("Mouse X");
             float v = Input.GetAxis("Mouse Y");
             side += h;
@@ -169,7 +176,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     Animator animator = hit.collider.gameObject.GetComponent<Animator>();
                     if (animator.GetBool("open") == false)
                     {
-                        selectTextLabel.text = "[F]開ける";
+                        select.text = "[F]開ける";
                         if (Input.GetKeyDown("f"))
                         {
                             animator.SetBool("open", true);
@@ -177,7 +184,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     }
                     else if (animator.GetBool("open") == true)
                     {
-                        selectTextLabel.text = "[F]閉める";
+                        select.text = "[F]閉める";
                         if (Input.GetKeyDown("f"))
                         {
                             animator.SetBool("open", false);
@@ -192,7 +199,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     Animator animator = hit.collider.gameObject.GetComponent<Animator>();
                     if (animator.GetBool("open") == false)
                     {
-                        selectTextLabel.text = "[F]開ける";
+                        select.text = "[F]開ける";
                         if (Input.GetKeyDown("f"))
                         {
                             animator.SetBool("open", true);
@@ -200,7 +207,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     }
                     else if (animator.GetBool("open") == true)
                     {
-                        selectTextLabel.text = "[F]閉める";
+                        select.text = "[F]閉める";
                         if (Input.GetKeyDown("f"))
                         {
                             animator.SetBool("open", false);
@@ -209,101 +216,91 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
 
                 }
-                else if (Is_PlayMode)
+                else
                 {
                     // DOAじゃないオブジェクトに当たった時は非表示
-                    selectTextLabel.text = "";
+                    select.text = "";
                 }
             }
             else if (Is_PlayMode)
             {
                 // 何にも当たらなかったら非表示
-                selectTextLabel.text = "";
+                select.text = "";
             }
 
-            if (Input.GetKeyDown("c") && Is_PlayMode && PlayerRoleName != "killer")
-            {
-                string newColor = PlayerColor == "red" ? "blue" : "red";
 
-                // 自分の色を変更
-                mainGameManager.ChangeColor(newColor);
-            }
+
+
 
         }
         Debug.DrawRay(ray.origin, ray.direction * rayDistance, UnityEngine.Color.red);
 
-        if (Is_PlayMode && photonView.IsMine)
+        if (Input.GetKeyDown("c"))
         {
-
-            Barrier_Collider();
+            if (collar == "red")
+            {
+                photonView.RPC(nameof(ChangeColor), RpcTarget.AllBuffered, "blue");
+            }
+            else if (collar == "blue")
+            {
+                photonView.RPC(nameof(ChangeColor), RpcTarget.AllBuffered, "red");
+            }
         }
+
+        GameObject[] Barrier_red = GameObject.FindGameObjectsWithTag("red");
+        GameObject[] Barrier_blue = GameObject.FindGameObjectsWithTag("blue");
+        if (collar == "red")
+        {
+            GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.red);
+            foreach (GameObject obj in Barrier_red)
+            {
+                Collider col = obj.GetComponent<Collider>();
+                if (col != null)
+                {
+                    col.enabled = false;
+                }
+            }
+            foreach (GameObject obj in Barrier_blue)
+            {
+                Collider col = obj.GetComponent<Collider>();
+                if (col != null)
+                {
+                    col.enabled = true;
+                }
+            }
+
+        }
+        if (collar == "blue")
+        {
+            GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.blue);
+            foreach (GameObject obj in Barrier_blue)
+            {
+                Collider col = obj.GetComponent<Collider>();
+                if (col != null)
+                {
+                    col.enabled = false;
+                }
+            }
+            foreach (GameObject obj in Barrier_red)
+            {
+                Collider col = obj.GetComponent<Collider>();
+                if (col != null)
+                {
+                    col.enabled = true;
+                }
+            }
+        }
+
 
 
         //error fix
         //camera_Object.transform.rotation = Quaternion.Euler(-ver, transform.eulerAngles.y, 0f);
     }
-
-    void Barrier_Collider()
+    [PunRPC]
+    void ChangeColor(string newColor)
     {
-        if (Barrier_red == null || Barrier_blue == null || PlayerRoleName == "killer") return;
-
-        // PlayerColorはOnPlayerPropertiesUpdateで更新されているので、それを直接使う
-        bool isRed = (PlayerColor == "red");
-
-        foreach (GameObject obj in Barrier_red)
-        {
-            Collider col = obj.GetComponent<Collider>();
-            if (col != null) col.enabled = !isRed; // 赤なら無効、青なら有効
-        }
-        foreach (GameObject obj in Barrier_blue)
-        {
-            Collider col = obj.GetComponent<Collider>();
-            if (col != null) col.enabled = isRed; // 赤なら有効、青なら無効
-        }
+        collar = newColor;
+        Debug.Log($"色変更同期：{newColor}");
     }
 
-    private void ApplyOutlineColor(string colorStr)
-    {
-        if (_outline == null || _outline.outlineFillMaterial == null) return;
-
-        Color c = Color.clear;
-        if (colorStr == "red") c = Color.red;
-        else if (colorStr == "blue") c = Color.blue;
-
-        _outline.outlineFillMaterial.SetColor("_OutlineColor", c);
-        Debug.Log($"[Outline] {photonView.Owner.NickName} => {colorStr}");
-    }
-
-    public override void OnJoinedRoom()
-    {
-        Debug.Log("再同期開始...");
-        if (photonView.IsMine)
-        {
-            PlayerColor = mainGameManager.Get_ColorType(PhotonNetwork.LocalPlayer);
-            ApplyOutlineColor(PlayerColor);
-        }
-    }
-
-    public override void OnEnable()
-    {
-        PhotonNetwork.AddCallbackTarget(this);
-    }
-
-    public override void OnDisable()
-    {
-        PhotonNetwork.RemoveCallbackTarget(this);
-    }
-
-    public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
-    {
-        if (!changedProps.ContainsKey("Color")) return;
-
-        string newColor = (string)changedProps["Color"];
-        if (targetPlayer == photonView.Owner)
-        {
-            PlayerColor = newColor;
-            ApplyOutlineColor(PlayerColor);
-            Debug.Log($"[Sync] {targetPlayer.NickName} の色更新: {newColor}");
-        }
-    }
 }

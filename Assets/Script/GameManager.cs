@@ -107,15 +107,18 @@ public class GameManager : MonoBehaviourPunCallbacks
 
             if (propertiesThatChanged.ContainsKey("AllReady"))
             {
+                RollDecider rollDecider = GetComponent<RollDecider>();
+                if (rollDecider != null)
+                {
+                    rollDecider.Disable_SelectButtons();
+                }
                 rolesConfirmed = true;
-                timerLabel.text = $"まもなく、スタートです";
-
+                timerLabel.text = "全員準備完了！";
                 if (PhotonNetwork.IsMasterClient)
                 {
-                    Hashtable props = new Hashtable { ["RolesAssigned"] = true };
-                    PhotonNetwork.CurrentRoom.SetCustomProperties(props);
-                    StartCoroutine(WaitAndConfirmRoles());
+                    Invoke(nameof(ConfirmRolesAndStart), 3f);
                 }
+
             }
         }
     }
@@ -130,100 +133,50 @@ public class GameManager : MonoBehaviourPunCallbacks
         return true;
     }
 
-    private System.Collections.IEnumerator WaitAndConfirmRoles()
-    {
-        yield return new WaitForSeconds(2f);
-
-        // 各プレイヤーのRequestedRoleが設定済みか確認
-        bool allRolesSet = false;
-        while (!allRolesSet)
-        {
-            allRolesSet = true;
-            foreach (var p in PhotonNetwork.PlayerList)
-            {
-                if (!p.CustomProperties.ContainsKey("RequestedRole"))
-                    allRolesSet = false;
-            }
-            yield return null;
-        }
-        ConfirmRolesAndStart();
-    }
-
     private void ConfirmRolesAndStart()
     {
         List<Player> players = new List<Player>(PhotonNetwork.PlayerList);
         List<Player> killerCandidates = new List<Player>();
         List<Player> survivorCandidates = new List<Player>();
 
-        // --- 希望ロール収集 ---
         foreach (var p in players)
         {
-            if (p.CustomProperties.TryGetValue("RequestedRole", out object requestedRoleObj))
+            if (p.CustomProperties.ContainsKey("RequestedRole"))
             {
-                string requestedRole = requestedRoleObj as string;
-                if (requestedRole == "killer")
-                    killerCandidates.Add(p);
-                else
-                    survivorCandidates.Add(p);
+                string requested = (string)p.CustomProperties["RequestedRole"];
+                if (requested == "killer") killerCandidates.Add(p);
+                else survivorCandidates.Add(p);
             }
             else
             {
-                survivorCandidates.Add(p);
+                survivorCandidates.Add(p); // 未選択は Survivor
             }
         }
 
-        // --- 役割決定 ---
-        Player killer = killerCandidates.Count > 0
-            ? killerCandidates[0]
-            : players[Random.Range(0, players.Count)];
+        // --- キラーを1人だけ決める ---
+        Player killer;
+        if (killerCandidates.Count >= 1)
+        {
+            // 候補が1人以上 → ランダムで1人をキラーにする
+            killer = killerCandidates[Random.Range(0, killerCandidates.Count)];
+        }
+        else
+        {
+            // キラー希望が誰もいない場合 → 全プレイヤーからランダムで1人
+            killer = players[Random.Range(0, players.Count)];
+        }
 
-        List<Player> survivors = new List<Player>(players);
-        survivors.Remove(killer);
-        Player Survivor1 = survivors.Count > 0 ? survivors[Random.Range(0, survivors.Count)] : null;
-        survivors.Remove(Survivor1);
-        Player Survivor2 = survivors.Count > 0 ? survivors[0] : null;
-
-        // --- ロールを付与 ---
+        // --- 役割を設定 ---
         foreach (var p in players)
         {
-            string finalRole;
-            string color = "clear";
-
-            if (p == killer)
-            {
-                finalRole = "killer";
-            }
-            else if (p == Survivor1)
-            {
-                finalRole = "survivor1";
-                color = "red";
-            }
-            else if (p == Survivor2)
-            {
-                finalRole = "survivor2";
-                color = "blue";
-            }
-            else
-            {
-                finalRole = "survivor";
-            }
-
-            Hashtable props = new Hashtable {
-            { "Role", finalRole },
-            { "Color", color }
-        };
+            string finalRole = (p == killer) ? "killer" : "survivor";
+            Hashtable props = new Hashtable { { "Role", finalRole } };
             p.SetCustomProperties(props);
-
-            Debug.Log($"{p.NickName} の最終ロール: {finalRole} / 色: {color}");
+            Debug.Log($"{p.NickName} のロール: {finalRole}");
         }
 
-        StartCoroutine(LoadSceneAfterDelay());
-    }
-
-    private System.Collections.IEnumerator LoadSceneAfterDelay()
-    {
-        yield return new WaitForSeconds(0.5f);
-        PhotonNetwork.LoadLevel("main");
+        // --- シーン遷移 ---
+         PhotonNetwork.LoadLevel("main");
     }
 
     public override void OnJoinedRoom()
@@ -268,22 +221,11 @@ public class GameManager : MonoBehaviourPunCallbacks
             }
 
             Hashtable props = new Hashtable
-            {
-                { "SurvivorRequest_Counts", survivorCount },
-                { "KillerRequest_Counts", killerCount }
-            };
+{
+    { "SurvivorRequest_Counts", survivorCount },
+    { "KillerRequest_Counts", killerCount }
+};
             PhotonNetwork.CurrentRoom.SetCustomProperties(props);
         }
     }
-
-    private void OnDestroy()
-    {
-        PhotonNetwork.RemoveCallbackTarget(this);
-    }
-
-    public override void OnDisconnected(DisconnectCause cause)
-    {
-        Debug.LogError($"Disconnected: {cause}");
-    }
-
 }

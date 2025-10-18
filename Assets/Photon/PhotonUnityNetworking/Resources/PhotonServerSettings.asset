@@ -43,9 +43,6 @@ MonoBehaviour:
   - SetRay
   - ChangeColor
   - <Update>g__ChangeColor|15_0
-  - TrySetRoleLabel
-  - NotifyRolesAssigned
-  - ChangeColorRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
