@@ -813,6 +813,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManager: 0
   camera_Object: {fileID: 0}
+  outline_Script: {fileID: 0}
   camera: {fileID: 8290998772160396286}
   rayDistance: 2
   rayObject: {fileID: 2383115006748058790}

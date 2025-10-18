@@ -43,6 +43,8 @@ MonoBehaviour:
   - SetRay
   - ChangeColor
   - <Update>g__ChangeColor|15_0
+  - SyncColor
+  - SyncColor2
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

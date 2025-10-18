@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 using ExitGames.Client.Photon;
+using System.Drawing;
 
 public class MainGameManager : MonoBehaviourPunCallbacks
 {
@@ -15,6 +16,10 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     float timerSendInterval = 0.2f;
     float timerSendCounter = 0f;
 
+    [SerializeField] GameObject Player;
+    [SerializeField] GameObject Player2;
+    bool a = false;
+
     void Start()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
@@ -22,10 +27,17 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         CountTimer = GameTime;
 
         TrySetRoleLabel(PhotonNetwork.LocalPlayer);
+        photonView.RPC(nameof(SyncColor), RpcTarget.All, a);
     }
 
     void Update()
     {
+      
+
+
+
+
+        //photonView.RPC(nameof(ChangeColor), RpcTarget.AllBuffered);
         if (!PhotonNetwork.IsMasterClient || gameEnd) return;
 
         CountTimer -= Time.deltaTime;
@@ -101,4 +113,37 @@ public class MainGameManager : MonoBehaviourPunCallbacks
             TrySetRoleLabel(targetPlayer);
         }
     }
+    [PunRPC]
+    void SyncColor(bool colorState)
+    {
+        a = colorState;
+
+        Player = GameObject.FindGameObjectWithTag("Player");
+        Player2 = GameObject.FindGameObjectWithTag("Player2");
+
+            Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.blue);
+            Player2.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.red);
+        
+    }
+    [PunRPC]
+    void SyncColor2(bool colorState)
+    {
+        a = colorState;
+
+        Player = GameObject.FindGameObjectWithTag("Player");
+        Player2 = GameObject.FindGameObjectWithTag("Player2");
+
+            Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.red);
+            Player2.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.blue);
+        
+    }
+    public void playercontrol()
+    {
+        photonView.RPC(nameof(SyncColor), RpcTarget.All, a);
+    }
+    public void player2control()
+    {
+        photonView.RPC(nameof(SyncColor2), RpcTarget.All, a);
+    }
+
 }

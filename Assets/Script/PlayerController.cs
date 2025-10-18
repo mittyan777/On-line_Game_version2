@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     [SerializeField] Text select;
     string collar = "";
+    [SerializeField] private GameObject Manager;
     // Start is called before the first frame update
     void Start()
     {
@@ -74,12 +75,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
             if (players.Length == 0)
             {
                 gameObject.tag = "Player";
-                photonView.RPC(nameof(ChangeColor), RpcTarget.AllBuffered, "red");
+                
             }
             else if (players.Length == 1)
             {
                 gameObject.tag = "Player2";
-                photonView.RPC(nameof(ChangeColor), RpcTarget.AllBuffered, "blue");
+              
             }
 
             Debug.Log("あなたは Survivor です！");
@@ -228,79 +229,36 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 select.text = "";
             }
 
+            if(Input.GetKeyDown ("c"))
+            {
+                Manager = GameObject.Find("GameManager");
+                if (gameObject.tag == "Player")
+                {
+                    Manager.GetComponent<MainGameManager>().playercontrol();
+                }
+                if (gameObject.tag == "Player2")
+                {
+                    Manager.GetComponent<MainGameManager>().player2control();
+                }
 
+
+            }
 
 
 
         }
         Debug.DrawRay(ray.origin, ray.direction * rayDistance, UnityEngine.Color.red);
 
-        if (Input.GetKeyDown("c"))
-        {
-            if (collar == "red")
-            {
-                photonView.RPC(nameof(ChangeColor), RpcTarget.AllBuffered, "blue");
-            }
-            else if (collar == "blue")
-            {
-                photonView.RPC(nameof(ChangeColor), RpcTarget.AllBuffered, "red");
-            }
-        }
+      
 
-        GameObject[] Barrier_red = GameObject.FindGameObjectsWithTag("red");
-        GameObject[] Barrier_blue = GameObject.FindGameObjectsWithTag("blue");
-        if (collar == "red")
-        {
-            GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.red);
-            foreach (GameObject obj in Barrier_red)
-            {
-                Collider col = obj.GetComponent<Collider>();
-                if (col != null)
-                {
-                    col.enabled = false;
-                }
-            }
-            foreach (GameObject obj in Barrier_blue)
-            {
-                Collider col = obj.GetComponent<Collider>();
-                if (col != null)
-                {
-                    col.enabled = true;
-                }
-            }
+    
 
-        }
-        if (collar == "blue")
-        {
-            GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.blue);
-            foreach (GameObject obj in Barrier_blue)
-            {
-                Collider col = obj.GetComponent<Collider>();
-                if (col != null)
-                {
-                    col.enabled = false;
-                }
-            }
-            foreach (GameObject obj in Barrier_red)
-            {
-                Collider col = obj.GetComponent<Collider>();
-                if (col != null)
-                {
-                    col.enabled = true;
-                }
-            }
-        }
 
 
 
         //error fix
         //camera_Object.transform.rotation = Quaternion.Euler(-ver, transform.eulerAngles.y, 0f);
     }
-    [PunRPC]
-    void ChangeColor(string newColor)
-    {
-        collar = newColor;
-        Debug.Log($"色変更同期：{newColor}");
-    }
+  
 
 }
