@@ -1,9 +1,10 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ItemSelect : MonoBehaviour
+public class ItemSelect : MonoBehaviourPunCallbacks
 {
     public GameObject SelectingSlot;
     public Transform[] ItemSlots;
@@ -11,6 +12,9 @@ public class ItemSelect : MonoBehaviour
     public GameObject[] HavingItems;
     int Current_ItemNum;
     const int MAX_ITEMSLOTS = 3;
+    [SerializeField] GameObject Playersw;
+    [SerializeField] GameObject Playersw2;
+    [SerializeField] private GameObject Manager;
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +50,31 @@ public class ItemSelect : MonoBehaviour
                 Current_ItemNum++;
             }
         }
+        if (photonView.IsMine)
+        {
+            if (Current_ItemNum == 0)
+            {
+                if (gameObject.tag == "Player")
+                {
+                    Playersw.SetActive(true);
+                }
+                else if (gameObject.tag == "Player2")
+                {
+                    Playersw2.SetActive(true);
+                }
+            }
+            else
+            {
+                if (gameObject.tag == "Player")
+                {
+                    Playersw.SetActive(false);
+                }
+                else if (gameObject.tag == "Player2")
+                {
+                    Playersw2.SetActive(false);
+                }
+            }
+        }
 
         // --- ここで null チェック ---
         if (SelectingSlot == null)
@@ -73,6 +102,20 @@ public class ItemSelect : MonoBehaviour
     void UsingItem(int num)
     {
         Debug.Log($"使用されたアイテムID:{num}");
-
+        if (num == 0)
+        {
+            if (photonView.IsMine)
+            {
+                Manager = GameObject.Find("GameManager");
+                if (gameObject.tag == "Player")
+                {
+                    Manager.GetComponent<MainGameManager>().playercontrol();
+                }
+                if (gameObject.tag == "Player2")
+                {
+                    Manager.GetComponent<MainGameManager>().player2control();
+                }
+            }
+        }
     }
 }

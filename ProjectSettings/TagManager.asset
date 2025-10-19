@@ -12,6 +12,8 @@ TagManager:
   - red
   - blue
   - Shelf
+  - selectUI
+  - purple
   layers:
   - Default
   - TransparentFX
@@ -25,8 +27,8 @@ TagManager:
   - mark
   - drawn
   - wall
-  - 
-  - 
+  - Playerswitch
+  - Player2switch
   - 
   - 
   - 

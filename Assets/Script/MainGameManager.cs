@@ -5,6 +5,7 @@ using Photon.Realtime;
 using ExitGames.Client.Photon;
 using System.Drawing;
 using System.Linq;
+using System;
 
 public class MainGameManager : MonoBehaviourPunCallbacks
 {
@@ -21,7 +22,8 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     [SerializeField] GameObject Player2;
     [SerializeField] GameObject killer;
 
-    bool a = false;
+   [SerializeField] bool blue = false;
+    [SerializeField]bool red = false;
 
     void Start()
     {
@@ -42,13 +44,13 @@ public class MainGameManager : MonoBehaviourPunCallbacks
             Player = GameObject.FindGameObjectWithTag("Player");
            
             
-            Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.blue);
+            Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.white);
             
         }
         while(Player2 == null)
         {
             Player2 = GameObject.FindGameObjectWithTag("Player2");
-            Player2.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.red);
+            Player2.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.white);
            
         }
         while (killer == null)
@@ -56,38 +58,140 @@ public class MainGameManager : MonoBehaviourPunCallbacks
             killer = GameObject.FindGameObjectWithTag("Killer");
             killer.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", new Color32(0, 0, 0, 0));
         }
-        if (a == false)
+        //if (red == false)
+        //{
+        //    // BlueとRedのオブジェクトを取得
+        //    GameObject[] blues = GameObject.FindGameObjectsWithTag("blue");
+        //    GameObject[] reds = GameObject.FindGameObjectsWithTag("red");
+        //    Collider killer = GameObject.FindGameObjectWithTag("Killer").GetComponent<Collider>();
+        //    Collider playerCol = Player.GetComponent<Collider>();
+        //    Collider player2Col = Player2.GetComponent<Collider>();
+        //
+        //    // Player と Blue/Red の衝突を無効化
+        //    foreach (var b in blues)
+        //    {
+        //        Collider col = b.GetComponent<Collider>();
+        //        Physics.IgnoreCollision(playerCol, col, true);
+        //        Physics.IgnoreCollision(player2Col, col, false);
+        //        Physics.IgnoreCollision(killer, col, false);
+        //    }
+        //
+        //    foreach (var r in reds)
+        //    {
+        //        Collider col = r.GetComponent<Collider>();
+        //        Physics.IgnoreCollision(playerCol, col, false);
+        //        Physics.IgnoreCollision(player2Col, col, true);
+        //        Physics.IgnoreCollision(killer, col, false);
+        //    }
+        //}
+        //
+        //if (a == true) 
+        //{
+        //    // BlueとRedのオブジェクトを取得
+        //    GameObject[] blues = GameObject.FindGameObjectsWithTag("blue");
+        //    GameObject[] reds = GameObject.FindGameObjectsWithTag("red");
+        //    Collider killer = GameObject.FindGameObjectWithTag("Killer").GetComponent<Collider>();
+        //    Collider playerCol = Player.GetComponent<Collider>();
+        //    Collider player2Col = Player2.GetComponent<Collider>();
+        //
+        //    // Player と Blue/Red の衝突を無効化
+        //    foreach (var b in blues)
+        //    {
+        //        Collider col = b.GetComponent<Collider>();
+        //        Physics.IgnoreCollision(playerCol, col, false);
+        //        Physics.IgnoreCollision(player2Col, col, true);
+        //        Physics.IgnoreCollision(killer, col, false);
+        //    }
+        //
+        //    foreach (var r in reds)
+        //    {
+        //        Collider col = r.GetComponent<Collider>();
+        //        Physics.IgnoreCollision(playerCol, col, true);
+        //        Physics.IgnoreCollision(player2Col, col, false);
+        //        Physics.IgnoreCollision(killer, col, false);
+        //    }
+        //}
+
+        if (blue == true && red == false)
         {
-            // BlueとRedのオブジェクトを取得
-            GameObject[] blues = GameObject.FindGameObjectsWithTag("blue");
-            GameObject[] reds = GameObject.FindGameObjectsWithTag("red");
-            Collider killer = GameObject.FindGameObjectWithTag("Killer").GetComponent<Collider>();
-            Collider playerCol = Player.GetComponent<Collider>();
-            Collider player2Col = Player2.GetComponent<Collider>();
+            Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.blue);
+            Player2.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.blue);
 
-            // Player と Blue/Red の衝突を無効化
-            foreach (var b in blues)
+                GameObject[] blues = GameObject.FindGameObjectsWithTag("blue");
+                GameObject[] reds = GameObject.FindGameObjectsWithTag("red");
+                GameObject[] purple = GameObject.FindGameObjectsWithTag("purple");
+                Collider killer = GameObject.FindGameObjectWithTag("Killer").GetComponent<Collider>();
+                Collider playerCol = Player.GetComponent<Collider>();
+                Collider player2Col = Player2.GetComponent<Collider>();
+            
+                // Player と Blue/Red の衝突を無効化
+                foreach (var b in blues)
+                {
+                    Collider col = b.GetComponent<Collider>();
+                    Physics.IgnoreCollision(playerCol, col, true);
+                    Physics.IgnoreCollision(player2Col, col, true);
+                    Physics.IgnoreCollision(killer, col, true);
+                }
+            
+                foreach (var r in reds)
+                {
+                    Collider col = r.GetComponent<Collider>();
+                    Physics.IgnoreCollision(playerCol, col, false);
+                    Physics.IgnoreCollision(player2Col, col, false);
+                    Physics.IgnoreCollision(killer, col, true);
+                }
+            foreach (var p in purple)
             {
-                Collider col = b.GetComponent<Collider>();
-                Physics.IgnoreCollision(playerCol, col, true);
-                Physics.IgnoreCollision(player2Col, col, false);
-                Physics.IgnoreCollision(killer, col, false);
-            }
-
-            foreach (var r in reds)
-            {
-                Collider col = r.GetComponent<Collider>();
+                Collider col = p.GetComponent<Collider>();
                 Physics.IgnoreCollision(playerCol, col, false);
-                Physics.IgnoreCollision(player2Col, col, true);
-                Physics.IgnoreCollision(killer, col, false);
+                Physics.IgnoreCollision(player2Col, col, false);
+                Physics.IgnoreCollision(killer, col, true);
             }
         }
-
-        if (a == true) 
+        if (red == true && blue == false)
         {
-            // BlueとRedのオブジェクトを取得
+            Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.red);
+            Player2.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.red);
+
+                GameObject[] blues = GameObject.FindGameObjectsWithTag("blue");
+                GameObject[] reds = GameObject.FindGameObjectsWithTag("red");
+            GameObject[] purple = GameObject.FindGameObjectsWithTag("purple");
+            Collider killer = GameObject.FindGameObjectWithTag("Killer").GetComponent<Collider>();
+                Collider playerCol = Player.GetComponent<Collider>();
+                Collider player2Col = Player2.GetComponent<Collider>();
+            
+                // Player と Blue/Red の衝突を無効化
+                foreach (var b in blues)
+                {
+                    Collider col = b.GetComponent<Collider>();
+                    Physics.IgnoreCollision(playerCol, col, false);
+                    Physics.IgnoreCollision(player2Col, col, false);
+                    Physics.IgnoreCollision(killer, col, true);
+                }
+            
+                foreach (var r in reds)
+                {
+                    Collider col = r.GetComponent<Collider>();
+                    Physics.IgnoreCollision(playerCol, col, true);
+                    Physics.IgnoreCollision(player2Col, col, true);
+                    Physics.IgnoreCollision(killer, col, true);
+                }
+            foreach (var p in purple)
+            {
+                Collider col = p.GetComponent<Collider>();
+                Physics.IgnoreCollision(playerCol, col, false);
+                Physics.IgnoreCollision(player2Col, col, false);
+                Physics.IgnoreCollision(killer, col, true);
+            }
+        }
+        if (blue == false && red == false)
+        {
+            Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.white);
+            Player2.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.white);
+
             GameObject[] blues = GameObject.FindGameObjectsWithTag("blue");
             GameObject[] reds = GameObject.FindGameObjectsWithTag("red");
+            GameObject[] purple = GameObject.FindGameObjectsWithTag("purple");
             Collider killer = GameObject.FindGameObjectWithTag("Killer").GetComponent<Collider>();
             Collider playerCol = Player.GetComponent<Collider>();
             Collider player2Col = Player2.GetComponent<Collider>();
@@ -97,16 +201,59 @@ public class MainGameManager : MonoBehaviourPunCallbacks
             {
                 Collider col = b.GetComponent<Collider>();
                 Physics.IgnoreCollision(playerCol, col, false);
-                Physics.IgnoreCollision(player2Col, col, true);
-                Physics.IgnoreCollision(killer, col, false);
+                Physics.IgnoreCollision(player2Col, col, false);
+                Physics.IgnoreCollision(killer, col, true);
             }
 
             foreach (var r in reds)
             {
                 Collider col = r.GetComponent<Collider>();
-                Physics.IgnoreCollision(playerCol, col, true);
+                Physics.IgnoreCollision(playerCol, col, false);
                 Physics.IgnoreCollision(player2Col, col, false);
-                Physics.IgnoreCollision(killer, col, false);
+                Physics.IgnoreCollision(killer, col, true);
+            }
+            foreach (var p in purple)
+            {
+                Collider col = p.GetComponent<Collider>();
+                Physics.IgnoreCollision(playerCol, col, false);
+                Physics.IgnoreCollision(player2Col, col, false);
+                Physics.IgnoreCollision(killer, col, true);
+            }
+        }
+        if(blue == true && red == true)
+        {
+            Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", new UnityEngine.Color(0.5f, 0f, 0.5f, 1f)); 
+            Player2.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", new UnityEngine.Color(0.5f, 0f, 0.5f, 1f));
+
+            GameObject[] blues = GameObject.FindGameObjectsWithTag("blue");
+            GameObject[] reds = GameObject.FindGameObjectsWithTag("red");
+            GameObject[] purple = GameObject.FindGameObjectsWithTag("purple");
+            Collider killer = GameObject.FindGameObjectWithTag("Killer").GetComponent<Collider>();
+            Collider playerCol = Player.GetComponent<Collider>();
+            Collider player2Col = Player2.GetComponent<Collider>();
+
+            // Player と Blue/Red の衝突を無効化
+            foreach (var b in blues)
+            {
+                Collider col = b.GetComponent<Collider>();
+                Physics.IgnoreCollision(playerCol, col, false);
+                Physics.IgnoreCollision(player2Col, col, false);
+                Physics.IgnoreCollision(killer, col, true);
+            }
+
+            foreach (var r in reds)
+            {
+                Collider col = r.GetComponent<Collider>();
+                Physics.IgnoreCollision(playerCol, col, false);
+                Physics.IgnoreCollision(player2Col, col, false);
+                Physics.IgnoreCollision(killer, col, true);
+            }
+            foreach (var p in purple)
+            {
+                Collider col = p.GetComponent<Collider>();
+                Physics.IgnoreCollision(playerCol, col, true);
+                Physics.IgnoreCollision(player2Col, col, true);
+                Physics.IgnoreCollision(killer, col, true);
             }
         }
 
@@ -189,29 +336,39 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void SyncColor(bool colorState)
     {
-        a = false;
-        
-        Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.blue);
-            Player2.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.red);
-        
-
+        if (blue == false)
+        {
+            blue = true;
+        }
+        else if(blue == true)
+        {
+            blue = false;
+        }
+        Debug.Log("blueON");
     }
     [PunRPC]
     void SyncColor2(bool colorState)
     {
-        a = true;
+        if (red == false)
+        {
+            red = true;
+        }
+        else if(red == true)
+        {
+            red = false;
+        }
+        Debug.Log("redON");
 
-            Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.red);
-            Player2.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.blue);
-        
     }
     public void playercontrol()
     {
-        photonView.RPC(nameof(SyncColor), RpcTarget.All, a);
+        photonView.RPC(nameof(SyncColor), RpcTarget.All, blue);
+       
     }
     public void player2control()
     {
-        photonView.RPC(nameof(SyncColor2), RpcTarget.All, a);
+        photonView.RPC(nameof(SyncColor2), RpcTarget.All, red);
+
     }
 
 }

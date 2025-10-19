@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [SerializeField] Text select;
     string collar = "";
     [SerializeField] private GameObject Manager;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -139,6 +141,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     }
     void Update()
     {
+        
         // Ray作成
         ray = new Ray(rayObject.transform.position, rayObject.transform.forward);
         // Sceneビューで赤い線を描画
@@ -221,21 +224,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 select.text = "";
             }
 
-            if(Input.GetKeyDown ("c"))
-            {
-                Manager = GameObject.Find("GameManager");
-                if (gameObject.tag == "Player")
-                {
-                    Manager.GetComponent<MainGameManager>().playercontrol();
-                }
-                if (gameObject.tag == "Player2")
-                {
-                    Manager.GetComponent<MainGameManager>().player2control();
-                }
-
-
-            }
-
+       
+          
 
 
         }
