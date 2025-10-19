@@ -15,10 +15,15 @@ public class ItemSelect : MonoBehaviourPunCallbacks
     [SerializeField] GameObject Playersw;
     [SerializeField] GameObject Playersw2;
     [SerializeField] private GameObject Manager;
+    private Animator animator;
+    private Animator animator2;
+
+
     // Start is called before the first frame update
     void Start()
     {
-
+        animator = Playersw.GetComponent<Animator>();
+        animator2 = Playersw2.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -110,10 +115,27 @@ public class ItemSelect : MonoBehaviourPunCallbacks
                 if (gameObject.tag == "Player")
                 {
                     Manager.GetComponent<MainGameManager>().playercontrol();
+                    if (Manager.GetComponent<MainGameManager>().blue == true)
+                    {
+                        animator.SetBool("switch", true);
+                    }
+                    if (Manager.GetComponent<MainGameManager>().blue == false)
+                    {
+                        animator.SetBool("switch", false);
+                    }
                 }
                 if (gameObject.tag == "Player2")
                 {
                     Manager.GetComponent<MainGameManager>().player2control();
+                    if (Manager.GetComponent<MainGameManager>().red == true)
+                    {
+                        animator2.SetBool("switch", true);
+                    }
+                    if (Manager.GetComponent<MainGameManager>().red == false)
+                    {
+                        animator2.SetBool("switch", false);
+                    }
+
                 }
             }
         }

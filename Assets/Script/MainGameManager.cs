@@ -22,8 +22,8 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     [SerializeField] GameObject Player2;
     [SerializeField] GameObject killer;
 
-   [SerializeField] bool blue = false;
-    [SerializeField]bool red = false;
+   [SerializeField]public bool blue = false;
+    [SerializeField]public bool red = false;
 
     void Start()
     {
