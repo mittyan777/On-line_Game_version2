@@ -68,6 +68,28 @@ public class ItemSelect : MonoBehaviourPunCallbacks
                     Playersw2.SetActive(true);
                 }
             }
+            else if(Current_ItemNum == 1)
+            {
+                if (gameObject.tag == "Player")
+                {
+                   
+                }
+                else if (gameObject.tag == "Player2")
+                {
+                  
+                }
+            }
+            else if(Current_ItemNum == 2)
+            {
+                if (gameObject.tag == "Player")
+                {
+
+                }
+                else if (gameObject.tag == "Player2")
+                {
+
+                }
+            }
             else
             {
                 if (gameObject.tag == "Player")
@@ -138,6 +160,10 @@ public class ItemSelect : MonoBehaviourPunCallbacks
 
                 }
             }
+        }
+        else if(num == 1)
+        {
+
         }
     }
 }
