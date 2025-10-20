@@ -212,6 +212,15 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
 
                 }
+                else if (hit.collider.CompareTag("tora"))
+                {
+                    select.text = "[F]回収";
+                    if (Input.GetKeyDown("f") && GetComponent<ItemSelect>().tora == false)
+                    {
+                       GetComponent<ItemSelect>().tora = true;
+                        Destroy(hit.transform.gameObject);
+                    }
+                }
                 else
                 {
                     // DOAじゃないオブジェクトに当たった時は非表示

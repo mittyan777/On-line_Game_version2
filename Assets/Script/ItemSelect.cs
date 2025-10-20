@@ -14,9 +14,13 @@ public class ItemSelect : MonoBehaviourPunCallbacks
     const int MAX_ITEMSLOTS = 3;
     [SerializeField] GameObject Playersw;
     [SerializeField] GameObject Playersw2;
+    [SerializeField] GameObject torabasami;
+    [SerializeField] GameObject Installation_clamp;
+    [SerializeField] GameObject tora_Installation_position;
     [SerializeField] private GameObject Manager;
     private Animator animator;
     private Animator animator2;
+    public bool tora = false;
 
 
     // Start is called before the first frame update
@@ -59,6 +63,8 @@ public class ItemSelect : MonoBehaviourPunCallbacks
         {
             if (Current_ItemNum == 0)
             {
+                torabasami.SetActive(false);
+                tora_Installation_position.SetActive(false);
                 if (gameObject.tag == "Player")
                 {
                     Playersw.SetActive(true);
@@ -70,37 +76,49 @@ public class ItemSelect : MonoBehaviourPunCallbacks
             }
             else if(Current_ItemNum == 1)
             {
+                Playersw.SetActive(false);
+                Playersw2.SetActive(false);
                 if (gameObject.tag == "Player")
                 {
-                   
+                    if(tora == true)
+                    {
+                        torabasami.SetActive(true);
+                        tora_Installation_position.SetActive(true);
+                    }
+                    else
+                    {
+                        tora_Installation_position.SetActive(false);
+                    }
                 }
                 else if (gameObject.tag == "Player2")
                 {
-                  
+                    if (tora == true)
+                    {
+                        torabasami.SetActive(true);
+                        tora_Installation_position.SetActive(true);
+                    }
+                    else
+                    {
+                        tora_Installation_position.SetActive(false);
+                    }
                 }
             }
             else if(Current_ItemNum == 2)
             {
+                Playersw.SetActive(false);
+                Playersw2.SetActive(false);
+                torabasami.SetActive(false);
+                tora_Installation_position.SetActive(false);
                 if (gameObject.tag == "Player")
                 {
-
+                    
                 }
                 else if (gameObject.tag == "Player2")
                 {
-
+                 
                 }
             }
-            else
-            {
-                if (gameObject.tag == "Player")
-                {
-                    Playersw.SetActive(false);
-                }
-                else if (gameObject.tag == "Player2")
-                {
-                    Playersw2.SetActive(false);
-                }
-            }
+          
         }
 
         // --- ここで null チェック ---
@@ -163,7 +181,12 @@ public class ItemSelect : MonoBehaviourPunCallbacks
         }
         else if(num == 1)
         {
-
+            if (tora == true)
+            {
+                torabasami.SetActive(false);
+                tora = false;
+                Instantiate(Installation_clamp, tora_Installation_position.transform.position, Quaternion.identity);
+            }
         }
     }
 }
