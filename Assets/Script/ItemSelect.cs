@@ -181,11 +181,14 @@ public class ItemSelect : MonoBehaviourPunCallbacks
         }
         else if(num == 1)
         {
-            if (tora == true)
+            if (photonView.IsMine)
             {
-                torabasami.SetActive(false);
-                tora = false;
-                Instantiate(Installation_clamp, tora_Installation_position.transform.position, Quaternion.identity);
+                if (tora == true)
+                {
+                    torabasami.SetActive(false);
+                    tora = false;
+                    Instantiate(Installation_clamp, tora_Installation_position.transform.position, Quaternion.identity);
+                }
             }
         }
     }

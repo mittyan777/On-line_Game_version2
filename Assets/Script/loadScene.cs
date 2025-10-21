@@ -10,6 +10,7 @@ public class loadScene : MonoBehaviour
     [SerializeField] private GameObject []_sliderImage;
     [SerializeField] private UnityEngine.UI.Image testImage;
     [SerializeField] private UnityEngine.UI.Image []sliderImage;
+    GameObject gameManager;
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +23,7 @@ public class loadScene : MonoBehaviour
         sliderImage[1] = _sliderImage[1].GetComponent<UnityEngine.UI.Image>();
         sliderImage[2] = _sliderImage[2].GetComponent<UnityEngine.UI.Image>();
 
-
+        gameManager = GameObject.Find("GameManager");
     }
 
     // Update is called once per frame
@@ -40,6 +41,10 @@ public class loadScene : MonoBehaviour
             slider2.a -= 1f * Time.deltaTime;
             slider3.a -= 1f * Time.deltaTime;
 
+        }
+        if (_slider.value >= 70)
+        {
+            gameManager.GetComponent<MainGameManager>().Gamestart = true;
         }
         if(c.a <= 0f)
         {

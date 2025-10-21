@@ -6,6 +6,7 @@ using UnityEngine;
 public class MapCamera1 : MonoBehaviourPunCallbacks
 {
     GameObject []Target;
+    [SerializeField]GameObject manager;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,10 +16,13 @@ public class MapCamera1 : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        if (photonView.IsMine)
+        if (manager.GetComponent<MainGameManager>().Gamestart == true)
         {
-            Target = GameObject.FindGameObjectsWithTag("Player");
-            transform.position = new Vector3(Target[0].transform.position.x, transform.position.y, Target[0].transform.position.z);
+            if (photonView.IsMine)
+            {
+                Target = GameObject.FindGameObjectsWithTag("Player");
+                transform.position = new Vector3(Target[0].transform.position.x, transform.position.y, Target[0].transform.position.z);
+            }
         }
     }
 }

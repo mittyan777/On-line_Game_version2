@@ -41,13 +41,15 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             Is_PlayMode = true;
             select = GameObject.FindGameObjectWithTag("selectUI").GetComponent<Text>();
+            //Roll Check
+            Invoke("test", 5);
         }
-        //Roll Check
-        Invoke("test", 5);
+       
 
     }
     void test()
     {
+
         if (photonView.IsMine)
         {
             rb = GetComponent<Rigidbody>();
@@ -81,33 +83,37 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [PunRPC]
     void SetRole(string role)
     {
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        string sceneName = SceneManager.GetActiveScene().name;
+        if (sceneName == "main")
+        {
+            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
-        if (role == "killer")
-        {
-            gameObject.layer = LayerMask.NameToLayer("Killer");
-            gameObject.tag = "Killer";
-            Debug.Log("あなたは Killer です！");
-        }
-        else if (role == "survivor")
-        {
-            gameObject.layer = LayerMask.NameToLayer("Player");
-            if (players.Length == 0)
+            if (role == "killer")
             {
-                gameObject.tag = "Player";
-                
+                gameObject.layer = LayerMask.NameToLayer("Killer");
+                gameObject.tag = "Killer";
+                Debug.Log("あなたは Killer です！");
             }
-            else if (players.Length == 1)
+            else if (role == "survivor")
             {
-                gameObject.tag = "Player2";
-              
-            }
+                gameObject.layer = LayerMask.NameToLayer("Player");
+                if (players.Length == 0)
+                {
+                    gameObject.tag = "Player";
 
-            Debug.Log("あなたは Survivor です！");
-        }
-        else
-        {
-            Debug.Log("ロールが設定されていません。");
+                }
+                else if (players.Length == 1)
+                {
+                    gameObject.tag = "Player2";
+
+                }
+
+                Debug.Log("あなたは Survivor です！");
+            }
+            else
+            {
+                Debug.Log("ロールが設定されていません。");
+            }
         }
     }
 
