@@ -187,7 +187,7 @@ public class ItemSelect : MonoBehaviourPunCallbacks
                 {
                     torabasami.SetActive(false);
                     tora = false;
-                    Instantiate(Installation_clamp, tora_Installation_position.transform.position, Quaternion.identity);
+                    PhotonNetwork.Instantiate("ToraPrefab", tora_Installation_position.transform.position, Quaternion.identity);
                 }
             }
         }

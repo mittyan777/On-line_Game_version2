@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [SerializeField] Outline outline_Script;
     float side;
     float ver;
+    float MoveSpeed = 5;
 
     bool Is_PlayMode = false;
 
@@ -125,24 +126,20 @@ public class PlayerController : MonoBehaviourPunCallbacks
     {
         if (photonView.IsMine)
         {
-            if (Input.GetKey("w"))
-            {
-                transform.position += transform.forward * 5 * Time.deltaTime;
+            float x = 0f;
+            float z = 0f;
 
-            }
-            if (Input.GetKey("s"))
-            {
-                transform.position -= transform.forward * 5 * Time.deltaTime;
+            // 入力取得
+            if (Input.GetKey("w")) z += 1f;
+            if (Input.GetKey("s")) z -= 1f;
+            if (Input.GetKey("a")) x -= 1f;
+            if (Input.GetKey("d")) x += 1f;
 
-            }
-            if (Input.GetKey("a"))
-            {
-                transform.position -= transform.right * 5 * Time.deltaTime;
-            }
-            if (Input.GetKey("d"))
-            {
-                transform.position += transform.right * 5 * Time.deltaTime;
-            }
+            // 移動方向ベクトル
+            Vector3 move = (transform.forward * z + transform.right * x).normalized;
+
+            // 実際の移動
+            transform.position += move * MoveSpeed * Time.deltaTime;
         }
     }
     void Update()
@@ -224,7 +221,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     if (Input.GetKeyDown("f") && GetComponent<ItemSelect>().tora == false)
                     {
                        GetComponent<ItemSelect>().tora = true;
-                        Destroy(hit.transform.gameObject);
+                        PhotonNetwork.Destroy(hit.transform.gameObject);
                     }
                 }
                 else
@@ -239,9 +236,24 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 select.text = "";
             }
 
-       
-          
 
+
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                MoveSpeed = 8;
+                if (camera.GetComponent<Camera>().fieldOfView < 80)
+                {
+                    camera.GetComponent<Camera>().fieldOfView += 10f;
+                }
+            }
+            else
+            {
+                MoveSpeed = 5;
+                if (camera.GetComponent<Camera>().fieldOfView > 60)
+                {
+                    camera.GetComponent<Camera>().fieldOfView -= 5f;
+                }
+            }
 
         }
         Debug.DrawRay(ray.origin, ray.direction * rayDistance, UnityEngine.Color.red);
