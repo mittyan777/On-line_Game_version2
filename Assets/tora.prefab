@@ -56,6 +56,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: tora
       objectReference: {fileID: 0}
+    - target: {fileID: 9142733622841578328, guid: 420161d14a0455c40ab44b8e927273f8, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: fa6c82e294e40084a813c16e399ec861, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -144,7 +148,8 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: -7897652746756160232}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0

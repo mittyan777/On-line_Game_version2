@@ -8,12 +8,13 @@ using Photon.Pun.Demo.PunBasics;
 using System.Drawing;
 using System.Runtime.ConstrainedExecution;
 using Photon.Realtime;
+using Unity.Burst.CompilerServices;
 
 public class PlayerController : MonoBehaviourPunCallbacks
 {
     [SerializeField] int gameManager;
     [SerializeField] GameObject camera_Object;
-
+    [SerializeField] Canvas playerCanvas;
     [Header("アウトライン")]
     [SerializeField] Outline outline_Script;
     float side;
@@ -32,7 +33,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [SerializeField] Text select;
     string collar = "";
     [SerializeField] private GameObject Manager;
-
+    GameObject OFObject;
 
     // Start is called before the first frame update
     void Start()
@@ -41,7 +42,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         if (sceneName == "main")
         {
             Is_PlayMode = true;
-            select = GameObject.FindGameObjectWithTag("selectUI").GetComponent<Text>();
+           
             //Roll Check
             Invoke("test", 5);
         }
@@ -144,13 +145,22 @@ public class PlayerController : MonoBehaviourPunCallbacks
     }
     void Update()
     {
-        
+        string sceneName = SceneManager.GetActiveScene().name;
+        if (sceneName == "main")
+        {
+            if (select == null)
+            {
+                select = GameObject.FindGameObjectWithTag("selectUI").GetComponent<Text>();
+            }
+        }
+
         // Ray作成
         ray = new Ray(rayObject.transform.position, rayObject.transform.forward);
         // Sceneビューで赤い線を描画
 
         if (photonView.IsMine)
         {
+            playerCanvas.enabled = true;
             //Rayのエラーのため、無効化
             //photonView.RPC("SetRay", RpcTarget.AllBuffered);
 
@@ -221,7 +231,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     if (Input.GetKeyDown("f") && GetComponent<ItemSelect>().tora == false)
                     {
                        GetComponent<ItemSelect>().tora = true;
-                        PhotonNetwork.Destroy(hit.transform.gameObject);
+
+                        photonView.RPC("DestroyObject", RpcTarget.MasterClient, hit.collider.gameObject.GetComponent<PhotonView>().ViewID);
+
                     }
                 }
                 else
@@ -243,7 +255,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 MoveSpeed = 8;
                 if (camera.GetComponent<Camera>().fieldOfView < 80)
                 {
-                    camera.GetComponent<Camera>().fieldOfView += 10f;
+                    camera.GetComponent<Camera>().fieldOfView += 80f * Time.deltaTime;
                 }
             }
             else
@@ -251,23 +263,32 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 MoveSpeed = 5;
                 if (camera.GetComponent<Camera>().fieldOfView > 60)
                 {
-                    camera.GetComponent<Camera>().fieldOfView -= 5f;
+                    camera.GetComponent<Camera>().fieldOfView -= 50f * Time.deltaTime;
                 }
             }
 
         }
+        else
+        {
+            playerCanvas.enabled = false;
+        }
         Debug.DrawRay(ray.origin, ray.direction * rayDistance, UnityEngine.Color.red);
 
-      
-
-    
-
-
-
-
+        
         //error fix
         //camera_Object.transform.rotation = Quaternion.Euler(-ver, transform.eulerAngles.y, 0f);
     }
-  
+
+    [PunRPC]
+    void DestroyObject(int viewID)
+    {
+        PhotonView view = PhotonView.Find(viewID);
+        if (view != null)
+        {
+            PhotonNetwork.Destroy(view.gameObject);
+        }
+    }
+
+
 
 }

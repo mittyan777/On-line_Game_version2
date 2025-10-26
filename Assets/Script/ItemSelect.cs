@@ -17,6 +17,7 @@ public class ItemSelect : MonoBehaviourPunCallbacks
     [SerializeField] GameObject torabasami;
     [SerializeField] GameObject Installation_clamp;
     [SerializeField] GameObject tora_Installation_position;
+  
     [SerializeField] private GameObject Manager;
     private Animator animator;
     private Animator animator2;
@@ -118,7 +119,12 @@ public class ItemSelect : MonoBehaviourPunCallbacks
                  
                 }
             }
-          
+            if (tora == true)
+            {
+                ItemSlots[1].GetComponent<Image>().sprite = ItemImages[1].sprite;
+                ItemSlots[1].GetComponent<Image>().color = Color.white;
+            }
+
         }
 
         // --- ここで null チェック ---
