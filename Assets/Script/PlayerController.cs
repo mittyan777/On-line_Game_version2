@@ -9,6 +9,7 @@ using System.Drawing;
 using System.Runtime.ConstrainedExecution;
 using Photon.Realtime;
 using Unity.Burst.CompilerServices;
+using static Unity.Burst.Intrinsics.X86.Sse4_2;
 
 public class PlayerController : MonoBehaviourPunCallbacks
 {
@@ -131,7 +132,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             float z = 0f;
 
             // 入力取得
-            if (Input.GetKey("w")) z += 1f;
+            if (Input.GetKey("w")) z += 1f; 
             if (Input.GetKey("s")) z -= 1f;
             if (Input.GetKey("a")) x -= 1f;
             if (Input.GetKey("d")) x += 1f;
@@ -168,11 +169,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
             float v = Input.GetAxis("Mouse Y");
             side += h;
             ver += v;
-            ver = Mathf.Clamp(ver, -90f, 90f);
+            ver = Mathf.Clamp(ver, -50f, 90f);
+           // side = Mathf.Clamp(side, -90, 90f);
+            camera.transform.rotation = Quaternion.Euler(-ver, side, camera.transform.eulerAngles.z);
+
             transform.rotation = Quaternion.Euler(0f, side, 0f);
-            camera.transform.rotation = Quaternion.Euler(-ver, camera.transform.eulerAngles.y, camera.transform.eulerAngles.z);
-
-
+          
 
             RaycastHit hit;
 
