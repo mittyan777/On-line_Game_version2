@@ -35,10 +35,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
     string collar = "";
     [SerializeField] private GameObject Manager;
     GameObject OFObject;
+    [SerializeField] Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
+       
         string sceneName = SceneManager.GetActiveScene().name;
         if (sceneName == "main")
         {
@@ -132,10 +134,46 @@ public class PlayerController : MonoBehaviourPunCallbacks
             float z = 0f;
 
             // 入力取得
-            if (Input.GetKey("w")) z += 1f; 
-            if (Input.GetKey("s")) z -= 1f;
-            if (Input.GetKey("a")) x -= 1f;
-            if (Input.GetKey("d")) x += 1f;
+            if (Input.GetKey("w")) 
+            {
+                z += 1f;
+                animator.SetBool("forward_walk", true);
+            }
+            else
+            {
+                animator.SetBool("forward_walk", false);
+            }
+            if (Input.GetKey("s")) 
+            {
+                z -= 1f;
+                animator.SetBool("back_walk", true);
+            }
+            else
+            {
+                animator.SetBool("back_walk", false);
+            }
+            if (Input.GetKey("a")) 
+            {
+                x -= 1f;
+                animator.SetBool("left_walk", true);
+            }
+            else
+            {
+                animator.SetBool("left_walk", false);
+            }
+            if (Input.GetKey("d")) 
+            {
+                x += 1f;
+                animator.SetBool("right_walk", true);
+            }
+            else
+            {
+                animator.SetBool("right_walk", false);
+            }
+            
+            
+            
+            
 
             // 移動方向ベクトル
             Vector3 move = (transform.forward * z + transform.right * x).normalized;
@@ -252,9 +290,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
 
 
-            if (Input.GetKey(KeyCode.LeftShift))
+            if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.W))
             {
                 MoveSpeed = 8;
+                animator.SetBool("dash", true);
                 if (camera.GetComponent<Camera>().fieldOfView < 80)
                 {
                     camera.GetComponent<Camera>().fieldOfView += 80f * Time.deltaTime;
@@ -262,6 +301,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             }
             else
             {
+                animator.SetBool("dash", false);
                 MoveSpeed = 5;
                 if (camera.GetComponent<Camera>().fieldOfView > 60)
                 {
