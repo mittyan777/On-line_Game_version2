@@ -11,6 +11,7 @@ public class Exit : MonoBehaviour
     [SerializeField]string Input_number;
     [SerializeField]int Exit_number;
     [SerializeField]Text[] number_text;
+    [SerializeField] Text message;
     public bool rock = true;
    
     string numberStr;
@@ -41,9 +42,18 @@ public class Exit : MonoBehaviour
         {
             rock = false;
         }
+        else
+        {
+            message.text = "パスワードが違います";
+            Invoke("message_reset",2);
+        }
     }
     public void Cancel()
     {
         InputField.SetActive(false);
+    }
+    void message_reset()
+    {
+        message.text = "";
     }
 }

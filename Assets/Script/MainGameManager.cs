@@ -21,6 +21,10 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     [SerializeField] GameObject Player;
     [SerializeField] GameObject Player2;
     [SerializeField] GameObject killer;
+    [SerializeField] GameObject Direction_right;
+
+    [SerializeField] GameObject []CollarImage;
+    
 
    [SerializeField]public bool blue = false;
     [SerializeField]public bool red = false;
@@ -61,14 +65,27 @@ public class MainGameManager : MonoBehaviourPunCallbacks
                 killer.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", new Color32(0, 0, 0, 0));
             }
 
+            if (killer != null)
+            {
+               
+                Direction_right.transform.position = killer.transform.position;
+            }
+
+
+
             if (blue == true && red == false)
             {
                 Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.blue);
                 Player2.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.blue);
+                CollarImage[0].SetActive(true);
+                CollarImage[1].SetActive(false);
+                CollarImage[2].SetActive(false);
+                CollarImage[3].SetActive(false);
 
                 GameObject[] blues = GameObject.FindGameObjectsWithTag("blue");
                 GameObject[] reds = GameObject.FindGameObjectsWithTag("red");
                 GameObject[] purple = GameObject.FindGameObjectsWithTag("purple");
+                GameObject[] white = GameObject.FindGameObjectsWithTag("white");
                 Collider killer = GameObject.FindGameObjectWithTag("Killer").GetComponent<Collider>();
                 Collider playerCol = Player.GetComponent<Collider>();
                 Collider player2Col = Player2.GetComponent<Collider>();
@@ -92,6 +109,13 @@ public class MainGameManager : MonoBehaviourPunCallbacks
                 foreach (var p in purple)
                 {
                     Collider col = p.GetComponent<Collider>();
+                    Physics.IgnoreCollision(playerCol, col, false);
+                    Physics.IgnoreCollision(player2Col, col, false);
+                    Physics.IgnoreCollision(killer, col, true);
+                }
+                foreach (var w in white)
+                {
+                    Collider col = w.GetComponent<Collider>();
                     Physics.IgnoreCollision(playerCol, col, false);
                     Physics.IgnoreCollision(player2Col, col, false);
                     Physics.IgnoreCollision(killer, col, true);
@@ -101,10 +125,16 @@ public class MainGameManager : MonoBehaviourPunCallbacks
             {
                 Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.red);
                 Player2.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.red);
+                CollarImage[0].SetActive(false);
+                CollarImage[1].SetActive(true);
+                CollarImage[2].SetActive(false);
+                CollarImage[3].SetActive(false);
+
 
                 GameObject[] blues = GameObject.FindGameObjectsWithTag("blue");
                 GameObject[] reds = GameObject.FindGameObjectsWithTag("red");
                 GameObject[] purple = GameObject.FindGameObjectsWithTag("purple");
+                GameObject[] white = GameObject.FindGameObjectsWithTag("white");
                 Collider killer = GameObject.FindGameObjectWithTag("Killer").GetComponent<Collider>();
                 Collider playerCol = Player.GetComponent<Collider>();
                 Collider player2Col = Player2.GetComponent<Collider>();
@@ -128,6 +158,13 @@ public class MainGameManager : MonoBehaviourPunCallbacks
                 foreach (var p in purple)
                 {
                     Collider col = p.GetComponent<Collider>();
+                    Physics.IgnoreCollision(playerCol, col, false);
+                    Physics.IgnoreCollision(player2Col, col, false);
+                    Physics.IgnoreCollision(killer, col, true);
+                }
+                foreach (var w in white)
+                {
+                    Collider col = w.GetComponent<Collider>();
                     Physics.IgnoreCollision(playerCol, col, false);
                     Physics.IgnoreCollision(player2Col, col, false);
                     Physics.IgnoreCollision(killer, col, true);
@@ -137,10 +174,15 @@ public class MainGameManager : MonoBehaviourPunCallbacks
             {
                 Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.white);
                 Player2.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.white);
+                CollarImage[0].SetActive(false);
+                CollarImage[1].SetActive(false);
+                CollarImage[2].SetActive(true);
+                CollarImage[3].SetActive(false);
 
                 GameObject[] blues = GameObject.FindGameObjectsWithTag("blue");
                 GameObject[] reds = GameObject.FindGameObjectsWithTag("red");
                 GameObject[] purple = GameObject.FindGameObjectsWithTag("purple");
+                GameObject[] white = GameObject.FindGameObjectsWithTag("white");
                 Collider killer = GameObject.FindGameObjectWithTag("Killer").GetComponent<Collider>();
                 Collider playerCol = Player.GetComponent<Collider>();
                 Collider player2Col = Player2.GetComponent<Collider>();
@@ -168,15 +210,28 @@ public class MainGameManager : MonoBehaviourPunCallbacks
                     Physics.IgnoreCollision(player2Col, col, false);
                     Physics.IgnoreCollision(killer, col, true);
                 }
+                foreach (var w in white)
+                {
+                    Collider col = w.GetComponent<Collider>();
+                    Physics.IgnoreCollision(playerCol, col, true);
+                    Physics.IgnoreCollision(player2Col, col, true);
+                    Physics.IgnoreCollision(killer, col, true);
+                }
             }
             if (blue == true && red == true)
             {
                 Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", new UnityEngine.Color(0.5f, 0f, 0.5f, 1f));
                 Player2.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", new UnityEngine.Color(0.5f, 0f, 0.5f, 1f));
+                CollarImage[0].SetActive(false);
+                CollarImage[1].SetActive(false);
+                CollarImage[2].SetActive(false);
+                CollarImage[3].SetActive(true);
+
 
                 GameObject[] blues = GameObject.FindGameObjectsWithTag("blue");
                 GameObject[] reds = GameObject.FindGameObjectsWithTag("red");
                 GameObject[] purple = GameObject.FindGameObjectsWithTag("purple");
+                GameObject[] white = GameObject.FindGameObjectsWithTag("white");
                 Collider killer = GameObject.FindGameObjectWithTag("Killer").GetComponent<Collider>();
                 Collider playerCol = Player.GetComponent<Collider>();
                 Collider player2Col = Player2.GetComponent<Collider>();
@@ -202,6 +257,13 @@ public class MainGameManager : MonoBehaviourPunCallbacks
                     Collider col = p.GetComponent<Collider>();
                     Physics.IgnoreCollision(playerCol, col, true);
                     Physics.IgnoreCollision(player2Col, col, true);
+                    Physics.IgnoreCollision(killer, col, true);
+                }
+                foreach (var w in white)
+                {
+                    Collider col = w.GetComponent<Collider>();
+                    Physics.IgnoreCollision(playerCol, col, false);
+                    Physics.IgnoreCollision(player2Col, col, false);
                     Physics.IgnoreCollision(killer, col, true);
                 }
             }
@@ -230,7 +292,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
             }
 
             TimerLabel.text = $"{(int)CountTimer}";
-
+            
         } 
     }
 

@@ -16,6 +16,7 @@ TagManager:
   - purple
   - tora
   - Ext_Door
+  - white
   layers:
   - Default
   - TransparentFX
