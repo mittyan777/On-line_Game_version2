@@ -38,6 +38,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [SerializeField] Animator animator;
 
      [SerializeField]GameObject passwordUI;
+    [SerializeField] GameObject []memo;
+    [SerializeField] GameObject Notepad;
 
     // Start is called before the first frame update
     void Start()
@@ -182,7 +184,17 @@ public class PlayerController : MonoBehaviourPunCallbacks
                             animator.SetBool("right_walk", false);
                         }
 
-
+                        if(Input.GetKeyDown(KeyCode.Q))
+                        {
+                            if (Notepad.activeSelf == false)
+                            {
+                                Notepad.SetActive(true);
+                            }
+                            else if (Notepad.activeSelf == true)
+                            {
+                                Notepad.SetActive(false);
+                            }
+                        }
 
 
 
@@ -393,6 +405,22 @@ public class PlayerController : MonoBehaviourPunCallbacks
                             }
                         }
 
+                    }
+                    else if (hit.collider.name == ("number1"))
+                    {
+                        memo[0].GetComponent<Text>().text = hit.collider.GetComponent<Text>().text;
+                    }
+                    else if (hit.collider.name == ("number2"))
+                    {
+                        memo[1].GetComponent<Text>().text = hit.collider.GetComponent<Text>().text;
+                    }
+                    else if (hit.collider.name == ("number3"))
+                    {
+                        memo[2].GetComponent<Text>().text = hit.collider.GetComponent<Text>().text;
+                    }
+                    else if (hit.collider.name == ("number4"))
+                    {
+                        memo[3].GetComponent<Text>().text = hit.collider.GetComponent<Text>().text;
                     }
                     else
                     {
