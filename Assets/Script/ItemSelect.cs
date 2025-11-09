@@ -1,6 +1,7 @@
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,13 +23,17 @@ public class ItemSelect : MonoBehaviourPunCallbacks
     private Animator animator;
     private Animator animator2;
     public bool tora = false;
-
-
+    Collar collar = new Collar();
     // Start is called before the first frame update
+    public class Collar
+    {
+        public UnityEngine.Color color;
+    }
     void Start()
     {
         animator = Playersw.GetComponent<Animator>();
         animator2 = Playersw2.GetComponent<Animator>();
+        collar.color = ItemSlots[1].GetComponent<Image>().color;
     }
 
     // Update is called once per frame
@@ -122,7 +127,7 @@ public class ItemSelect : MonoBehaviourPunCallbacks
             if (tora == true)
             {
                 ItemSlots[1].GetComponent<Image>().sprite = ItemImages[1].sprite;
-                ItemSlots[1].GetComponent<Image>().color = Color.white;
+                ItemSlots[1].GetComponent<Image>().color = UnityEngine.Color.white;
             }
 
         }
@@ -191,6 +196,9 @@ public class ItemSelect : MonoBehaviourPunCallbacks
             {
                 if (tora == true)
                 {
+                    
+                    ItemSlots[1].GetComponent<Image>().sprite = null;
+                    ItemSlots[1].GetComponent<Image>().color = collar.color;
                     torabasami.SetActive(false);
                     tora = false;
                     PhotonNetwork.Instantiate("ToraPrefab", tora_Installation_position.transform.position, Quaternion.identity);

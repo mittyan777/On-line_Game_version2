@@ -15,6 +15,7 @@ TagManager:
   - selectUI
   - purple
   - tora
+  - Ext_Door
   layers:
   - Default
   - TransparentFX

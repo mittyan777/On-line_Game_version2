@@ -37,6 +37,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
     GameObject OFObject;
     [SerializeField] Animator animator;
 
+     [SerializeField]GameObject passwordUI;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -81,6 +83,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 GameObject.Find("PlayerImage").SetActive(false);
                 GameObject.Find("Player2Image").SetActive(true);
             }
+            passwordUI = GameObject.Find("InputField");
+            passwordUI.SetActive(false);
         }
 
     }
@@ -128,58 +132,121 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     private void FixedUpdate()
     {
+        string sceneName = SceneManager.GetActiveScene().name;
         if (photonView.IsMine)
         {
-            float x = 0f;
-            float z = 0f;
+            if (sceneName == "main")
+            {
+                if (passwordUI != null)
+                {
+                    if (passwordUI.activeSelf == false)
+                    {
+                        float x = 0f;
+                        float z = 0f;
 
-            // 入力取得
-            if (Input.GetKey("w")) 
-            {
-                z += 1f;
-                animator.SetBool("forward_walk", true);
-            }
-            else
-            {
-                animator.SetBool("forward_walk", false);
-            }
-            if (Input.GetKey("s")) 
-            {
-                z -= 1f;
-                animator.SetBool("back_walk", true);
-            }
-            else
-            {
-                animator.SetBool("back_walk", false);
-            }
-            if (Input.GetKey("a")) 
-            {
-                x -= 1f;
-                animator.SetBool("left_walk", true);
-            }
-            else
-            {
-                animator.SetBool("left_walk", false);
-            }
-            if (Input.GetKey("d")) 
-            {
-                x += 1f;
-                animator.SetBool("right_walk", true);
-            }
-            else
-            {
-                animator.SetBool("right_walk", false);
-            }
-            
-            
-            
-            
+                        // 入力取得
+                        if (Input.GetKey("w"))
+                        {
+                            z += 1f;
+                            animator.SetBool("forward_walk", true);
+                        }
+                        else
+                        {
+                            animator.SetBool("forward_walk", false);
+                        }
+                        if (Input.GetKey("s"))
+                        {
+                            z -= 1f;
+                            animator.SetBool("back_walk", true);
+                        }
+                        else
+                        {
+                            animator.SetBool("back_walk", false);
+                        }
+                        if (Input.GetKey("a"))
+                        {
+                            x -= 1f;
+                            animator.SetBool("left_walk", true);
+                        }
+                        else
+                        {
+                            animator.SetBool("left_walk", false);
+                        }
+                        if (Input.GetKey("d"))
+                        {
+                            x += 1f;
+                            animator.SetBool("right_walk", true);
+                        }
+                        else
+                        {
+                            animator.SetBool("right_walk", false);
+                        }
 
-            // 移動方向ベクトル
-            Vector3 move = (transform.forward * z + transform.right * x).normalized;
 
-            // 実際の移動
-            transform.position += move * MoveSpeed * Time.deltaTime;
+
+
+
+                        // 移動方向ベクトル
+                        Vector3 move = (transform.forward * z + transform.right * x).normalized;
+
+                        // 実際の移動
+                        transform.position += move * MoveSpeed * Time.deltaTime;
+                    }
+                }
+            }
+            if (sceneName == "lobby")
+            {
+                float x = 0f;
+                float z = 0f;
+
+                // 入力取得
+                if (Input.GetKey("w"))
+                {
+                    z += 1f;
+                    animator.SetBool("forward_walk", true);
+                }
+                else
+                {
+                    animator.SetBool("forward_walk", false);
+                }
+                if (Input.GetKey("s"))
+                {
+                    z -= 1f;
+                    animator.SetBool("back_walk", true);
+                }
+                else
+                {
+                    animator.SetBool("back_walk", false);
+                }
+                if (Input.GetKey("a"))
+                {
+                    x -= 1f;
+                    animator.SetBool("left_walk", true);
+                }
+                else
+                {
+                    animator.SetBool("left_walk", false);
+                }
+                if (Input.GetKey("d"))
+                {
+                    x += 1f;
+                    animator.SetBool("right_walk", true);
+                }
+                else
+                {
+                    animator.SetBool("right_walk", false);
+                }
+
+
+
+
+
+                // 移動方向ベクトル
+                Vector3 move = (transform.forward * z + transform.right * x).normalized;
+
+                // 実際の移動
+                transform.position += move * MoveSpeed * Time.deltaTime;
+            }
         }
     }
     void Update()
@@ -203,89 +270,141 @@ public class PlayerController : MonoBehaviourPunCallbacks
             //Rayのエラーのため、無効化
             //photonView.RPC("SetRay", RpcTarget.AllBuffered);
 
-            float h = Input.GetAxis("Mouse X");
-            float v = Input.GetAxis("Mouse Y");
-            side += h;
-            ver += v;
-            ver = Mathf.Clamp(ver, -50f, 90f);
-           // side = Mathf.Clamp(side, -90, 90f);
-            camera.transform.rotation = Quaternion.Euler(-ver, side, camera.transform.eulerAngles.z);
-
-            transform.rotation = Quaternion.Euler(0f, side, 0f);
-          
-
-            RaycastHit hit;
-
-            // Ray飛ばす
-            if (Physics.Raycast(ray, out hit, rayDistance))
+            if (sceneName == "main")
             {
-                if (hit.collider.CompareTag("DOA"))
+                if (passwordUI != null)
                 {
-
-                    Animator animator = hit.collider.gameObject.GetComponent<Animator>();
-                    if (animator.GetBool("open") == false)
+                    if (passwordUI.activeSelf == false)
                     {
-                        select.text = "[F]開ける";
-                        if (Input.GetKeyDown("f"))
-                        {
-                            animator.SetBool("open", true);
-                        }
+
+
+                        float h = Input.GetAxis("Mouse X");
+                        float v = Input.GetAxis("Mouse Y");
+                        side += h;
+                        ver += v;
+                        ver = Mathf.Clamp(ver, -50f, 90f);
+                        // side = Mathf.Clamp(side, -90, 90f);
+                        camera.transform.rotation = Quaternion.Euler(-ver, side, camera.transform.eulerAngles.z);
+
+                        transform.rotation = Quaternion.Euler(0f, side, 0f);
                     }
-                    else if (animator.GetBool("open") == true)
-                    {
-                        select.text = "[F]閉める";
-                        if (Input.GetKeyDown("f"))
-                        {
-                            animator.SetBool("open", false);
-                        }
-                    }
-
-
-                }
-                else if (hit.collider.CompareTag("Shelf"))
-                {
-
-                    Animator animator = hit.collider.gameObject.GetComponent<Animator>();
-                    if (animator.GetBool("open") == false)
-                    {
-                        select.text = "[F]開ける";
-                        if (Input.GetKeyDown("f"))
-                        {
-                            animator.SetBool("open", true);
-                        }
-                    }
-                    else if (animator.GetBool("open") == true)
-                    {
-                        select.text = "[F]閉める";
-                        if (Input.GetKeyDown("f"))
-                        {
-                            animator.SetBool("open", false);
-                        }
-                    }
-
-
-                }
-                else if (hit.collider.CompareTag("tora"))
-                {
-                    select.text = "[F]回収";
-                    if (Input.GetKeyDown("f") && GetComponent<ItemSelect>().tora == false)
-                    {
-                       GetComponent<ItemSelect>().tora = true;
-
-                        photonView.RPC("DestroyObject", RpcTarget.MasterClient, hit.collider.gameObject.GetComponent<PhotonView>().ViewID);
-
-                    }
-                }
-                else
-                {
-                    // DOAじゃないオブジェクトに当たった時は非表示
-                    select.text = "";
                 }
             }
-            else if (Is_PlayMode)
+            if (sceneName == "lobby")
             {
-                // 何にも当たらなかったら非表示
-                select.text = "";
+                float h = Input.GetAxis("Mouse X");
+                float v = Input.GetAxis("Mouse Y");
+                side += h;
+                ver += v;
+                ver = Mathf.Clamp(ver, -50f, 90f);
+                // side = Mathf.Clamp(side, -90, 90f);
+                camera.transform.rotation = Quaternion.Euler(-ver, side, camera.transform.eulerAngles.z);
+
+                transform.rotation = Quaternion.Euler(0f, side, 0f);
+            }
+
+            if (sceneName == "main")
+            {
+                RaycastHit hit;
+
+                // Ray飛ばす
+                if (Physics.Raycast(ray, out hit, rayDistance))
+                {
+                    if (hit.collider.CompareTag("DOA"))
+                    {
+
+                        Animator animator = hit.collider.gameObject.GetComponent<Animator>();
+                        if (animator.GetBool("open") == false)
+                        {
+                            select.text = "[F]開ける";
+                            if (Input.GetKeyDown("f"))
+                            {
+                                animator.SetBool("open", true);
+                            }
+                        }
+                        else if (animator.GetBool("open") == true)
+                        {
+                            select.text = "[F]閉める";
+                            if (Input.GetKeyDown("f"))
+                            {
+                                animator.SetBool("open", false);
+                            }
+                        }
+
+
+                    }
+                    else if (hit.collider.CompareTag("Shelf"))
+                    {
+
+                        Animator animator = hit.collider.transform.parent.GetComponent<Animator>();
+                        if (animator.GetBool("open") == false)
+                        {
+                            select.text = "[F]開ける";
+                            if (Input.GetKeyDown("f"))
+                            {
+                                animator.SetBool("open", true);
+                            }
+                        }
+                        else if (animator.GetBool("open") == true)
+                        {
+                            select.text = "[F]閉める";
+                            if (Input.GetKeyDown("f"))
+                            {
+                                animator.SetBool("open", false);
+                            }
+                        }
+
+
+                    }
+                    else if (hit.collider.CompareTag("tora"))
+                    {
+                        select.text = "[F]回収";
+                        if (Input.GetKeyDown("f") && GetComponent<ItemSelect>().tora == false)
+                        {
+                            GetComponent<ItemSelect>().tora = true;
+
+                            photonView.RPC("DestroyObject", RpcTarget.MasterClient, hit.collider.gameObject.GetComponent<PhotonView>().ViewID);
+
+                        }
+                    }
+                    else if (hit.collider.CompareTag("Ext_Door"))
+                    {
+
+                        Animator animator = hit.collider.gameObject.GetComponent<Animator>();
+                        if (hit.collider.gameObject.GetComponent<Exit>().rock == true)
+                        {
+                            select.text = "[F]パスコードを入力する";
+                            if (Input.GetKeyDown("f"))
+                            {
+                                passwordUI.SetActive(true);
+                            }
+
+                        }
+                        else
+                        {
+                            passwordUI.SetActive(false);
+                            if (animator.GetBool("open") == false)
+                            {
+                                select.text = "[F]開ける";
+                                if (Input.GetKeyDown("f"))
+                                {
+                                    animator.SetBool("open", true);
+                                }
+                            }
+                        }
+
+                    }
+                    else
+                    {
+                        // DOAじゃないオブジェクトに当たった時は非表示
+                        select.text = "";
+                    }
+                }
+                else if (Is_PlayMode)
+                {
+                    // 何にも当たらなかったら非表示
+                    select.text = "";
+                }
             }
 
 
@@ -308,7 +427,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     camera.GetComponent<Camera>().fieldOfView -= 50f * Time.deltaTime;
                 }
             }
-
+            
         }
         else
         {
@@ -330,6 +449,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
             PhotonNetwork.Destroy(view.gameObject);
         }
     }
+
+   
 
 
 
