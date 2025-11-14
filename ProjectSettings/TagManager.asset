@@ -17,6 +17,7 @@ TagManager:
   - tora
   - Ext_Door
   - white
+  - DroneStopper
   layers:
   - Default
   - TransparentFX

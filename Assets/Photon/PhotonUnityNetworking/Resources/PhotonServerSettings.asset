@@ -47,6 +47,7 @@ MonoBehaviour:
   - SyncColor2
   - Delete_shared
   - DestroyObject
+  - RPC_ActivateOutlineSkill
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

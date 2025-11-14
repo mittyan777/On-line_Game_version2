@@ -37,23 +37,24 @@ public class PlayerController : MonoBehaviourPunCallbacks
     GameObject OFObject;
     [SerializeField] Animator animator;
 
-     [SerializeField]GameObject passwordUI;
-    [SerializeField] GameObject []memo;
+    [SerializeField] GameObject passwordUI;
+    [SerializeField] GameObject[] memo;
     [SerializeField] GameObject Notepad;
+    [SerializeField] GameObject OutlineVisible_Skill_Obj;
 
     // Start is called before the first frame update
     void Start()
     {
-       
         string sceneName = SceneManager.GetActiveScene().name;
+        OutlineVisible_Skill_Obj.SetActive(false);
         if (sceneName == "main")
         {
             Is_PlayMode = true;
-           
+
             //Roll Check
             Invoke("test", 5);
         }
-       
+
 
     }
     void test()
@@ -103,6 +104,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             {
                 gameObject.layer = LayerMask.NameToLayer("Killer");
                 gameObject.tag = "Killer";
+                OutlineVisible_Skill_Obj.SetActive(true);
                 Debug.Log("あなたは Killer です！");
             }
             else if (role == "survivor")
@@ -118,6 +120,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     gameObject.tag = "Player2";
 
                 }
+                OutlineVisible_Skill_Obj.SetActive(false);
 
                 Debug.Log("あなたは Survivor です！");
             }
@@ -135,130 +138,130 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private void FixedUpdate()
     {
         string sceneName = SceneManager.GetActiveScene().name;
-        if (photonView.IsMine)
+        if (photonView.IsMine && sceneName == "main")
         {
-            if (sceneName == "main")
+            if (passwordUI != null)
             {
-                if (passwordUI != null)
+                if (passwordUI.activeSelf == false)
                 {
-                    if (passwordUI.activeSelf == false)
+                    float x = 0f;
+                    float z = 0f;
+
+                    // 入力取得
+                    if (Input.GetKey("w"))
                     {
-                        float x = 0f;
-                        float z = 0f;
-
-                        // 入力取得
-                        if (Input.GetKey("w"))
-                        {
-                            z += 1f;
-                            animator.SetBool("forward_walk", true);
-                        }
-                        else
-                        {
-                            animator.SetBool("forward_walk", false);
-                        }
-                        if (Input.GetKey("s"))
-                        {
-                            z -= 1f;
-                            animator.SetBool("back_walk", true);
-                        }
-                        else
-                        {
-                            animator.SetBool("back_walk", false);
-                        }
-                        if (Input.GetKey("a"))
-                        {
-                            x -= 1f;
-                            animator.SetBool("left_walk", true);
-                        }
-                        else
-                        {
-                            animator.SetBool("left_walk", false);
-                        }
-                        if (Input.GetKey("d"))
-                        {
-                            x += 1f;
-                            animator.SetBool("right_walk", true);
-                        }
-                        else
-                        {
-                            animator.SetBool("right_walk", false);
-                        }
-
-                        if(Input.GetKeyDown(KeyCode.Q))
-                        {
-                            if (Notepad.activeSelf == false)
-                            {
-                                Notepad.SetActive(true);
-                            }
-                            else if (Notepad.activeSelf == true)
-                            {
-                                Notepad.SetActive(false);
-                            }
-                        }
-
-
-
-                        // 移動方向ベクトル
-                        Vector3 move = (transform.forward * z + transform.right * x).normalized;
-
-                        // 実際の移動
-                        transform.position += move * MoveSpeed * Time.deltaTime;
+                        z += 1f;
+                        animator.SetBool("forward_walk", true);
                     }
+                    else
+                    {
+                        animator.SetBool("forward_walk", false);
+                    }
+                    if (Input.GetKey("s"))
+                    {
+                        z -= 1f;
+                        animator.SetBool("back_walk", true);
+                    }
+                    else
+                    {
+                        animator.SetBool("back_walk", false);
+                    }
+                    if (Input.GetKey("a"))
+                    {
+                        x -= 1f;
+                        animator.SetBool("left_walk", true);
+                    }
+                    else
+                    {
+                        animator.SetBool("left_walk", false);
+                    }
+                    if (Input.GetKey("d"))
+                    {
+                        x += 1f;
+                        animator.SetBool("right_walk", true);
+                    }
+                    else
+                    {
+                        animator.SetBool("right_walk", false);
+                    }
+
+                    if (Input.GetKeyDown(KeyCode.Q))
+                    {
+                        if (Notepad.activeSelf == false)
+                        {
+                            Notepad.SetActive(true);
+                        }
+                        else if (Notepad.activeSelf == true)
+                        {
+                            Notepad.SetActive(false);
+                        }
+                    }
+
+                    if (gameObject.tag == "killer" && Input.GetKeyDown(KeyCode.RightShift))
+                    {
+                        OutlineVisible_Skill_Obj.GetComponent<OutlineVisiableSkill>().StartOutlineSkill();
+                    }
+
+                    // 移動方向ベクトル
+                    Vector3 move = (transform.forward * z + transform.right * x).normalized;
+
+                    // 実際の移動
+                    transform.position += move * MoveSpeed * Time.deltaTime;
                 }
             }
-            if (sceneName == "lobby")
+        }
+        if (sceneName == "lobby")
+        {
+            float x = 0f;
+            float z = 0f;
+
+            // 入力取得
+            if (Input.GetKey("w"))
             {
-                float x = 0f;
-                float z = 0f;
-
-                // 入力取得
-                if (Input.GetKey("w"))
-                {
-                    z += 1f;
-                    animator.SetBool("forward_walk", true);
-                }
-                else
-                {
-                    animator.SetBool("forward_walk", false);
-                }
-                if (Input.GetKey("s"))
-                {
-                    z -= 1f;
-                    animator.SetBool("back_walk", true);
-                }
-                else
-                {
-                    animator.SetBool("back_walk", false);
-                }
-                if (Input.GetKey("a"))
-                {
-                    x -= 1f;
-                    animator.SetBool("left_walk", true);
-                }
-                else
-                {
-                    animator.SetBool("left_walk", false);
-                }
-                if (Input.GetKey("d"))
-                {
-                    x += 1f;
-                    animator.SetBool("right_walk", true);
-                }
-                else
-                {
-                    animator.SetBool("right_walk", false);
-                }
-
-
-
-
-
-                // 移動方向ベクトル
-                Vector3 move = (transform.forward * z + transform.right * x).normalized;
-
-                // 実際の移動
-                transform.position += move * MoveSpeed * Time.deltaTime;
+                z += 1f;
+                animator.SetBool("forward_walk", true);
             }
+            else
+            {
+                animator.SetBool("forward_walk", false);
+            }
+            if (Input.GetKey("s"))
+            {
+                z -= 1f;
+                animator.SetBool("back_walk", true);
+            }
+            else
+            {
+                animator.SetBool("back_walk", false);
+            }
+            if (Input.GetKey("a"))
+            {
+                x -= 1f;
+                animator.SetBool("left_walk", true);
+            }
+            else
+            {
+                animator.SetBool("left_walk", false);
+            }
+            if (Input.GetKey("d"))
+            {
+                x += 1f;
+                animator.SetBool("right_walk", true);
+            }
+            else
+            {
+                animator.SetBool("right_walk", false);
+            }
+
+
+
+
+
+            // 移動方向ベクトル
+            Vector3 move = (transform.forward * z + transform.right * x).normalized;
+
+            // 実際の移動
+            transform.position += move * MoveSpeed * Time.deltaTime;
         }
     }
     void Update()
@@ -455,7 +458,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     camera.GetComponent<Camera>().fieldOfView -= 50f * Time.deltaTime;
                 }
             }
-            
+
         }
         else
         {
@@ -463,7 +466,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
         Debug.DrawRay(ray.origin, ray.direction * rayDistance, UnityEngine.Color.red);
 
-        
+
         //error fix
         //camera_Object.transform.rotation = Quaternion.Euler(-ver, transform.eulerAngles.y, 0f);
     }
@@ -477,9 +480,4 @@ public class PlayerController : MonoBehaviourPunCallbacks
             PhotonNetwork.Destroy(view.gameObject);
         }
     }
-
-   
-
-
-
 }

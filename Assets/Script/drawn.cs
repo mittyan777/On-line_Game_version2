@@ -22,10 +22,11 @@ public class drawn : MonoBehaviourPunCallbacks
     private bool isChasing = false;
     private float wanderTimer;
     private bool siren = false;
+    private bool MoveDisabled = false;
 
     private Transform targetPlayer; // 追跡対象
 
-    [SerializeField]GameObject marker;
+    [SerializeField] GameObject marker;
 
     void Start()
     {
@@ -37,14 +38,14 @@ public class drawn : MonoBehaviourPunCallbacks
 
         wanderTimer = wanderInterval;
         SetNewWanderDestination();
-        
+
 
 
     }
 
     void Update()
     {
-      
+
         if (isChasing && targetPlayer != null)
         {
             // プレイヤーの位置を常に追尾
@@ -76,15 +77,15 @@ public class drawn : MonoBehaviourPunCallbacks
             _navMeshAgent.SetDestination(navHit.position);
         }
     }
-   
+
     private void OnTriggerStay(Collider other)
     {
 
-        if ((other.gameObject.tag == ("Player")))
+        if (other.gameObject.tag == "Player")
         {
             //if (photonView.IsMine)
             //{
-            if ((other.gameObject.tag == ("Player")))
+            if (other.gameObject.tag == "Player")
             {
                 marker.SetActive(true);
                 Debug.Log("追跡中 -> " + other.tag);
@@ -94,16 +95,20 @@ public class drawn : MonoBehaviourPunCallbacks
             }
             //}
         }
-        if ((other.gameObject.tag == ("Player2")))
+        if (other.gameObject.tag == "Player2")
         {
             //if (photonView.IsMine)
             //{
-                marker.SetActive(true);
-                Debug.Log("追跡中 -> " + other.tag);
-                isChasing = true;
-                siren = true;
-                targetPlayer = other.transform;
+            marker.SetActive(true);
+            Debug.Log("追跡中 -> " + other.tag);
+            isChasing = true;
+            siren = true;
+            targetPlayer = other.transform;
             //}
+        }
+        if (other.gameObject.tag == "DroneStopper")
+        {
+            MoveDisabled = true;
         }
     }
 
@@ -117,5 +122,10 @@ public class drawn : MonoBehaviourPunCallbacks
             siren = false;
             targetPlayer = null;
         }
+        if (other.gameObject.tag == "DroneStopper")
+        {
+            MoveDisabled = false;
+        }
+
     }
 }

@@ -48,16 +48,14 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         while (Player == null)
         {
             Player = GameObject.FindGameObjectWithTag("Player");
-
-
+            //Null発生
             Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.white);
-
         }
         while (Player2 == null)
         {
             Player2 = GameObject.FindGameObjectWithTag("Player2");
+            //Null発生
             Player2.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.white);
-
         }
         while (killer == null)
         {
