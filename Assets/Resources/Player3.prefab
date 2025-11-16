@@ -825,51 +825,6 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: 
---- !u!1 &3828603993965051097
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3350483788999426728}
-  - component: {fileID: 2299035433565469914}
-  m_Layer: 0
-  m_Name: OutlineVisiable
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3350483788999426728
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3828603993965051097}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.014833582, y: 1.9978395, z: -1.8276062}
-  m_LocalScale: {x: 0.83333325, y: 0.83333325, z: 0.83333325}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1456212197495431867}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2299035433565469914
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3828603993965051097}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a536dc649399e54faf18f6d0da43aeb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skillDuration: 5
 --- !u!1 &4217226216029540840
 GameObject:
   m_ObjectHideFlags: 0
@@ -1466,7 +1421,6 @@ Transform:
   m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 3350483788999426728}
   - {fileID: 2442549025272340597}
   - {fileID: 8203421604339346407}
   - {fileID: 8233039101639367700}
@@ -1641,7 +1595,7 @@ MonoBehaviour:
   - {fileID: 5953388045145867855}
   - {fileID: 5072326249289859741}
   Notepad: {fileID: 399949889523612824}
-  OutlineVisible_Skill_Obj: {fileID: 3828603993965051097}
+  skillDuration: 5
 --- !u!135 &-9134305321685838708
 SphereCollider:
   m_ObjectHideFlags: 0

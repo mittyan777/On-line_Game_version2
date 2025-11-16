@@ -18,7 +18,7 @@ public class ItemSelect : MonoBehaviourPunCallbacks
     [SerializeField] GameObject torabasami;
     [SerializeField] GameObject Installation_clamp;
     [SerializeField] GameObject tora_Installation_position;
-  
+
     [SerializeField] private GameObject Manager;
     private Animator animator;
     private Animator animator2;
@@ -80,13 +80,13 @@ public class ItemSelect : MonoBehaviourPunCallbacks
                     Playersw2.SetActive(true);
                 }
             }
-            else if(Current_ItemNum == 1)
+            else if (Current_ItemNum == 1)
             {
                 Playersw.SetActive(false);
                 Playersw2.SetActive(false);
                 if (gameObject.tag == "Player")
                 {
-                    if(tora == true)
+                    if (tora == true)
                     {
                         torabasami.SetActive(true);
                         tora_Installation_position.SetActive(true);
@@ -109,7 +109,7 @@ public class ItemSelect : MonoBehaviourPunCallbacks
                     }
                 }
             }
-            else if(Current_ItemNum == 2)
+            else if (Current_ItemNum == 2)
             {
                 Playersw.SetActive(false);
                 Playersw2.SetActive(false);
@@ -117,11 +117,11 @@ public class ItemSelect : MonoBehaviourPunCallbacks
                 tora_Installation_position.SetActive(false);
                 if (gameObject.tag == "Player")
                 {
-                    
+
                 }
                 else if (gameObject.tag == "Player2")
                 {
-                 
+
                 }
             }
             if (tora == true)
@@ -157,11 +157,12 @@ public class ItemSelect : MonoBehaviourPunCallbacks
 
     void UsingItem(int num)
     {
+        if (!photonView.IsMine) return;
         Debug.Log($"使用されたアイテムID:{num}");
-        if (num == 0)
+        switch (num)
         {
-            if (photonView.IsMine)
-            {
+            case 0:
+                //バリア色変更
                 Manager = GameObject.Find("GameManager");
                 if (gameObject.tag == "Player")
                 {
@@ -186,24 +187,23 @@ public class ItemSelect : MonoBehaviourPunCallbacks
                     {
                         animator2.SetBool("switch", false);
                     }
-
                 }
-            }
-        }
-        else if(num == 1)
-        {
-            if (photonView.IsMine)
-            {
+                break;
+            case 1:
+                //トラばさみ
                 if (tora == true)
                 {
-                    
                     ItemSlots[1].GetComponent<Image>().sprite = null;
                     ItemSlots[1].GetComponent<Image>().color = collar.color;
                     torabasami.SetActive(false);
                     tora = false;
                     PhotonNetwork.Instantiate("ToraPrefab", tora_Installation_position.transform.position, Quaternion.identity);
                 }
-            }
+                break;
+            case 2:
+                //ドローン停止
+
+                break;
         }
     }
 }

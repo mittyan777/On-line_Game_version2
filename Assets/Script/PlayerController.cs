@@ -40,16 +40,22 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [SerializeField] GameObject passwordUI;
     [SerializeField] GameObject[] memo;
     [SerializeField] GameObject Notepad;
-    [SerializeField] GameObject OutlineVisible_Skill_Obj;
+
+    [Header("アウトライン能力")]
+    [SerializeField] float skillDuration = 5f; // 壁越しアウトラインの持続時間
+
+    private int normalLayer;
+    private int outlineLayer;
 
     // Start is called before the first frame update
     void Start()
     {
         string sceneName = SceneManager.GetActiveScene().name;
-        OutlineVisible_Skill_Obj.SetActive(false);
         if (sceneName == "main")
         {
             Is_PlayMode = true;
+            normalLayer = LayerMask.NameToLayer("PlayerNormal");
+            outlineLayer = LayerMask.NameToLayer("OutlineVisible");
 
             //Roll Check
             Invoke("test", 5);
@@ -104,7 +110,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
             {
                 gameObject.layer = LayerMask.NameToLayer("Killer");
                 gameObject.tag = "Killer";
-                OutlineVisible_Skill_Obj.SetActive(true);
                 Debug.Log("あなたは Killer です！");
             }
             else if (role == "survivor")
@@ -120,7 +125,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     gameObject.tag = "Player2";
 
                 }
-                OutlineVisible_Skill_Obj.SetActive(false);
 
                 Debug.Log("あなたは Survivor です！");
             }
@@ -130,8 +134,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
             }
         }
     }
-
-
 
     // Update is called once per frame
 
@@ -197,9 +199,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
                         }
                     }
 
-                    if (gameObject.tag == "killer" && Input.GetKeyDown(KeyCode.RightShift))
+                    if (gameObject.tag == "Killer" && Input.GetKeyDown(KeyCode.RightShift))
                     {
-                        OutlineVisible_Skill_Obj.GetComponent<OutlineVisiableSkill>().StartOutlineSkill();
+                        photonView.RPC(nameof(RPC_ActivateOutlineSkill), RpcTarget.All);
                     }
 
                     // 移動方向ベクトル
@@ -252,10 +254,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
             {
                 animator.SetBool("right_walk", false);
             }
-
-
-
-
 
             // 移動方向ベクトル
             Vector3 move = (transform.forward * z + transform.right * x).normalized;
@@ -439,7 +437,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
             }
 
 
-
             if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.W))
             {
                 MoveSpeed = 8;
@@ -458,7 +455,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     camera.GetComponent<Camera>().fieldOfView -= 50f * Time.deltaTime;
                 }
             }
-
         }
         else
         {
@@ -469,6 +465,53 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
         //error fix
         //camera_Object.transform.rotation = Quaternion.Euler(-ver, transform.eulerAngles.y, 0f);
+    }
+
+    //アウトライン透過能力
+    [PunRPC]
+    void RPC_ActivateOutlineSkill()
+    {
+        // スキル使用者の名前などを出力
+        Debug.Log($"{photonView.Owner.NickName} がアウトラインスキルを発動！");
+
+        // 自分以外のプレイヤーを対象に壁越し可視化
+        // 全てのプレイヤーオブジェクトを捜索
+        foreach (var playerObj in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            ApplyIfOtherPlayer(playerObj);
+        }
+
+        foreach (var playerObj in GameObject.FindGameObjectsWithTag("Player2"))
+        {
+            ApplyIfOtherPlayer(playerObj);
+        }
+    }
+
+    void ApplyIfOtherPlayer(GameObject obj)
+    {
+        PhotonView pv = obj.GetComponent<PhotonView>();
+        if (pv != null && pv.Owner != photonView.Owner)
+        {
+            StartCoroutine(ShowOutlineThroughWalls(obj, skillDuration));
+        }
+    }
+
+    IEnumerator ShowOutlineThroughWalls(GameObject targetPlayer, float duration)
+    {
+        // 外見モデルのみをレイヤー変更
+        SetMeshLayer(targetPlayer, outlineLayer);
+
+        yield return new WaitForSeconds(duration);
+
+        SetMeshLayer(targetPlayer, normalLayer);
+    }
+
+    void SetMeshLayer(GameObject obj, int layer)
+    {
+        foreach (var renderer in obj.GetComponentsInChildren<Renderer>())
+        {
+            renderer.gameObject.layer = layer;
+        }
     }
 
     [PunRPC]

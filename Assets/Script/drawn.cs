@@ -19,6 +19,10 @@ public class drawn : MonoBehaviourPunCallbacks
     [SerializeField]
     private float wanderInterval = 10f; // 徘徊ポイントを変更する間隔
 
+    [SerializeField]
+    private const float StoppingTime = 10f;//ドローン停止時間
+    private float StoppingCountTime = 0f;
+
     private bool isChasing = false;
     private float wanderTimer;
     private bool siren = false;
@@ -38,13 +42,23 @@ public class drawn : MonoBehaviourPunCallbacks
 
         wanderTimer = wanderInterval;
         SetNewWanderDestination();
-
-
-
     }
 
     void Update()
     {
+        if (MoveDisabled)
+        {
+            _navMeshAgent.isStopped = true;
+            StoppingCountTime -= Time.deltaTime;
+            if (StoppingCountTime < 0)
+            {
+                MoveDisabled = false;//ドローン再始動
+            }
+        }
+        else
+        {
+            _navMeshAgent.isStopped = false;
+        }
 
         if (isChasing && targetPlayer != null)
         {
@@ -80,7 +94,6 @@ public class drawn : MonoBehaviourPunCallbacks
 
     private void OnTriggerStay(Collider other)
     {
-
         if (other.gameObject.tag == "Player")
         {
             //if (photonView.IsMine)
@@ -109,6 +122,7 @@ public class drawn : MonoBehaviourPunCallbacks
         if (other.gameObject.tag == "DroneStopper")
         {
             MoveDisabled = true;
+            StoppingCountTime = StoppingTime;
         }
     }
 
@@ -122,10 +136,5 @@ public class drawn : MonoBehaviourPunCallbacks
             siren = false;
             targetPlayer = null;
         }
-        if (other.gameObject.tag == "DroneStopper")
-        {
-            MoveDisabled = false;
-        }
-
     }
 }

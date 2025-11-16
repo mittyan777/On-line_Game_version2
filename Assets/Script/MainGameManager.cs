@@ -45,23 +45,23 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     {
         if (Gamestart == false) return;
 
-        while (Player == null)
-        {
-            Player = GameObject.FindGameObjectWithTag("Player");
-            //Null発生
-            Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.white);
-        }
-        while (Player2 == null)
-        {
-            Player2 = GameObject.FindGameObjectWithTag("Player2");
-            //Null発生
-            Player2.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.white);
-        }
-        while (killer == null)
-        {
-            killer = GameObject.FindGameObjectWithTag("Killer");
-            killer.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", new Color32(0, 0, 0, 0));
-        }
+        // while (Player == null)
+        // {
+        //     Player = GameObject.FindGameObjectWithTag("Player");
+        //     //Null発生
+        //     Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.white);
+        // }
+        // while (Player2 == null)
+        // {
+        //     Player2 = GameObject.FindGameObjectWithTag("Player2");
+        //     //Null発生
+        //     Player2.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.white);
+        // }
+        // while (killer == null)
+        // {
+        //     killer = GameObject.FindGameObjectWithTag("Killer");
+        //     killer.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", new Color32(0, 0, 0, 0));
+        // }
 
         if (killer != null)
         {
@@ -379,5 +379,8 @@ public class MainGameManager : MonoBehaviourPunCallbacks
 
     }
 
+    public void StopDrone_Ability()
+    {
 
+    }
 }

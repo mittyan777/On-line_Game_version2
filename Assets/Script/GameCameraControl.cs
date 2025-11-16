@@ -18,25 +18,24 @@ public class GameCameraControl : MonoBehaviour
     void Update()
     {
         //使う場面がないので、いったん無効化
-        return;
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            useFixed = !useFixed;
+        // if (Input.GetKeyDown(KeyCode.C))
+        // {
+        //     useFixed = !useFixed;
 
-            if (useFixed)
-            {
-                // 定点カメラへ移動
-                transform.SetParent(null);
-                transform.position = FloorCameras[0].transform.position;
-                transform.rotation = FloorCameras[0].transform.rotation;
-            }
-            else
-            {
-                // プレイヤーに戻る
-                transform.SetParent(PlayerObject.transform);
-                transform.localPosition = Vector3.zero;
-                transform.localRotation = Quaternion.identity;
-            }
-        }
+        //     if (useFixed)
+        //     {
+        //         // 定点カメラへ移動
+        //         transform.SetParent(null);
+        //         transform.position = FloorCameras[0].transform.position;
+        //         transform.rotation = FloorCameras[0].transform.rotation;
+        //     }
+        //     else
+        //     {
+        //         // プレイヤーに戻る
+        //         transform.SetParent(PlayerObject.transform);
+        //         transform.localPosition = Vector3.zero;
+        //         transform.localRotation = Quaternion.identity;
+        //     }
+        // }
     }
 }
