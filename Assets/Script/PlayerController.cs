@@ -47,6 +47,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private int normalLayer;
     private int outlineLayer;
 
+
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -471,21 +475,28 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [PunRPC]
     void RPC_ActivateOutlineSkill()
     {
+
         // スキル使用者の名前などを出力
         Debug.Log($"{photonView.Owner.NickName} がアウトラインスキルを発動！");
 
         // 自分以外のプレイヤーを対象に壁越し可視化
         // 全てのプレイヤーオブジェクトを捜索
-        foreach (var playerObj in GameObject.FindGameObjectsWithTag("Player"))
-        {
-            ApplyIfOtherPlayer(playerObj);
-        }
 
-        foreach (var playerObj in GameObject.FindGameObjectsWithTag("Player2"))
-        {
-            ApplyIfOtherPlayer(playerObj);
-        }
+        GameObject.FindGameObjectWithTag("Player").GetComponent<Outline>().OutlineMode = Outline.Mode.OutlineAll;
+        GameObject.FindGameObjectWithTag("Player2").GetComponent<Outline>().OutlineMode = Outline.Mode.OutlineAll;
+        Invoke("ActivateOutlineSkillOF", 5);
+        
+        
+        
+
+
     }
+   void ActivateOutlineSkillOF()
+    {
+        GameObject.FindGameObjectWithTag("Player").GetComponent<Outline>().OutlineMode = Outline.Mode.OutlineVisible;
+        GameObject.FindGameObjectWithTag("Player2").GetComponent<Outline>().OutlineMode = Outline.Mode.OutlineVisible;
+    }
+
 
     void ApplyIfOtherPlayer(GameObject obj)
     {
