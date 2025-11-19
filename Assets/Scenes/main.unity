@@ -1101,7 +1101,7 @@ GameObject:
   - component: {fileID: 2552947}
   - component: {fileID: 2552946}
   - component: {fileID: 2552949}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: white
   m_Icon: {fileID: 0}
@@ -1894,7 +1894,7 @@ GameObject:
   - component: {fileID: 8761597}
   - component: {fileID: 8761596}
   - component: {fileID: 8761599}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: white
   m_Icon: {fileID: 0}
@@ -4344,7 +4344,7 @@ GameObject:
   - component: {fileID: 21378396}
   - component: {fileID: 21378395}
   - component: {fileID: 21378398}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -6284,7 +6284,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 36706909}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (34)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7955,7 +7955,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 47989147}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (23)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15780,7 +15780,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 66893896}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (41)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17439,7 +17439,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 78194679}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20840,7 +20840,7 @@ GameObject:
   - component: {fileID: 97273120}
   - component: {fileID: 97273119}
   - component: {fileID: 97273122}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: white
   m_Icon: {fileID: 0}
@@ -22179,7 +22179,7 @@ GameObject:
   - component: {fileID: 104884716}
   - component: {fileID: 104884715}
   - component: {fileID: 104884719}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: white
   m_Icon: {fileID: 0}
@@ -22724,7 +22724,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 108293732}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (36)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29258,7 +29258,7 @@ GameObject:
   - component: {fileID: 120842593}
   - component: {fileID: 120842592}
   - component: {fileID: 120842595}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: purple
   m_Icon: {fileID: 0}
@@ -31525,7 +31525,7 @@ GameObject:
   - component: {fileID: 132494325}
   - component: {fileID: 132494324}
   - component: {fileID: 132494327}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -32285,7 +32285,7 @@ GameObject:
   - component: {fileID: 137108879}
   - component: {fileID: 137108878}
   - component: {fileID: 137108881}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -32850,7 +32850,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 138806203}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33127,7 +33127,7 @@ GameObject:
   - component: {fileID: 141390104}
   - component: {fileID: 141390103}
   - component: {fileID: 141390106}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: purple
   m_Icon: {fileID: 0}
@@ -37459,7 +37459,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 167826151}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39458,7 +39458,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 171817014}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45323,7 +45323,7 @@ GameObject:
   - component: {fileID: 198686815}
   - component: {fileID: 198686814}
   - component: {fileID: 198686817}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -45792,7 +45792,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 201251598}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (17)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49100,7 +49100,7 @@ GameObject:
   - component: {fileID: 217425546}
   - component: {fileID: 217425545}
   - component: {fileID: 217425548}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -55610,7 +55610,7 @@ GameObject:
   - component: {fileID: 255238731}
   - component: {fileID: 255238730}
   - component: {fileID: 255238733}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -62786,7 +62786,7 @@ GameObject:
   - component: {fileID: 294198858}
   - component: {fileID: 294198857}
   - component: {fileID: 294198860}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -62995,7 +62995,7 @@ GameObject:
   - component: {fileID: 296708221}
   - component: {fileID: 296708220}
   - component: {fileID: 296708223}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -63230,7 +63230,7 @@ GameObject:
   - component: {fileID: 298190597}
   - component: {fileID: 298190596}
   - component: {fileID: 298190600}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -66724,7 +66724,7 @@ GameObject:
   - component: {fileID: 316050486}
   - component: {fileID: 316050485}
   - component: {fileID: 316050488}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: white
   m_Icon: {fileID: 0}
@@ -68213,7 +68213,7 @@ GameObject:
   - component: {fileID: 327669971}
   - component: {fileID: 327669970}
   - component: {fileID: 327669973}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: white
   m_Icon: {fileID: 0}
@@ -69666,7 +69666,7 @@ GameObject:
   - component: {fileID: 336290168}
   - component: {fileID: 336290167}
   - component: {fileID: 336290170}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -72754,7 +72754,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 349021314}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (35)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76100,7 +76100,7 @@ GameObject:
   - component: {fileID: 364684969}
   - component: {fileID: 364684968}
   - component: {fileID: 364684971}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -78999,7 +78999,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 379675572}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (16)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -80887,7 +80887,7 @@ GameObject:
   - component: {fileID: 392414614}
   - component: {fileID: 392414613}
   - component: {fileID: 392414616}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: purple
   m_Icon: {fileID: 0}
@@ -81096,7 +81096,7 @@ GameObject:
   - component: {fileID: 392904781}
   - component: {fileID: 392904780}
   - component: {fileID: 392904783}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: purple
   m_Icon: {fileID: 0}
@@ -88583,7 +88583,7 @@ GameObject:
   - component: {fileID: 436000792}
   - component: {fileID: 436000791}
   - component: {fileID: 436000794}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: purple
   m_Icon: {fileID: 0}
@@ -90060,13 +90060,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c42fb59bffbe5947b134d2fe8888286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player:
-  - {fileID: 0}
-  distance: 0
-  distance2: 0
-  target:
-  - {fileID: 0}
+  killer: {fileID: 0}
+  target: {fileID: 0}
   meshRenderer: {fileID: 0}
+  moveSpeed: 10
+  hideDistance: 25
 --- !u!1001 &441649125
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -90280,6 +90278,7 @@ MonoBehaviour:
   chaseDistance: 10
   wanderRadius: 20
   wanderInterval: 5
+  StoppingTime: 10
   marker: {fileID: 440511821}
 --- !u!195 &443143126
 NavMeshAgent:
@@ -92650,7 +92649,7 @@ GameObject:
   - component: {fileID: 456406600}
   - component: {fileID: 456406599}
   - component: {fileID: 456406602}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: purple
   m_Icon: {fileID: 0}
@@ -92839,7 +92838,7 @@ GameObject:
   - component: {fileID: 456975971}
   - component: {fileID: 456975970}
   - component: {fileID: 456975973}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -95333,7 +95332,7 @@ GameObject:
   - component: {fileID: 469162720}
   - component: {fileID: 469162719}
   - component: {fileID: 469162722}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: white
   m_Icon: {fileID: 0}
@@ -98932,7 +98931,7 @@ GameObject:
   - component: {fileID: 496137162}
   - component: {fileID: 496137161}
   - component: {fileID: 496137164}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: white
   m_Icon: {fileID: 0}
@@ -101302,7 +101301,7 @@ GameObject:
   - component: {fileID: 506588331}
   - component: {fileID: 506588330}
   - component: {fileID: 506588333}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -107530,7 +107529,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 511749495}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (33)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107735,7 +107734,7 @@ GameObject:
   - component: {fileID: 513385549}
   - component: {fileID: 513385548}
   - component: {fileID: 513385551}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -109533,7 +109532,7 @@ GameObject:
   - component: {fileID: 529140903}
   - component: {fileID: 529140902}
   - component: {fileID: 529140905}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: white
   m_Icon: {fileID: 0}
@@ -112142,7 +112141,7 @@ GameObject:
   - component: {fileID: 540321087}
   - component: {fileID: 540321086}
   - component: {fileID: 540321089}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: white
   m_Icon: {fileID: 0}
@@ -112813,7 +112812,7 @@ GameObject:
   - component: {fileID: 542993578}
   - component: {fileID: 542993577}
   - component: {fileID: 542993580}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: purple
   m_Icon: {fileID: 0}
@@ -113020,7 +113019,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 545410699}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113708,7 +113707,7 @@ GameObject:
   - component: {fileID: 548736664}
   - component: {fileID: 548736663}
   - component: {fileID: 548736666}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -116532,7 +116531,7 @@ GameObject:
   - component: {fileID: 567716918}
   - component: {fileID: 567716917}
   - component: {fileID: 567716920}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -118958,7 +118957,7 @@ GameObject:
   - component: {fileID: 582826444}
   - component: {fileID: 582826443}
   - component: {fileID: 582826446}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -119548,7 +119547,7 @@ GameObject:
   - component: {fileID: 585030352}
   - component: {fileID: 585030351}
   - component: {fileID: 585030354}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -119913,7 +119912,7 @@ GameObject:
   - component: {fileID: 586489923}
   - component: {fileID: 586489922}
   - component: {fileID: 586489925}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -123248,7 +123247,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 602746642}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (39)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133209,7 +133208,7 @@ GameObject:
   - component: {fileID: 651139939}
   - component: {fileID: 651139938}
   - component: {fileID: 651139941}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -137777,7 +137776,7 @@ GameObject:
   - component: {fileID: 673557785}
   - component: {fileID: 673557784}
   - component: {fileID: 673557787}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -137896,7 +137895,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 674309921}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (22)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -139348,7 +139347,7 @@ GameObject:
   - component: {fileID: 684204032}
   - component: {fileID: 684204031}
   - component: {fileID: 684204034}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -139957,7 +139956,7 @@ GameObject:
   - component: {fileID: 687568466}
   - component: {fileID: 687568465}
   - component: {fileID: 687568468}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: purple
   m_Icon: {fileID: 0}
@@ -141191,7 +141190,7 @@ GameObject:
   - component: {fileID: 694952332}
   - component: {fileID: 694952331}
   - component: {fileID: 694952334}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -150553,7 +150552,7 @@ GameObject:
   - component: {fileID: 716842040}
   - component: {fileID: 716842039}
   - component: {fileID: 716842042}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: purple
   m_Icon: {fileID: 0}
@@ -158869,7 +158868,7 @@ GameObject:
   - component: {fileID: 764550478}
   - component: {fileID: 764550477}
   - component: {fileID: 764550480}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: white
   m_Icon: {fileID: 0}
@@ -159333,7 +159332,7 @@ GameObject:
   - component: {fileID: 766077538}
   - component: {fileID: 766077537}
   - component: {fileID: 766077540}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: purple
   m_Icon: {fileID: 0}
@@ -161033,7 +161032,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 775794607}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (26)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -161516,7 +161515,7 @@ GameObject:
   - component: {fileID: 780428761}
   - component: {fileID: 780428760}
   - component: {fileID: 780428763}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -165819,7 +165818,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 805396013}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (47)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -166130,7 +166129,7 @@ GameObject:
   - component: {fileID: 808250298}
   - component: {fileID: 808250297}
   - component: {fileID: 808250300}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -166527,7 +166526,7 @@ GameObject:
   - component: {fileID: 809393132}
   - component: {fileID: 809393131}
   - component: {fileID: 809393134}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -169933,7 +169932,7 @@ GameObject:
   - component: {fileID: 830347525}
   - component: {fileID: 830347524}
   - component: {fileID: 830347527}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: white
   m_Icon: {fileID: 0}
@@ -171281,7 +171280,7 @@ GameObject:
   - component: {fileID: 837576421}
   - component: {fileID: 837576420}
   - component: {fileID: 837576423}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -172368,7 +172367,7 @@ GameObject:
   - component: {fileID: 843137834}
   - component: {fileID: 843137833}
   - component: {fileID: 843137836}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -174091,7 +174090,7 @@ GameObject:
   - component: {fileID: 857195197}
   - component: {fileID: 857195196}
   - component: {fileID: 857195199}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -174543,7 +174542,7 @@ GameObject:
   - component: {fileID: 861762512}
   - component: {fileID: 861762511}
   - component: {fileID: 861762514}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -175416,7 +175415,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 864687186}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (37)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177109,7 +177108,7 @@ GameObject:
   - component: {fileID: 873026886}
   - component: {fileID: 873026885}
   - component: {fileID: 873026888}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: purple
   m_Icon: {fileID: 0}
@@ -178269,7 +178268,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 882219799}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (21)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178413,7 +178412,7 @@ GameObject:
   - component: {fileID: 883375808}
   - component: {fileID: 883375807}
   - component: {fileID: 883375810}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -179291,7 +179290,7 @@ GameObject:
   - component: {fileID: 886057067}
   - component: {fileID: 886057066}
   - component: {fileID: 886057069}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -180565,7 +180564,7 @@ GameObject:
   - component: {fileID: 893973042}
   - component: {fileID: 893973041}
   - component: {fileID: 893973044}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -183321,7 +183320,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 909483125}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (44)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183597,7 +183596,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 910154832}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (38)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183716,7 +183715,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 910553725}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (24)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184530,7 +184529,7 @@ GameObject:
   - component: {fileID: 913475262}
   - component: {fileID: 913475261}
   - component: {fileID: 913475264}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -186717,7 +186716,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 925466686}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186997,7 +186996,7 @@ GameObject:
   - component: {fileID: 927724162}
   - component: {fileID: 927724161}
   - component: {fileID: 927724165}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: purple
   m_Icon: {fileID: 0}
@@ -190437,7 +190436,7 @@ GameObject:
   - component: {fileID: 944564465}
   - component: {fileID: 944564464}
   - component: {fileID: 944564467}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -190560,7 +190559,7 @@ GameObject:
   - component: {fileID: 944857061}
   - component: {fileID: 944857060}
   - component: {fileID: 944857063}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: purple
   m_Icon: {fileID: 0}
@@ -191662,7 +191661,7 @@ GameObject:
   - component: {fileID: 949175032}
   - component: {fileID: 949175031}
   - component: {fileID: 949175034}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -193981,7 +193980,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 962349826}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -194917,7 +194916,7 @@ GameObject:
   - component: {fileID: 968792447}
   - component: {fileID: 968792446}
   - component: {fileID: 968792449}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -195942,7 +195941,7 @@ GameObject:
   - component: {fileID: 974874179}
   - component: {fileID: 974874178}
   - component: {fileID: 974874181}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: purple
   m_Icon: {fileID: 0}
@@ -199215,7 +199214,7 @@ GameObject:
   - component: {fileID: 992968187}
   - component: {fileID: 992968186}
   - component: {fileID: 992968189}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: white
   m_Icon: {fileID: 0}
@@ -200307,7 +200306,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 998967252}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (30)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -205176,7 +205175,7 @@ GameObject:
   - component: {fileID: 1023796904}
   - component: {fileID: 1023796903}
   - component: {fileID: 1023796906}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: purple
   m_Icon: {fileID: 0}
@@ -205656,7 +205655,7 @@ GameObject:
   - component: {fileID: 1025707625}
   - component: {fileID: 1025707624}
   - component: {fileID: 1025707627}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -205779,7 +205778,7 @@ GameObject:
   - component: {fileID: 1025786646}
   - component: {fileID: 1025786645}
   - component: {fileID: 1025786648}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -206144,7 +206143,7 @@ GameObject:
   - component: {fileID: 1027158718}
   - component: {fileID: 1027158717}
   - component: {fileID: 1027158720}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: purple
   m_Icon: {fileID: 0}
@@ -206567,7 +206566,7 @@ GameObject:
   - component: {fileID: 1028861755}
   - component: {fileID: 1028861754}
   - component: {fileID: 1028861757}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: white
   m_Icon: {fileID: 0}
@@ -209658,7 +209657,7 @@ GameObject:
   - component: {fileID: 1048136276}
   - component: {fileID: 1048136275}
   - component: {fileID: 1048136278}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -210168,7 +210167,7 @@ GameObject:
   - component: {fileID: 1051029380}
   - component: {fileID: 1051029379}
   - component: {fileID: 1051029382}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -214145,7 +214144,7 @@ GameObject:
   - component: {fileID: 1071384006}
   - component: {fileID: 1071384005}
   - component: {fileID: 1071384008}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: purple
   m_Icon: {fileID: 0}
@@ -216783,7 +216782,7 @@ GameObject:
   - component: {fileID: 1084537934}
   - component: {fileID: 1084537933}
   - component: {fileID: 1084537936}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: purple
   m_Icon: {fileID: 0}
@@ -217206,7 +217205,7 @@ GameObject:
   - component: {fileID: 1086457605}
   - component: {fileID: 1086457604}
   - component: {fileID: 1086457607}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: white
   m_Icon: {fileID: 0}
@@ -218964,7 +218963,7 @@ GameObject:
   - component: {fileID: 1100361536}
   - component: {fileID: 1100361535}
   - component: {fileID: 1100361538}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -221599,7 +221598,7 @@ GameObject:
   - component: {fileID: 1112404054}
   - component: {fileID: 1112404053}
   - component: {fileID: 1112404056}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -222798,7 +222797,7 @@ GameObject:
   - component: {fileID: 1118013190}
   - component: {fileID: 1118013189}
   - component: {fileID: 1118013192}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -224559,7 +224558,7 @@ GameObject:
   - component: {fileID: 1125540462}
   - component: {fileID: 1125540461}
   - component: {fileID: 1125540464}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -227007,7 +227006,7 @@ GameObject:
   - component: {fileID: 1136619908}
   - component: {fileID: 1136619907}
   - component: {fileID: 1136619910}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: purple
   m_Icon: {fileID: 0}
@@ -227302,7 +227301,7 @@ GameObject:
   - component: {fileID: 1138107837}
   - component: {fileID: 1138107836}
   - component: {fileID: 1138107839}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: white
   m_Icon: {fileID: 0}
@@ -227882,7 +227881,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1139109521}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (29)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -228399,7 +228398,7 @@ GameObject:
   - component: {fileID: 1140447606}
   - component: {fileID: 1140447605}
   - component: {fileID: 1140447608}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: purple
   m_Icon: {fileID: 0}
@@ -228678,7 +228677,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1141679060}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -230135,7 +230134,7 @@ GameObject:
   - component: {fileID: 1149657172}
   - component: {fileID: 1149657171}
   - component: {fileID: 1149657174}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -230258,7 +230257,7 @@ GameObject:
   - component: {fileID: 1150474678}
   - component: {fileID: 1150474677}
   - component: {fileID: 1150474680}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -232164,7 +232163,7 @@ GameObject:
   - component: {fileID: 1159850040}
   - component: {fileID: 1159850039}
   - component: {fileID: 1159850042}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: white
   m_Icon: {fileID: 0}
@@ -233545,7 +233544,7 @@ GameObject:
   - component: {fileID: 1170873396}
   - component: {fileID: 1170873395}
   - component: {fileID: 1170873398}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -234783,7 +234782,7 @@ GameObject:
   - component: {fileID: 1176641061}
   - component: {fileID: 1176641060}
   - component: {fileID: 1176641063}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -236487,7 +236486,7 @@ GameObject:
   - component: {fileID: 1185730805}
   - component: {fileID: 1185730804}
   - component: {fileID: 1185730807}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: white
   m_Icon: {fileID: 0}
@@ -237046,7 +237045,7 @@ GameObject:
   - component: {fileID: 1187197044}
   - component: {fileID: 1187197043}
   - component: {fileID: 1187197046}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -237274,7 +237273,7 @@ GameObject:
   - component: {fileID: 1187434451}
   - component: {fileID: 1187434450}
   - component: {fileID: 1187434453}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -240316,7 +240315,7 @@ GameObject:
   - component: {fileID: 1200740230}
   - component: {fileID: 1200740229}
   - component: {fileID: 1200740232}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: purple
   m_Icon: {fileID: 0}
@@ -240673,7 +240672,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1202949358}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -240797,7 +240796,7 @@ GameObject:
   - component: {fileID: 1204936038}
   - component: {fileID: 1204936037}
   - component: {fileID: 1204936040}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: white
   m_Icon: {fileID: 0}
@@ -243809,7 +243808,7 @@ GameObject:
   - component: {fileID: 1222088177}
   - component: {fileID: 1222088176}
   - component: {fileID: 1222088179}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: white
   m_Icon: {fileID: 0}
@@ -244650,7 +244649,7 @@ GameObject:
   - component: {fileID: 1228429317}
   - component: {fileID: 1228429316}
   - component: {fileID: 1228429319}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: white
   m_Icon: {fileID: 0}
@@ -246337,7 +246336,7 @@ GameObject:
   - component: {fileID: 1235654313}
   - component: {fileID: 1235654312}
   - component: {fileID: 1235654315}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -246543,7 +246542,7 @@ GameObject:
   - component: {fileID: 1236615877}
   - component: {fileID: 1236615876}
   - component: {fileID: 1236615879}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: white
   m_Icon: {fileID: 0}
@@ -246760,7 +246759,7 @@ GameObject:
   - component: {fileID: 1238189284}
   - component: {fileID: 1238189283}
   - component: {fileID: 1238189286}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: purple
   m_Icon: {fileID: 0}
@@ -250884,7 +250883,7 @@ GameObject:
   - component: {fileID: 1262917483}
   - component: {fileID: 1262917482}
   - component: {fileID: 1262917485}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -251537,7 +251536,7 @@ GameObject:
   - component: {fileID: 1264828194}
   - component: {fileID: 1264828193}
   - component: {fileID: 1264828196}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: white
   m_Icon: {fileID: 0}
@@ -255227,7 +255226,7 @@ GameObject:
   - component: {fileID: 1283918934}
   - component: {fileID: 1283918933}
   - component: {fileID: 1283918936}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -256234,7 +256233,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1288638451}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (40)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -256764,7 +256763,7 @@ GameObject:
   - component: {fileID: 1293778544}
   - component: {fileID: 1293778543}
   - component: {fileID: 1293778546}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -257067,7 +257066,7 @@ GameObject:
   - component: {fileID: 1293937368}
   - component: {fileID: 1293937367}
   - component: {fileID: 1293937370}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -257831,7 +257830,7 @@ GameObject:
   - component: {fileID: 1295685862}
   - component: {fileID: 1295685861}
   - component: {fileID: 1295685864}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -258596,7 +258595,7 @@ GameObject:
   - component: {fileID: 1300372770}
   - component: {fileID: 1300372769}
   - component: {fileID: 1300372772}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: white
   m_Icon: {fileID: 0}
@@ -261846,7 +261845,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1325627898}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (25)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -262679,7 +262678,7 @@ GameObject:
   - component: {fileID: 1329403277}
   - component: {fileID: 1329403276}
   - component: {fileID: 1329403279}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: purple
   m_Icon: {fileID: 0}
@@ -266762,7 +266761,7 @@ GameObject:
   - component: {fileID: 1351368431}
   - component: {fileID: 1351368430}
   - component: {fileID: 1351368433}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -267560,7 +267559,7 @@ GameObject:
   - component: {fileID: 1354640887}
   - component: {fileID: 1354640886}
   - component: {fileID: 1354640889}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -268017,7 +268016,7 @@ GameObject:
   - component: {fileID: 1356619800}
   - component: {fileID: 1356619799}
   - component: {fileID: 1356619802}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -270082,7 +270081,7 @@ GameObject:
   - component: {fileID: 1364746188}
   - component: {fileID: 1364746187}
   - component: {fileID: 1364746190}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -272373,7 +272372,7 @@ GameObject:
   - component: {fileID: 1376314444}
   - component: {fileID: 1376314443}
   - component: {fileID: 1376314446}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: white
   m_Icon: {fileID: 0}
@@ -272850,7 +272849,7 @@ GameObject:
   - component: {fileID: 1379550956}
   - component: {fileID: 1379550955}
   - component: {fileID: 1379550958}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -274161,7 +274160,7 @@ GameObject:
   - component: {fileID: 1386048386}
   - component: {fileID: 1386048385}
   - component: {fileID: 1386048388}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -274284,7 +274283,7 @@ GameObject:
   - component: {fileID: 1386209822}
   - component: {fileID: 1386209821}
   - component: {fileID: 1386209824}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -274403,7 +274402,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1386679981}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -276703,7 +276702,7 @@ GameObject:
   - component: {fileID: 1393171061}
   - component: {fileID: 1393171060}
   - component: {fileID: 1393171063}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -278122,7 +278121,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1404602293}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -278700,7 +278699,7 @@ GameObject:
   - component: {fileID: 1408054448}
   - component: {fileID: 1408054447}
   - component: {fileID: 1408054450}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -280060,7 +280059,7 @@ GameObject:
   - component: {fileID: 1412935965}
   - component: {fileID: 1412935964}
   - component: {fileID: 1412935967}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -286083,7 +286082,7 @@ GameObject:
   - component: {fileID: 1445314587}
   - component: {fileID: 1445314586}
   - component: {fileID: 1445314589}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: white
   m_Icon: {fileID: 0}
@@ -287389,7 +287388,7 @@ GameObject:
   - component: {fileID: 1451940934}
   - component: {fileID: 1451940933}
   - component: {fileID: 1451940936}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: white
   m_Icon: {fileID: 0}
@@ -290110,7 +290109,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1469900918}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -290148,7 +290147,7 @@ GameObject:
   - component: {fileID: 1470062258}
   - component: {fileID: 1470062257}
   - component: {fileID: 1470062260}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -290365,7 +290364,7 @@ GameObject:
   - component: {fileID: 1470479675}
   - component: {fileID: 1470479674}
   - component: {fileID: 1470479677}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: white
   m_Icon: {fileID: 0}
@@ -291379,7 +291378,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1476465235}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (43)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -291417,7 +291416,7 @@ GameObject:
   - component: {fileID: 1477262552}
   - component: {fileID: 1477262551}
   - component: {fileID: 1477262554}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -292575,7 +292574,7 @@ GameObject:
   - component: {fileID: 1483943355}
   - component: {fileID: 1483943354}
   - component: {fileID: 1483943357}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: purple
   m_Icon: {fileID: 0}
@@ -295728,7 +295727,7 @@ GameObject:
   - component: {fileID: 1495584053}
   - component: {fileID: 1495584052}
   - component: {fileID: 1495584055}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -300180,7 +300179,7 @@ GameObject:
   - component: {fileID: 1529535448}
   - component: {fileID: 1529535447}
   - component: {fileID: 1529535450}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: white
   m_Icon: {fileID: 0}
@@ -300485,7 +300484,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1531044860}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -303932,7 +303931,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1553730462}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (27)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -305736,7 +305735,7 @@ GameObject:
   - component: {fileID: 1565089246}
   - component: {fileID: 1565089245}
   - component: {fileID: 1565089248}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -306791,7 +306790,7 @@ GameObject:
   - component: {fileID: 1572064687}
   - component: {fileID: 1572064686}
   - component: {fileID: 1572064689}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -307618,7 +307617,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1578084808}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (18)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -307945,7 +307944,7 @@ GameObject:
   - component: {fileID: 1581019250}
   - component: {fileID: 1581019249}
   - component: {fileID: 1581019252}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: purple
   m_Icon: {fileID: 0}
@@ -308064,7 +308063,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1581475246}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -312730,7 +312729,7 @@ GameObject:
   - component: {fileID: 1600081398}
   - component: {fileID: 1600081397}
   - component: {fileID: 1600081400}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -313461,7 +313460,7 @@ GameObject:
   - component: {fileID: 1602361571}
   - component: {fileID: 1602361570}
   - component: {fileID: 1602361573}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -317460,7 +317459,7 @@ GameObject:
   - component: {fileID: 1623596576}
   - component: {fileID: 1623596575}
   - component: {fileID: 1623596578}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -318718,7 +318717,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1632155412}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (42)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -319463,7 +319462,7 @@ GameObject:
   - component: {fileID: 1636340940}
   - component: {fileID: 1636340939}
   - component: {fileID: 1636340942}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: purple
   m_Icon: {fileID: 0}
@@ -319759,7 +319758,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1637240765}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (31)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -321278,7 +321277,7 @@ GameObject:
   - component: {fileID: 1647274316}
   - component: {fileID: 1647274315}
   - component: {fileID: 1647274318}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -321761,7 +321760,7 @@ GameObject:
   - component: {fileID: 1650315592}
   - component: {fileID: 1650315591}
   - component: {fileID: 1650315594}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: purple
   m_Icon: {fileID: 0}
@@ -324725,7 +324724,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1666633104}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (32)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -325713,7 +325712,7 @@ GameObject:
   - component: {fileID: 1671690636}
   - component: {fileID: 1671690635}
   - component: {fileID: 1671690638}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -326354,7 +326353,7 @@ GameObject:
   - component: {fileID: 1674228334}
   - component: {fileID: 1674228333}
   - component: {fileID: 1674228336}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: purple
   m_Icon: {fileID: 0}
@@ -327107,7 +327106,7 @@ GameObject:
   - component: {fileID: 1677785908}
   - component: {fileID: 1677785907}
   - component: {fileID: 1677785910}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -329000,7 +328999,7 @@ GameObject:
   - component: {fileID: 1687762279}
   - component: {fileID: 1687762278}
   - component: {fileID: 1687762281}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -331833,7 +331832,7 @@ GameObject:
   - component: {fileID: 1699405316}
   - component: {fileID: 1699405315}
   - component: {fileID: 1699405318}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -340565,7 +340564,7 @@ GameObject:
   - component: {fileID: 1718727671}
   - component: {fileID: 1718727670}
   - component: {fileID: 1718727673}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -341349,7 +341348,7 @@ GameObject:
   - component: {fileID: 1721308096}
   - component: {fileID: 1721308095}
   - component: {fileID: 1721308098}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -342946,7 +342945,7 @@ GameObject:
   - component: {fileID: 1728393256}
   - component: {fileID: 1728393255}
   - component: {fileID: 1728393258}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: white
   m_Icon: {fileID: 0}
@@ -346434,7 +346433,7 @@ GameObject:
   - component: {fileID: 1748965086}
   - component: {fileID: 1748965085}
   - component: {fileID: 1748965088}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -348769,7 +348768,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1758799451}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (46)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -349840,7 +349839,7 @@ GameObject:
   - component: {fileID: 1766680866}
   - component: {fileID: 1766680865}
   - component: {fileID: 1766680868}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -351850,7 +351849,7 @@ GameObject:
   - component: {fileID: 1781023864}
   - component: {fileID: 1781023863}
   - component: {fileID: 1781023866}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -353651,7 +353650,7 @@ GameObject:
   - component: {fileID: 1790822847}
   - component: {fileID: 1790822846}
   - component: {fileID: 1790822849}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -354381,7 +354380,7 @@ GameObject:
   - component: {fileID: 1794237166}
   - component: {fileID: 1794237165}
   - component: {fileID: 1794237168}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: purple
   m_Icon: {fileID: 0}
@@ -355290,7 +355289,7 @@ GameObject:
   - component: {fileID: 1798888214}
   - component: {fileID: 1798888213}
   - component: {fileID: 1798888216}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: purple
   m_Icon: {fileID: 0}
@@ -357198,7 +357197,7 @@ GameObject:
   - component: {fileID: 1806590398}
   - component: {fileID: 1806590397}
   - component: {fileID: 1806590400}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -359317,7 +359316,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1818603469}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -361463,7 +361462,7 @@ GameObject:
   - component: {fileID: 1829236602}
   - component: {fileID: 1829236601}
   - component: {fileID: 1829236604}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -361758,7 +361757,7 @@ GameObject:
   - component: {fileID: 1830796480}
   - component: {fileID: 1830796479}
   - component: {fileID: 1830796483}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -365178,7 +365177,7 @@ GameObject:
   - component: {fileID: 1852395262}
   - component: {fileID: 1852395261}
   - component: {fileID: 1852395264}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: purple
   m_Icon: {fileID: 0}
@@ -366612,7 +366611,7 @@ GameObject:
   - component: {fileID: 1862802350}
   - component: {fileID: 1862802349}
   - component: {fileID: 1862802352}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -367162,7 +367161,7 @@ GameObject:
   - component: {fileID: 1866396966}
   - component: {fileID: 1866396965}
   - component: {fileID: 1866396968}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -371488,7 +371487,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1886863817}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (20)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -372611,7 +372610,7 @@ GameObject:
   - component: {fileID: 1893679386}
   - component: {fileID: 1893679385}
   - component: {fileID: 1893679388}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: white
   m_Icon: {fileID: 0}
@@ -373429,7 +373428,7 @@ GameObject:
   - component: {fileID: 1896945491}
   - component: {fileID: 1896945490}
   - component: {fileID: 1896945493}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -383732,7 +383731,7 @@ GameObject:
   - component: {fileID: 1924666484}
   - component: {fileID: 1924666483}
   - component: {fileID: 1924666486}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: purple
   m_Icon: {fileID: 0}
@@ -384306,7 +384305,7 @@ GameObject:
   - component: {fileID: 1930044822}
   - component: {fileID: 1930044821}
   - component: {fileID: 1930044824}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: white
   m_Icon: {fileID: 0}
@@ -384941,7 +384940,7 @@ GameObject:
   - component: {fileID: 1933941372}
   - component: {fileID: 1933941371}
   - component: {fileID: 1933941374}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -386420,7 +386419,7 @@ GameObject:
   - component: {fileID: 1939367313}
   - component: {fileID: 1939367312}
   - component: {fileID: 1939367315}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -388022,7 +388021,7 @@ GameObject:
   - component: {fileID: 1947044085}
   - component: {fileID: 1947044084}
   - component: {fileID: 1947044087}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: white
   m_Icon: {fileID: 0}
@@ -390003,7 +390002,7 @@ GameObject:
   - component: {fileID: 1958192895}
   - component: {fileID: 1958192894}
   - component: {fileID: 1958192897}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: white
   m_Icon: {fileID: 0}
@@ -391728,7 +391727,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1968711929}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -393308,7 +393307,7 @@ GameObject:
   - component: {fileID: 1979793919}
   - component: {fileID: 1979793918}
   - component: {fileID: 1979793921}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -397573,7 +397572,7 @@ GameObject:
   - component: {fileID: 2005606729}
   - component: {fileID: 2005606728}
   - component: {fileID: 2005606731}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: purple
   m_Icon: {fileID: 0}
@@ -398536,7 +398535,7 @@ GameObject:
   - component: {fileID: 2012480224}
   - component: {fileID: 2012480223}
   - component: {fileID: 2012480226}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -401036,7 +401035,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2025206876}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (28)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -401075,7 +401074,7 @@ GameObject:
   - component: {fileID: 2026147126}
   - component: {fileID: 2026147125}
   - component: {fileID: 2026147128}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: white
   m_Icon: {fileID: 0}
@@ -408961,7 +408960,7 @@ GameObject:
   - component: {fileID: 2043253223}
   - component: {fileID: 2043253222}
   - component: {fileID: 2043253225}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: purple
   m_Icon: {fileID: 0}
@@ -414331,7 +414330,7 @@ GameObject:
   - component: {fileID: 2067672081}
   - component: {fileID: 2067672080}
   - component: {fileID: 2067672083}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: purple
   m_Icon: {fileID: 0}
@@ -415222,7 +415221,7 @@ GameObject:
   - component: {fileID: 2073619707}
   - component: {fileID: 2073619706}
   - component: {fileID: 2073619709}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: white
   m_Icon: {fileID: 0}
@@ -415702,7 +415701,7 @@ GameObject:
   - component: {fileID: 2075306700}
   - component: {fileID: 2075306699}
   - component: {fileID: 2075306702}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: white
   m_Icon: {fileID: 0}
@@ -427237,7 +427236,7 @@ GameObject:
   - component: {fileID: 2112084867}
   - component: {fileID: 2112084866}
   - component: {fileID: 2112084869}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -428053,7 +428052,7 @@ GameObject:
   - component: {fileID: 2115084900}
   - component: {fileID: 2115084899}
   - component: {fileID: 2115084902}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: red
   m_Icon: {fileID: 0}
@@ -428635,7 +428634,7 @@ GameObject:
   - component: {fileID: 2117155579}
   - component: {fileID: 2117155578}
   - component: {fileID: 2117155581}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -429102,7 +429101,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2118278219}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (19)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -429412,7 +429411,7 @@ GameObject:
   - component: {fileID: 2120651145}
   - component: {fileID: 2120651144}
   - component: {fileID: 2120651147}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: blue
   m_Icon: {fileID: 0}
@@ -430560,6 +430559,7 @@ MonoBehaviour:
   chaseDistance: 10
   wanderRadius: 20
   wanderInterval: 5
+  StoppingTime: 10
   marker: {fileID: 1690055938}
 --- !u!195 &2128444559
 NavMeshAgent:
@@ -431105,7 +431105,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2130930170}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier (45)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -433419,7 +433419,7 @@ GameObject:
   - component: {fileID: 2144318084}
   - component: {fileID: 2144318083}
   - component: {fileID: 2144318086}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: barrier_object
   m_TagString: purple
   m_Icon: {fileID: 0}

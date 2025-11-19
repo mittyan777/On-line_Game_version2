@@ -1,56 +1,58 @@
 using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class drawntarget : MonoBehaviourPunCallbacks
 {
-    [SerializeField]
-    private GameObject[] _player;
-    [SerializeField] float distance;
-    [SerializeField] float distance2;
-    [SerializeField] GameObject[] target;
+    [SerializeField] private GameObject killer;
+    [SerializeField] private GameObject target;
     public MeshRenderer meshRenderer;
-    // Start is called before the first frame update
-    void Start()
+
+    [SerializeField] private float moveSpeed = 10f;
+    [SerializeField] private float hideDistance = 25f;
+
+    private bool currentMeshState = true; // 現在の表示状態を保持
+
+    private void Start()
     {
         meshRenderer = GetComponent<MeshRenderer>();
-
+        killer = GameObject.FindGameObjectWithTag("Killer");
+        target = GameObject.Find("drawn");
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        _player = GameObject.FindGameObjectsWithTag("Killer");
-        target[0] = GameObject.Find("drawn");
-        if (photonView.IsMine)
+        if (killer == null || target == null) return;
+
+        float distanceToKiller = Vector3.Distance(transform.position, killer.transform.position);
+        float distanceToTarget = Vector3.Distance(killer.transform.position, target.transform.position);
+
+        // Killer に近ければ target へ移動、遠ければ Killer に移動
+        if (distanceToKiller < hideDistance)
         {
-
-            distance = Vector3.Distance(transform.position, _player[0].transform.position);
-            distance2 = Vector3.Distance(_player[0].transform.position, target[0].transform.position);
-
-            if (distance < 25)
-            {
-
-                transform.position = Vector3.MoveTowards(transform.position, target[0].transform.position, 10 * Time.deltaTime);
-            }
-            else
-            {
-                transform.position = Vector3.MoveTowards(transform.position, _player[0].transform.position, 10 * Time.deltaTime);
-            }
-
-            if (distance2 < 25)
-            {
-                meshRenderer.enabled = false;
-            }
-            else
-            {
-                meshRenderer.enabled = true;
-            }
-
-            transform.position = new Vector3(transform.position.x, 16.45f, transform.position.z);
+            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, moveSpeed * Time.deltaTime);
         }
+        else
+        {
+            transform.position = Vector3.MoveTowards(transform.position, killer.transform.position, moveSpeed * Time.deltaTime);
+        }
+
+        // Y座標固定
+        transform.position = new Vector3(transform.position.x, 16.45f, transform.position.z);
+
+        // MeshRenderer の表示状態を判定
+        bool shouldBeVisible = distanceToTarget >= hideDistance;
+
+        // 状態が変わったときだけ RPC で全クライアントに送る
+        if (shouldBeVisible != currentMeshState)
+        {
+            photonView.RPC("SetMeshRenderer", RpcTarget.AllBuffered, shouldBeVisible);
+            currentMeshState = shouldBeVisible;
+        }
+    }
+
+    [PunRPC]
+    void SetMeshRenderer(bool enabledState)
+    {
+        meshRenderer.enabled = enabledState;
     }
 }

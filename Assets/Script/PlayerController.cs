@@ -47,8 +47,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private int normalLayer;
     private int outlineLayer;
 
-
-
+    [SerializeField] GameObject itemslot;
+    [SerializeField] GameObject skillslot;
+    [SerializeField] GameObject cooltime_Image;
+    bool Trap_trigger = false;
+    GameObject tora;
+    [SerializeField] GameObject Drone_Player_Detection;
 
 
     // Start is called before the first frame update
@@ -60,7 +64,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             Is_PlayMode = true;
             normalLayer = LayerMask.NameToLayer("PlayerNormal");
             outlineLayer = LayerMask.NameToLayer("OutlineVisible");
-
+            cooltime_Image.GetComponent<Image>().fillAmount = 0;
             //Roll Check
             Invoke("test", 5);
         }
@@ -114,10 +118,15 @@ public class PlayerController : MonoBehaviourPunCallbacks
             {
                 gameObject.layer = LayerMask.NameToLayer("Killer");
                 gameObject.tag = "Killer";
+                itemslot.SetActive(false);
+                skillslot.SetActive(true);
+                Drone_Player_Detection.SetActive(false);
                 Debug.Log("あなたは Killer です！");
             }
             else if (role == "survivor")
             {
+                skillslot.SetActive(false);
+                itemslot.SetActive(true);
                 gameObject.layer = LayerMask.NameToLayer("Player");
                 if (players.Length == 0)
                 {
@@ -152,67 +161,74 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 {
                     float x = 0f;
                     float z = 0f;
-
-                    // 入力取得
-                    if (Input.GetKey("w"))
+                    if (Trap_trigger == false)
                     {
-                        z += 1f;
-                        animator.SetBool("forward_walk", true);
-                    }
-                    else
-                    {
-                        animator.SetBool("forward_walk", false);
-                    }
-                    if (Input.GetKey("s"))
-                    {
-                        z -= 1f;
-                        animator.SetBool("back_walk", true);
-                    }
-                    else
-                    {
-                        animator.SetBool("back_walk", false);
-                    }
-                    if (Input.GetKey("a"))
-                    {
-                        x -= 1f;
-                        animator.SetBool("left_walk", true);
-                    }
-                    else
-                    {
-                        animator.SetBool("left_walk", false);
-                    }
-                    if (Input.GetKey("d"))
-                    {
-                        x += 1f;
-                        animator.SetBool("right_walk", true);
-                    }
-                    else
-                    {
-                        animator.SetBool("right_walk", false);
-                    }
-
-                    if (Input.GetKeyDown(KeyCode.Q))
-                    {
-                        if (Notepad.activeSelf == false)
+                        // 入力取得
+                        if (Input.GetKey("w"))
                         {
-                            Notepad.SetActive(true);
+                            z += 1f;
+                            animator.SetBool("forward_walk", true);
                         }
-                        else if (Notepad.activeSelf == true)
+                        else
                         {
-                            Notepad.SetActive(false);
+                            animator.SetBool("forward_walk", false);
                         }
+                        if (Input.GetKey("s"))
+                        {
+                            z -= 1f;
+                            animator.SetBool("back_walk", true);
+                        }
+                        else
+                        {
+                            animator.SetBool("back_walk", false);
+                        }
+                        if (Input.GetKey("a"))
+                        {
+                            x -= 1f;
+                            animator.SetBool("left_walk", true);
+                        }
+                        else
+                        {
+                            animator.SetBool("left_walk", false);
+                        }
+                        if (Input.GetKey("d"))
+                        {
+                            x += 1f;
+                            animator.SetBool("right_walk", true);
+                        }
+                        else
+                        {
+                            animator.SetBool("right_walk", false);
+                        }
+
+                        if (Input.GetKeyDown(KeyCode.Q))
+                        {
+                            if (Notepad.activeSelf == false)
+                            {
+                                Notepad.SetActive(true);
+                            }
+                            else if (Notepad.activeSelf == true)
+                            {
+                                Notepad.SetActive(false);
+                            }
+                        }
+
+                        if (gameObject.tag == "Killer" && Input.GetKeyDown(KeyCode.RightShift))
+                        {
+                            if (cooltime_Image.GetComponent<Image>().fillAmount <= 0)
+                            {
+                                photonView.RPC(nameof(RPC_ActivateOutlineSkill), RpcTarget.All);
+                                cooltime_Image.GetComponent<Image>().fillAmount = 1;
+                            }
+
+                        }
+                        cooltime_Image.GetComponent<Image>().fillAmount -= 0.005f * Time.deltaTime;
+                        // 移動方向ベクトル
+                        Vector3 move = (transform.forward * z + transform.right * x).normalized;
+
+                        // 実際の移動
+                        transform.position += move * MoveSpeed * Time.deltaTime;
                     }
-
-                    if (gameObject.tag == "Killer" && Input.GetKeyDown(KeyCode.RightShift))
-                    {
-                        photonView.RPC(nameof(RPC_ActivateOutlineSkill), RpcTarget.All);
-                    }
-
-                    // 移動方向ベクトル
-                    Vector3 move = (transform.forward * z + transform.right * x).normalized;
-
-                    // 実際の移動
-                    transform.position += move * MoveSpeed * Time.deltaTime;
                 }
             }
         }
@@ -485,13 +501,13 @@ public class PlayerController : MonoBehaviourPunCallbacks
         GameObject.FindGameObjectWithTag("Player").GetComponent<Outline>().OutlineMode = Outline.Mode.OutlineAll;
         GameObject.FindGameObjectWithTag("Player2").GetComponent<Outline>().OutlineMode = Outline.Mode.OutlineAll;
         Invoke("ActivateOutlineSkillOF", 5);
-        
-        
-        
+
+
+
 
 
     }
-   void ActivateOutlineSkillOF()
+    void ActivateOutlineSkillOF()
     {
         GameObject.FindGameObjectWithTag("Player").GetComponent<Outline>().OutlineMode = Outline.Mode.OutlineVisible;
         GameObject.FindGameObjectWithTag("Player2").GetComponent<Outline>().OutlineMode = Outline.Mode.OutlineVisible;
@@ -533,5 +549,26 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.Destroy(view.gameObject);
         }
+    }
+   
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!photonView.IsMine) return;
+        if (gameObject.tag == "Killer")
+        {
+            if (other.gameObject.tag == "bear trap")
+            {
+                tora = other.gameObject;
+                Debug.Log("iii");
+                StartCoroutine(Trap());
+            }
+        }
+    }
+    IEnumerator Trap()
+    {
+        Trap_trigger = true;
+        yield return new WaitForSeconds(5f);
+        Destroy(tora);
+        Trap_trigger = false;
     }
 }

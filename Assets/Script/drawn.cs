@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Timeline;
 
 public class drawn : MonoBehaviourPunCallbacks
 {
@@ -20,7 +19,8 @@ public class drawn : MonoBehaviourPunCallbacks
     private float wanderInterval = 10f; // 徘徊ポイントを変更する間隔
 
     [SerializeField]
-    private const float StoppingTime = 10f;//ドローン停止時間
+    private float StoppingTime = 10f; // ドローン停止時間
+
     private float StoppingCountTime = 0f;
 
     private bool isChasing = false;
@@ -30,11 +30,10 @@ public class drawn : MonoBehaviourPunCallbacks
 
     private Transform targetPlayer; // 追跡対象
 
-    [SerializeField] GameObject marker;
+    [SerializeField] private GameObject marker;
 
     void Start()
     {
-        // NavMeshAgent を自動取得
         if (_navMeshAgent == null)
         {
             _navMeshAgent = GetComponent<NavMeshAgent>();
@@ -46,13 +45,14 @@ public class drawn : MonoBehaviourPunCallbacks
 
     void Update()
     {
+        // 停止中の処理
         if (MoveDisabled)
         {
             _navMeshAgent.isStopped = true;
             StoppingCountTime -= Time.deltaTime;
-            if (StoppingCountTime < 0)
+            if (StoppingCountTime <= 0f)
             {
-                MoveDisabled = false;//ドローン再始動
+                MoveDisabled = false; // ドローン再始動
             }
         }
         else
@@ -60,14 +60,13 @@ public class drawn : MonoBehaviourPunCallbacks
             _navMeshAgent.isStopped = false;
         }
 
+        // 追跡 or 徘徊
         if (isChasing && targetPlayer != null)
         {
-            // プレイヤーの位置を常に追尾
             _navMeshAgent.SetDestination(targetPlayer.position);
         }
         else
         {
-            // 徘徊
             wanderTimer += Time.deltaTime;
 
             if (wanderTimer >= wanderInterval ||
@@ -79,62 +78,47 @@ public class drawn : MonoBehaviourPunCallbacks
         }
     }
 
-    // NavMesh 上のランダムな徘徊ポイントを取得して設定
     private void SetNewWanderDestination()
     {
-        Vector3 randomDirection = Random.insideUnitSphere * wanderRadius;
-        randomDirection += transform.position;
+        Vector3 randomDirection = Random.insideUnitSphere * wanderRadius + transform.position;
         NavMeshHit navHit;
-
         if (NavMesh.SamplePosition(randomDirection, out navHit, wanderRadius, NavMesh.AllAreas))
         {
             _navMeshAgent.SetDestination(navHit.position);
         }
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        // プレイヤー追跡開始
+        if (other.CompareTag("Drone Player Detection") && !other.CompareTag("Killer"))
         {
-            //if (photonView.IsMine)
-            //{
-            if (other.gameObject.tag == "Player")
-            {
-                marker.SetActive(true);
-                Debug.Log("追跡中 -> " + other.tag);
-                isChasing = true;
-                siren = true;
-                targetPlayer = other.transform;
-            }
-            //}
-        }
-        if (other.gameObject.tag == "Player2")
-        {
-            //if (photonView.IsMine)
-            //{
             marker.SetActive(true);
-            Debug.Log("追跡中 -> " + other.tag);
             isChasing = true;
             siren = true;
             targetPlayer = other.transform;
-            //}
+            Debug.Log("追跡開始 -> " + other.tag);
         }
-        if (other.gameObject.tag == "DroneStopper")
+
+        // ドローン停止
+        if (other.CompareTag("DroneStopper") && !other.CompareTag("Killer"))
         {
             MoveDisabled = true;
             StoppingCountTime = StoppingTime;
+            Debug.Log("停止エリア侵入 -> " + other.tag);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player") || other.CompareTag("Player2"))
+        // プレイヤー追跡終了
+        if (other.CompareTag("Drone Player Detection"))
         {
             marker.SetActive(false);
-            Debug.Log("追跡終了 -> " + other.tag);
             isChasing = false;
             siren = false;
             targetPlayer = null;
+            Debug.Log("追跡終了 -> " + other.tag);
         }
     }
 }

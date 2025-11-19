@@ -18,6 +18,8 @@ TagManager:
   - Ext_Door
   - white
   - DroneStopper
+  - bear trap
+  - Drone Player Detection
   layers:
   - Default
   - TransparentFX
@@ -35,7 +37,7 @@ TagManager:
   - Player2switch
   - OutlineVisible
   - PlayerNormal
-  - 
+  - Barrier
   - 
   - 
   - 
