@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,7 +39,8 @@ public class Title_control : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene("lobby");
+            PhotonNetwork.LoadLevel("lobby");
+
         }
 
     }

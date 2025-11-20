@@ -10,6 +10,7 @@ using System.Runtime.ConstrainedExecution;
 using Photon.Realtime;
 using Unity.Burst.CompilerServices;
 using static Unity.Burst.Intrinsics.X86.Sse4_2;
+using Unity.VisualScripting;
 
 public class PlayerController : MonoBehaviourPunCallbacks
 {
@@ -71,6 +72,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
 
     }
+
     void test()
     {
 
@@ -232,7 +234,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 }
             }
         }
-        if (sceneName == "lobby")
+        if (photonView.IsMine && sceneName == "lobby")
         {
             float x = 0f;
             float z = 0f;
@@ -561,6 +563,17 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 tora = other.gameObject;
                 Debug.Log("iii");
                 StartCoroutine(Trap());
+            }
+        }
+      
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (gameObject.tag == "Player" || gameObject.tag == "Player2")
+        {
+            if (collision.gameObject.tag == "Killer")
+            {
+                transform.position = new Vector3(84, 7, 16);
             }
         }
     }
