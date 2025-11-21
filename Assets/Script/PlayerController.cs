@@ -54,6 +54,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
     bool Trap_trigger = false;
     GameObject tora;
     [SerializeField] GameObject Drone_Player_Detection;
+    [SerializeField] Image fade;
+    bool fade_trigger = false;
+    float fade_a;
 
 
     // Start is called before the first frame update
@@ -65,6 +68,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             Is_PlayMode = true;
             normalLayer = LayerMask.NameToLayer("PlayerNormal");
             outlineLayer = LayerMask.NameToLayer("OutlineVisible");
+            fade = GameObject.FindWithTag("fade").GetComponent<Image>();
             cooltime_Image.GetComponent<Image>().fillAmount = 0;
             //Roll Check
             Invoke("test", 5);
@@ -293,6 +297,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             {
                 select = GameObject.FindGameObjectWithTag("selectUI").GetComponent<Text>();
             }
+
         }
 
         // Ray作成
@@ -311,17 +316,18 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 {
                     if (passwordUI.activeSelf == false)
                     {
+                      
 
+                            float h = Input.GetAxis("Mouse X");
+                            float v = Input.GetAxis("Mouse Y");
+                            side += h;
+                            ver += v;
+                            ver = Mathf.Clamp(ver, -50f, 90f);
+                            // side = Mathf.Clamp(side, -90, 90f);
+                            camera.transform.rotation = Quaternion.Euler(-ver, side, camera.transform.eulerAngles.z);
 
-                        float h = Input.GetAxis("Mouse X");
-                        float v = Input.GetAxis("Mouse Y");
-                        side += h;
-                        ver += v;
-                        ver = Mathf.Clamp(ver, -50f, 90f);
-                        // side = Mathf.Clamp(side, -90, 90f);
-                        camera.transform.rotation = Quaternion.Euler(-ver, side, camera.transform.eulerAngles.z);
-
-                        transform.rotation = Quaternion.Euler(0f, side, 0f);
+                            transform.rotation = Quaternion.Euler(0f, side, 0f);
+                        
                     }
                 }
             }
@@ -456,6 +462,17 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     // 何にも当たらなかったら非表示
                     select.text = "";
                 }
+
+                if (fade_trigger == true && fade.fillAmount <= 1)
+                {
+                    fade.fillAmount += 2 * Time.deltaTime;
+                    
+                }
+                else if(fade.fillAmount >= 0)
+                {
+                    fade.fillAmount -= 2 * Time.deltaTime;
+                }
+               
             }
 
 
@@ -483,8 +500,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             playerCanvas.enabled = false;
         }
         Debug.DrawRay(ray.origin, ray.direction * rayDistance, UnityEngine.Color.red);
-
-
+      
         //error fix
         //camera_Object.transform.rotation = Quaternion.Euler(-ver, transform.eulerAngles.y, 0f);
     }
@@ -573,7 +589,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             if (collision.gameObject.tag == "Killer")
             {
-                transform.position = new Vector3(84, 7, 16);
+
+                StartCoroutine(Trap());
+                StartCoroutine(caught());
+                
+               
             }
         }
     }
@@ -583,5 +603,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
         yield return new WaitForSeconds(5f);
         Destroy(tora);
         Trap_trigger = false;
+    }
+    IEnumerator caught()
+    {
+        fade_trigger = true;
+         yield return new WaitForSeconds(3f);
+        transform.position = new Vector3(84, 7, 16);
+        fade_trigger = false;
     }
 }
