@@ -58,6 +58,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     bool fade_trigger = false;
     float fade_a;
 
+    [SerializeField] GameObject tutorial_UI;
 
     // Start is called before the first frame update
     void Start()
@@ -73,7 +74,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
             //Roll Check
             Invoke("test", 5);
         }
-
 
     }
 
@@ -581,8 +581,14 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 StartCoroutine(Trap());
             }
         }
-      
+        if (other.gameObject.tag == "tutorial")
+        {
+            tutorial_UI.SetActive(true);
+            tutorial_UI.GetComponent<Animator>().SetBool("show", true);
+        }
+       
     }
+  
     private void OnCollisionEnter(Collision collision)
     {
         if (gameObject.tag == "Player" || gameObject.tag == "Player2")
@@ -611,4 +617,15 @@ public class PlayerController : MonoBehaviourPunCallbacks
         transform.position = new Vector3(84, 7, 16);
         fade_trigger = false;
     }
+    IEnumerator tutorial()
+    {
+        tutorial_UI.GetComponent<Animator>().SetBool("tutorial_of", true);
+        yield return new WaitForSeconds(3f);
+        tutorial_UI.SetActive(false);
+    }
+    public void tutorial_of()
+    {
+        StartCoroutine(tutorial());
+    }
+
 }

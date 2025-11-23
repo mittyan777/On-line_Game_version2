@@ -21,6 +21,7 @@ TagManager:
   - bear trap
   - Drone Player Detection
   - fade
+  - tutorial
   layers:
   - Default
   - TransparentFX

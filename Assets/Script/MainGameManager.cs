@@ -37,7 +37,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         CountTimer = GameTime;
 
         TrySetRoleLabel(PhotonNetwork.LocalPlayer);
-
+    
 
     }
 
