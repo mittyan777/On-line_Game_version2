@@ -159,11 +159,11 @@ public class ItemSelect : MonoBehaviourPunCallbacks
     {
         if (!photonView.IsMine) return;
         Debug.Log($"使用されたアイテムID:{num}");
+        Manager = GameObject.Find("GameManager");
         switch (num)
         {
             case 0:
                 //バリア色変更
-                Manager = GameObject.Find("GameManager");
                 if (gameObject.tag == "Player")
                 {
                     Manager.GetComponent<MainGameManager>().playercontrol();
@@ -202,7 +202,7 @@ public class ItemSelect : MonoBehaviourPunCallbacks
                 break;
             case 2:
                 //ドローン停止
-
+                Manager.GetComponent<MainGameManager>().StopDrone_Ability();
                 break;
         }
     }

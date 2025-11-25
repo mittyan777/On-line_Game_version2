@@ -31,6 +31,7 @@ public class drawn : MonoBehaviourPunCallbacks
     private Transform targetPlayer; // í«ê’ëŒè€
 
     [SerializeField] private GameObject marker;
+    [SerializeField] GameObject SmokeParticle;
 
     void Start()
     {
@@ -39,6 +40,7 @@ public class drawn : MonoBehaviourPunCallbacks
             _navMeshAgent = GetComponent<NavMeshAgent>();
         }
 
+        SmokeParticle.SetActive(false);
         wanderTimer = wanderInterval;
         SetNewWanderDestination();
     }
@@ -53,6 +55,7 @@ public class drawn : MonoBehaviourPunCallbacks
             if (StoppingCountTime <= 0f)
             {
                 MoveDisabled = false; // ÉhÉçÅ[ÉìçƒénìÆ
+                SmokeParticle.SetActive(false);
             }
         }
         else
@@ -86,6 +89,18 @@ public class drawn : MonoBehaviourPunCallbacks
         {
             _navMeshAgent.SetDestination(navHit.position);
         }
+    }
+
+    public void Call_Stop_Drone()
+    {
+        photonView.RPC(nameof(Stop_Drone), RpcTarget.All);
+    }
+
+    [PunRPC]
+    void Stop_Drone()
+    {
+        MoveDisabled = true;
+        SmokeParticle.SetActive(true);
     }
 
     private void OnTriggerEnter(Collider other)

@@ -18,13 +18,14 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     float timerSendInterval = 0.2f;
     float timerSendCounter = 0f;
 
+    [Header("キャラクター設定")]
     [SerializeField] GameObject Player;
     [SerializeField] GameObject Player2;
     [SerializeField] GameObject killer;
+    [SerializeField] drawn[] Drone_Objects;
     [SerializeField] GameObject Direction_right;
 
     [SerializeField] GameObject[] CollarImage;
-
 
     [SerializeField] public bool blue = false;
     [SerializeField] public bool red = false;
@@ -37,7 +38,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         CountTimer = GameTime;
 
         TrySetRoleLabel(PhotonNetwork.LocalPlayer);
-    
+
 
     }
 
@@ -45,23 +46,23 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     {
         if (Gamestart == false) return;
 
-         while (Player == null)
-         {
-             Player = GameObject.FindGameObjectWithTag("Player");
-             //Null発生
-             Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.white);
-         }
-         while (Player2 == null)
-         {
-             Player2 = GameObject.FindGameObjectWithTag("Player2");
-             //Null発生
-             Player2.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.white);
-         }
-         while (killer == null)
-         {
-             killer = GameObject.FindGameObjectWithTag("Killer");
-             killer.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", new Color32(0, 0, 0, 0));
-         }
+        while (Player == null)
+        {
+            Player = GameObject.FindGameObjectWithTag("Player");
+            //Null発生
+            Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.white);
+        }
+        while (Player2 == null)
+        {
+            Player2 = GameObject.FindGameObjectWithTag("Player2");
+            //Null発生
+            Player2.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.white);
+        }
+        while (killer == null)
+        {
+            killer = GameObject.FindGameObjectWithTag("Killer");
+            killer.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", new Color32(0, 0, 0, 0));
+        }
 
         if (killer != null)
         {
@@ -368,6 +369,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         Debug.Log("redON");
 
     }
+
     public void playercontrol()
     {
         photonView.RPC(nameof(SyncColor), RpcTarget.All, blue);
@@ -381,6 +383,9 @@ public class MainGameManager : MonoBehaviourPunCallbacks
 
     public void StopDrone_Ability()
     {
-
+        for (int num = 0; num < Drone_Objects.Length; num++)
+        {
+            Drone_Objects[num].Call_Stop_Drone();
+        }
     }
 }

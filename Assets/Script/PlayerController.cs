@@ -219,6 +219,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                             }
                         }
 
+                        //アウトライン透過スキル　発動
                         if (gameObject.tag == "Killer" && Input.GetKeyDown(KeyCode.RightShift))
                         {
                             if (cooltime_Image.GetComponent<Image>().fillAmount <= 0)
@@ -228,6 +229,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                             }
 
                         }
+
                         cooltime_Image.GetComponent<Image>().fillAmount -= 0.005f * Time.deltaTime;
                         // 移動方向ベクトル
                         Vector3 move = (transform.forward * z + transform.right * x).normalized;
@@ -316,18 +318,18 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 {
                     if (passwordUI.activeSelf == false)
                     {
-                      
 
-                            float h = Input.GetAxis("Mouse X");
-                            float v = Input.GetAxis("Mouse Y");
-                            side += h;
-                            ver += v;
-                            ver = Mathf.Clamp(ver, -50f, 90f);
-                            // side = Mathf.Clamp(side, -90, 90f);
-                            camera.transform.rotation = Quaternion.Euler(-ver, side, camera.transform.eulerAngles.z);
 
-                            transform.rotation = Quaternion.Euler(0f, side, 0f);
-                        
+                        float h = Input.GetAxis("Mouse X");
+                        float v = Input.GetAxis("Mouse Y");
+                        side += h;
+                        ver += v;
+                        ver = Mathf.Clamp(ver, -50f, 90f);
+                        // side = Mathf.Clamp(side, -90, 90f);
+                        camera.transform.rotation = Quaternion.Euler(-ver, side, camera.transform.eulerAngles.z);
+
+                        transform.rotation = Quaternion.Euler(0f, side, 0f);
+
                     }
                 }
             }
@@ -466,13 +468,13 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 if (fade_trigger == true && fade.fillAmount <= 1)
                 {
                     fade.fillAmount += 2 * Time.deltaTime;
-                    
+
                 }
-                else if(fade.fillAmount >= 0)
+                else if (fade.fillAmount >= 0)
                 {
                     fade.fillAmount -= 2 * Time.deltaTime;
                 }
-               
+
             }
 
 
@@ -500,7 +502,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             playerCanvas.enabled = false;
         }
         Debug.DrawRay(ray.origin, ray.direction * rayDistance, UnityEngine.Color.red);
-      
+
         //error fix
         //camera_Object.transform.rotation = Quaternion.Euler(-ver, transform.eulerAngles.y, 0f);
     }
@@ -568,7 +570,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             PhotonNetwork.Destroy(view.gameObject);
         }
     }
-   
+
     private void OnTriggerEnter(Collider other)
     {
         if (!photonView.IsMine) return;
@@ -586,9 +588,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
             tutorial_UI.SetActive(true);
             tutorial_UI.GetComponent<Animator>().SetBool("show", true);
         }
-       
+
     }
-  
+
     private void OnCollisionEnter(Collision collision)
     {
         if (gameObject.tag == "Player" || gameObject.tag == "Player2")
@@ -598,8 +600,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
                 StartCoroutine(Trap());
                 StartCoroutine(caught());
-                
-               
+
+
             }
         }
     }
@@ -613,7 +615,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     IEnumerator caught()
     {
         fade_trigger = true;
-         yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(3f);
         transform.position = new Vector3(84, 7, 16);
         fade_trigger = false;
     }

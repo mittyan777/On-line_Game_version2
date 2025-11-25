@@ -50,6 +50,7 @@ MonoBehaviour:
   - RPC_ActivateOutlineSkill
   - markof
   - SetMeshRenderer
+  - Stop_Drone
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
