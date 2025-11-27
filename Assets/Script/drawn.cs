@@ -99,6 +99,7 @@ public class drawn : MonoBehaviourPunCallbacks
     [PunRPC]
     void Stop_Drone()
     {
+        StoppingCountTime = 5f;
         MoveDisabled = true;
         SmokeParticle.SetActive(true);
     }
@@ -108,11 +109,14 @@ public class drawn : MonoBehaviourPunCallbacks
         // プレイヤー追跡開始
         if (other.CompareTag("Drone Player Detection") && !other.CompareTag("Killer"))
         {
-            marker.SetActive(true);
-            isChasing = true;
-            siren = true;
-            targetPlayer = other.transform;
-            Debug.Log("追跡開始 -> " + other.tag);
+            if (!MoveDisabled)
+            {
+                marker.SetActive(true);
+                isChasing = true;
+                siren = true;
+                targetPlayer = other.transform;
+                Debug.Log("追跡開始 -> " + other.tag);
+            }
         }
 
         // ドローン停止

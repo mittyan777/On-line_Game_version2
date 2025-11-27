@@ -1,16 +1,9 @@
 using Photon.Pun;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using Photon.Pun.Demo.PunBasics;
-using System.Drawing;
-using System.Runtime.ConstrainedExecution;
-using Photon.Realtime;
-using Unity.Burst.CompilerServices;
-using static Unity.Burst.Intrinsics.X86.Sse4_2;
-using Unity.VisualScripting;
+
 
 public class PlayerController : MonoBehaviourPunCallbacks
 {
