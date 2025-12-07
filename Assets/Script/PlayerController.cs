@@ -425,6 +425,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                                 if (Input.GetKeyDown("f"))
                                 {
                                     animator.SetBool("open", true);
+                                    Invoke("EXIT", 3);
                                 }
                             }
                         }
@@ -621,6 +622,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public void tutorial_of()
     {
         StartCoroutine(tutorial());
+    }
+    private void EXIT()
+    {
+        SceneManager.LoadScene("Title");
     }
 
 }
