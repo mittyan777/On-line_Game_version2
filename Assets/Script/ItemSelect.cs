@@ -23,6 +23,7 @@ public class ItemSelect : MonoBehaviourPunCallbacks
     private Animator animator;
     private Animator animator2;
     public bool tora = false;
+    [SerializeField] Image Stop_device_cooltime;
     Collar collar = new Collar();
     // Start is called before the first frame update
     public class Collar
@@ -39,6 +40,8 @@ public class ItemSelect : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
+        Stop_device_cooltime.fillAmount -= Time.deltaTime / 8;    
+
         float scroll = Input.GetAxis("Mouse ScrollWheel");
 
         if (scroll > 0f)
@@ -202,7 +205,11 @@ public class ItemSelect : MonoBehaviourPunCallbacks
                 break;
             case 2:
                 //ドローン停止
-                Manager.GetComponent<MainGameManager>().StopDrone_Ability();
+                if (Stop_device_cooltime.fillAmount <= 0)
+                {
+                    Manager.GetComponent<MainGameManager>().StopDrone_Ability();
+                    Stop_device_cooltime.fillAmount = 1f;
+                }
                 break;
         }
     }
