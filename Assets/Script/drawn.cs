@@ -33,6 +33,7 @@ public class drawn : MonoBehaviourPunCallbacks
 
     [SerializeField] private GameObject marker;
     [SerializeField] GameObject SmokeParticle;
+    [SerializeField] GameObject gameManager;
 
     public float distance;
     public float distance2;
@@ -51,8 +52,11 @@ public class drawn : MonoBehaviourPunCallbacks
 
     void Update()
     {
-        distance = Vector3.Distance(GameObject.FindWithTag("Player").transform.position, transform.position);
-        distance2 = Vector3.Distance(GameObject.FindWithTag("Player2").transform.position, transform.position);
+        if (gameManager.GetComponent<MainGameManager>().Gamestart == true)
+        {
+            distance = Vector3.Distance(GameObject.FindWithTag("Player").transform.position, transform.position);
+            distance2 = Vector3.Distance(GameObject.FindWithTag("Player2").transform.position, transform.position);
+        }
         // í‚é~íÜÇÃèàóù
         if (MoveDisabled)
         {

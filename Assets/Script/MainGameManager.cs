@@ -51,17 +51,21 @@ public class MainGameManager : MonoBehaviourPunCallbacks
             Player = GameObject.FindGameObjectWithTag("Player");
             //Null発生
             Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.white);
+            Player.transform.position = new Vector3(246f, 2f, -31f);
+           
         }
         while (Player2 == null)
         {
             Player2 = GameObject.FindGameObjectWithTag("Player2");
             //Null発生
             Player2.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.white);
+            Player2.transform.position = new Vector3(246f, 2f, -31f);
         }
         while (killer == null)
         {
             killer = GameObject.FindGameObjectWithTag("Killer");
             killer.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", new Color32(0, 0, 0, 0));
+            killer.transform.position = new Vector3(246f, 2f, -31f);
         }
 
         if (killer != null)
@@ -292,6 +296,8 @@ public class MainGameManager : MonoBehaviourPunCallbacks
 
             TimerLabel.text = $"{(int)CountTimer}";
         }
+       
+       
     }
 
     private void TrySetRoleLabel(Player player)
