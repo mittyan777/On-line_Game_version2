@@ -22,6 +22,7 @@ TagManager:
   - Drone Player Detection
   - fade
   - tutorial
+  - dummy_Player
   layers:
   - Default
   - TransparentFX

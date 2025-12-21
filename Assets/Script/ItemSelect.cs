@@ -44,7 +44,10 @@ public class ItemSelect : MonoBehaviourPunCallbacks
         Stop_device_cooltime.fillAmount -= Time.deltaTime / 8;    
 
         float scroll = Input.GetAxis("Mouse ScrollWheel");
-
+        if(gameObject.tag == "killer")
+        {
+            SelectingSlot.SetActive(false);
+        }
         if (scroll > 0f)
         {
             Debug.Log("ホイール上");

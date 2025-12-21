@@ -22,6 +22,9 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     [SerializeField] GameObject Player;
     [SerializeField] GameObject Player2;
     [SerializeField] GameObject killer;
+    [SerializeField] GameObject dummy_Player;
+    [SerializeField] GameObject dummy_Player_switch;
+    [SerializeField] GameObject dummy_Player_switch2;
     [SerializeField] drawn[] Drone_Objects;
     [SerializeField] GameObject Direction_right;
 
@@ -51,7 +54,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
             Player = GameObject.FindGameObjectWithTag("Player");
             //Null発生
             Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.white);
-            Player.transform.position = new Vector3(246f, 2f, -31f);
+            Player.transform.position = new Vector3(210f, 2f, -31f);
            
         }
         while (Player2 == null)
@@ -59,13 +62,19 @@ public class MainGameManager : MonoBehaviourPunCallbacks
             Player2 = GameObject.FindGameObjectWithTag("Player2");
             //Null発生
             Player2.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.white);
-            Player2.transform.position = new Vector3(246f, 2f, -31f);
+            Player2.transform.position = new Vector3(210f, 2f, -31f);
         }
         while (killer == null)
         {
             killer = GameObject.FindGameObjectWithTag("Killer");
             killer.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", new Color32(0, 0, 0, 0));
             killer.transform.position = new Vector3(246f, 2f, -31f);
+        }
+        while(dummy_Player == null)
+        {
+            dummy_Player = GameObject.FindGameObjectWithTag("dummy_Player");
+            //Null発生
+            dummy_Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.white);
         }
 
         if (killer != null)
@@ -77,8 +86,6 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         //アウトライン、コライダー設定
         if (blue == true && red == false)
         {
-            Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.blue);
-            Player2.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.blue);
             CollarImage[0].SetActive(true);
             CollarImage[1].SetActive(false);
             CollarImage[2].SetActive(false);
@@ -122,17 +129,22 @@ public class MainGameManager : MonoBehaviourPunCallbacks
                 Physics.IgnoreCollision(player2Col, col, false);
                 Physics.IgnoreCollision(killer, col, true);
             }
+
+            Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.blue);
+            Player2.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.blue);
+            dummy_Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.blue);
+            dummy_Player_switch.GetComponent<Animator>().SetBool("switch", true);
+            dummy_Player_switch2.GetComponent<Animator>().SetBool("switch", false);
         }
         if (red == true && blue == false)
         {
-            Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.red);
-            Player2.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.red);
             CollarImage[0].SetActive(false);
             CollarImage[1].SetActive(true);
             CollarImage[2].SetActive(false);
             CollarImage[3].SetActive(false);
 
 
+
             GameObject[] blues = GameObject.FindGameObjectsWithTag("blue");
             GameObject[] reds = GameObject.FindGameObjectsWithTag("red");
             GameObject[] purple = GameObject.FindGameObjectsWithTag("purple");
@@ -171,16 +183,21 @@ public class MainGameManager : MonoBehaviourPunCallbacks
                 Physics.IgnoreCollision(player2Col, col, false);
                 Physics.IgnoreCollision(killer, col, true);
             }
+            Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.red);
+            Player2.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.red);
+            dummy_Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.red);
+            dummy_Player_switch.GetComponent<Animator>().SetBool("switch", false);
+            dummy_Player_switch2.GetComponent<Animator>().SetBool("switch", true);
         }
         if (blue == false && red == false)
         {
-            Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.white);
-            Player2.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.white);
             CollarImage[0].SetActive(false);
             CollarImage[1].SetActive(false);
             CollarImage[2].SetActive(true);
             CollarImage[3].SetActive(false);
 
+        
+
             GameObject[] blues = GameObject.FindGameObjectsWithTag("blue");
             GameObject[] reds = GameObject.FindGameObjectsWithTag("red");
             GameObject[] purple = GameObject.FindGameObjectsWithTag("purple");
@@ -219,16 +236,20 @@ public class MainGameManager : MonoBehaviourPunCallbacks
                 Physics.IgnoreCollision(player2Col, col, true);
                 Physics.IgnoreCollision(killer, col, true);
             }
+
+            Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.white);
+            Player2.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.white);
+            dummy_Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.white);
+            dummy_Player_switch.GetComponent<Animator>().SetBool("switch", false);
+            dummy_Player_switch2.GetComponent<Animator>().SetBool("switch", false);
         }
         if (blue == true && red == true)
         {
-            Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", new UnityEngine.Color(0.5f, 0f, 0.5f, 1f));
-            Player2.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", new UnityEngine.Color(0.5f, 0f, 0.5f, 1f));
             CollarImage[0].SetActive(false);
             CollarImage[1].SetActive(false);
             CollarImage[2].SetActive(false);
             CollarImage[3].SetActive(true);
-
+      
 
             GameObject[] blues = GameObject.FindGameObjectsWithTag("blue");
             GameObject[] reds = GameObject.FindGameObjectsWithTag("red");
@@ -268,6 +289,11 @@ public class MainGameManager : MonoBehaviourPunCallbacks
                 Physics.IgnoreCollision(player2Col, col, false);
                 Physics.IgnoreCollision(killer, col, true);
             }
+            Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", new UnityEngine.Color(0.5f, 0f, 0.5f, 1f));
+            Player2.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", new UnityEngine.Color(0.5f, 0f, 0.5f, 1f));
+            dummy_Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", new UnityEngine.Color(0.5f, 0f, 0.5f, 1f));
+            dummy_Player_switch.GetComponent<Animator>().SetBool("switch", true);
+            dummy_Player_switch2.GetComponent<Animator>().SetBool("switch", true);
         }
 
         //photonView.RPC(nameof(ChangeColor), RpcTarget.AllBuffered);

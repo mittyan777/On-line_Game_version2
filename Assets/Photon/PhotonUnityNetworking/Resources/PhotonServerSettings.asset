@@ -51,6 +51,7 @@ MonoBehaviour:
   - markof
   - SetMeshRenderer
   - Stop_Drone
+  - RPC_SetOpen
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
