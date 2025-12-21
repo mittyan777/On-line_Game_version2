@@ -72,6 +72,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     void test()
     {
+        if (!photonView.IsMine)
+        {
+            playerCanvas.gameObject.SetActive(false);
+        }
 
         if (photonView.IsMine)
         {
@@ -213,7 +217,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                         }
 
                         //アウトライン透過スキル　発動
-                        if (gameObject.tag == "Killer" && Input.GetKeyDown(KeyCode.RightShift))
+                        if (gameObject.tag == "Killer" && Input.GetMouseButtonDown(0))
                         {
                             if (cooltime_Image.GetComponent<Image>().fillAmount <= 0)
                             {
@@ -301,7 +305,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
         if (photonView.IsMine)
         {
-            playerCanvas.enabled = true;
+            //playerCanvas.enabled = true;
             //Rayのエラーのため、無効化
             //photonView.RPC("SetRay", RpcTarget.AllBuffered);
 
@@ -355,7 +359,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
                             select.text = "[F]開ける";
                             if (Input.GetKeyDown("f"))
                             {
-                                animator.SetBool("open", true);
+                                DoorController door = hit.collider.GetComponent<DoorController>();
+                                if (door != null)
+                                {
+                                    door.SetOpen(true);
+                                }
                             }
                         }
                         else if (animator.GetBool("open") == true)
@@ -363,7 +371,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
                             select.text = "[F]閉める";
                             if (Input.GetKeyDown("f"))
                             {
-                                animator.SetBool("open", false);
+                                DoorController door = hit.collider.GetComponent<DoorController>();
+                                if (door != null)
+                                {
+                                    door.SetOpen(false);
+                                }
                             }
                         }
 
@@ -378,7 +390,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
                             select.text = "[F]開ける";
                             if (Input.GetKeyDown("f"))
                             {
-                                animator.SetBool("open", true);
+                                DoorController door = hit.collider.GetComponent<DoorController>();
+                                if (door != null)
+                                {
+                                    door.SetOpen(true);
+                                }
                             }
                         }
                         else if (animator.GetBool("open") == true)
@@ -386,7 +402,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
                             select.text = "[F]閉める";
                             if (Input.GetKeyDown("f"))
                             {
-                                animator.SetBool("open", false);
+                                DoorController door = hit.collider.GetComponent<DoorController>();
+                                if (door != null)
+                                {
+                                    door.SetOpen(false);
+                                }
                             }
                         }
 
@@ -424,9 +444,16 @@ public class PlayerController : MonoBehaviourPunCallbacks
                                 select.text = "[F]開ける";
                                 if (Input.GetKeyDown("f"))
                                 {
-                                    animator.SetBool("open", true);
-                                    Invoke("EXIT", 3);
+                                    DoorController door = hit.collider.GetComponent<DoorController>();
+                                    if (door != null)
+                                    {
+                                        door.SetOpen(false);
+                                        Invoke("EXIT", 3);
+                                    }
                                 }
+                           
+                                   
+                                
                             }
                         }
 
@@ -493,7 +520,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
         else
         {
-            playerCanvas.enabled = false;
+            //playerCanvas.enabled = false;
         }
         Debug.DrawRay(ray.origin, ray.direction * rayDistance, UnityEngine.Color.red);
 
@@ -514,6 +541,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
         GameObject.FindGameObjectWithTag("Player").GetComponent<Outline>().OutlineMode = Outline.Mode.OutlineAll;
         GameObject.FindGameObjectWithTag("Player2").GetComponent<Outline>().OutlineMode = Outline.Mode.OutlineAll;
+        GameObject.FindGameObjectWithTag("dummy_Player").GetComponent<Outline>().OutlineMode = Outline.Mode.OutlineAll;
         Invoke("ActivateOutlineSkillOF", 5);
 
 

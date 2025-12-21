@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -32,6 +33,10 @@ public class drawn : MonoBehaviourPunCallbacks
 
     [SerializeField] private GameObject marker;
     [SerializeField] GameObject SmokeParticle;
+    [SerializeField] GameObject gameManager;
+
+    public float distance;
+    public float distance2;
 
     void Start()
     {
@@ -47,6 +52,11 @@ public class drawn : MonoBehaviourPunCallbacks
 
     void Update()
     {
+        if (gameManager.GetComponent<MainGameManager>().Gamestart == true)
+        {
+            distance = Vector3.Distance(GameObject.FindWithTag("Player").transform.position, transform.position);
+            distance2 = Vector3.Distance(GameObject.FindWithTag("Player2").transform.position, transform.position);
+        }
         // í‚é~íÜÇÃèàóù
         if (MoveDisabled)
         {
@@ -99,9 +109,12 @@ public class drawn : MonoBehaviourPunCallbacks
     [PunRPC]
     void Stop_Drone()
     {
-        StoppingCountTime = 5f;
-        MoveDisabled = true;
-        SmokeParticle.SetActive(true);
+        if (distance <= 10 || distance2 <= 10)
+        {
+            StoppingCountTime = 5f;
+            MoveDisabled = true;
+            SmokeParticle.SetActive(true);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -115,6 +128,8 @@ public class drawn : MonoBehaviourPunCallbacks
                 isChasing = true;
                 siren = true;
                 targetPlayer = other.transform;
+                
+
                 Debug.Log("í«ê’äJén -> " + other.tag);
             }
         }

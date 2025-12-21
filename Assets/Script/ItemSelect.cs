@@ -15,6 +15,7 @@ public class ItemSelect : MonoBehaviourPunCallbacks
     const int MAX_ITEMSLOTS = 3;
     [SerializeField] GameObject Playersw;
     [SerializeField] GameObject Playersw2;
+    [SerializeField] GameObject Stop_device;
     [SerializeField] GameObject torabasami;
     [SerializeField] GameObject Installation_clamp;
     [SerializeField] GameObject tora_Installation_position;
@@ -43,7 +44,10 @@ public class ItemSelect : MonoBehaviourPunCallbacks
         Stop_device_cooltime.fillAmount -= Time.deltaTime / 8;    
 
         float scroll = Input.GetAxis("Mouse ScrollWheel");
-
+        if(gameObject.tag == "killer")
+        {
+            SelectingSlot.SetActive(false);
+        }
         if (scroll > 0f)
         {
             Debug.Log("ホイール上");
@@ -73,6 +77,7 @@ public class ItemSelect : MonoBehaviourPunCallbacks
             if (Current_ItemNum == 0)
             {
                 torabasami.SetActive(false);
+                Stop_device.SetActive(false);
                 tora_Installation_position.SetActive(false);
                 if (gameObject.tag == "Player")
                 {
@@ -87,6 +92,7 @@ public class ItemSelect : MonoBehaviourPunCallbacks
             {
                 Playersw.SetActive(false);
                 Playersw2.SetActive(false);
+                Stop_device.SetActive(false);
                 if (gameObject.tag == "Player")
                 {
                     if (tora == true)
@@ -117,15 +123,9 @@ public class ItemSelect : MonoBehaviourPunCallbacks
                 Playersw.SetActive(false);
                 Playersw2.SetActive(false);
                 torabasami.SetActive(false);
+                Stop_device.SetActive(true);
                 tora_Installation_position.SetActive(false);
-                if (gameObject.tag == "Player")
-                {
-
-                }
-                else if (gameObject.tag == "Player2")
-                {
-
-                }
+             
             }
             if (tora == true)
             {
