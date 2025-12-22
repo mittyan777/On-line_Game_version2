@@ -780,7 +780,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3888285645644535897}
   - component: {fileID: 8251123440485797504}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: GameObject
   m_TagString: Drone Player Detection
   m_Icon: {fileID: 0}

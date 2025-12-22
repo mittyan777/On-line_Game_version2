@@ -412,6 +412,17 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         photonView.RPC(nameof(SyncColor2), RpcTarget.All, red);
 
     }
+    public void killer_skill()
+    {
+        photonView.RPC(nameof(RPC_ActivateOutlineSkill), RpcTarget.All);
+
+    }
+    public void killer_skillOF()
+    {
+        photonView.RPC(nameof(RPC_DeactivateOutlineSkill), RpcTarget.All);
+
+    }
+
 
     public void StopDrone_Ability()
     {
@@ -419,5 +430,31 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         {
             Drone_Objects[num].Call_Stop_Drone();
         }
+    }
+
+    //アウトライン透過能力
+    [PunRPC]
+    void RPC_ActivateOutlineSkill()
+    {
+
+        // スキル使用者の名前などを出力
+        Debug.Log($"{photonView.Owner.NickName} がアウトラインスキルを発動！");
+
+        // 自分以外のプレイヤーを対象に壁越し可視化
+        // 全てのプレイヤーオブジェクトを捜索
+
+       Player.GetComponent<Outline>().OutlineMode = Outline.Mode.OutlineAll;
+        Player2.GetComponent<Outline>().OutlineMode = Outline.Mode.OutlineAll;
+        GameObject.FindGameObjectWithTag("dummy_Player").GetComponent<Outline>().OutlineMode = Outline.Mode.OutlineAll;
+
+
+
+    }
+    [PunRPC]
+    void RPC_DeactivateOutlineSkill()
+    {
+        GameObject.FindGameObjectWithTag("Player").GetComponent<Outline>().OutlineMode = Outline.Mode.OutlineVisible;
+        GameObject.FindGameObjectWithTag("Player2").GetComponent<Outline>().OutlineMode = Outline.Mode.OutlineVisible;
+        GameObject.FindGameObjectWithTag("dummy_Player").GetComponent<Outline>().OutlineMode = Outline.Mode.OutlineVisible;
     }
 }

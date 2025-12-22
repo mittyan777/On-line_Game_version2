@@ -52,6 +52,11 @@ MonoBehaviour:
   - SetMeshRenderer
   - Stop_Drone
   - RPC_SetOpen
+  - RPC_SetOpen2
+  - RPC_SetOpen3
+  - RPC_SetOpen4
+  - RPC_DeactivateOutlineSkill
+  - RPC_Update
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
