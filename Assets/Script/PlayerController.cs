@@ -461,7 +461,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
                                     if (door != null)
                                     {
                                         door.SetOpen(false);
-                                        Invoke("EXIT", 3);
                                     }
                                 }
                            
@@ -605,6 +604,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             other.gameObject.GetComponent<GameStart_count>().SetOpen3();
         }
+        if(other.gameObject.name == "END")
+        {
+            StartCoroutine(END());
+        }
 
     }
     private void OnTriggerExit(Collider other)
@@ -647,6 +650,13 @@ public class PlayerController : MonoBehaviourPunCallbacks
         transform.position = new Vector3(84, 7, 16);
         fade_trigger = false;
     }
+    IEnumerator END()
+    {
+        fade_trigger = true;
+        yield return new WaitForSeconds(4f);
+        PhotonResetManager.Instance.BackToTitle();
+
+    }
     IEnumerator tutorial()
     {
         tutorial_UI.GetComponent<Animator>().SetBool("tutorial_of", true);
@@ -657,9 +667,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
     {
         StartCoroutine(tutorial());
     }
-    private void EXIT()
-    {
-        SceneManager.LoadScene("Title");
-    }
+
 
 }

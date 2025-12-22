@@ -1,41 +1,53 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class random_collar : MonoBehaviour
+public class RandomColor : MonoBehaviourPun
 {
     int collar;
     Material material;
-    [SerializeField]Material []Reference_material;
-    // Start is called before the first frame update
+
+    [SerializeField] Material[] referenceMaterials;
+
     void Start()
     {
-        collar = Random.Range(1, 5);
         material = GetComponent<Renderer>().material;
+
+        // MasterClient だけがランダムを決定
+        if (PhotonNetwork.IsMasterClient)
+        {
+            collar = Random.Range(1, 5);
+
+            // 全クライアントに送信
+            photonView.RPC(nameof(SetColor), RpcTarget.AllBuffered, collar);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    [PunRPC]
+    void SetColor(int value)
     {
-        if(collar == 1)
+        collar = value;
+
+        switch (collar)
         {
-            gameObject.tag = "red";
-            material.color = Reference_material[0].color;
-        }
-        else if(collar == 2) 
-        {
-            gameObject.tag = "blue";
-            material.color = Reference_material[1].color;
-        }
-        else if(collar == 3)
-        {
-            gameObject.tag = "purple";
-            material.color = Reference_material[2].color;
-        }
-        else if(collar == 4)
-        {
-            gameObject.tag = "white";
-            material.color = Reference_material[3].color;
+            case 1:
+                gameObject.tag = "red";
+                material.color = referenceMaterials[0].color;
+                break;
+
+            case 2:
+                gameObject.tag = "blue";
+                material.color = referenceMaterials[1].color;
+                break;
+
+            case 3:
+                gameObject.tag = "purple";
+                material.color = referenceMaterials[2].color;
+                break;
+
+            case 4:
+                gameObject.tag = "white";
+                material.color = referenceMaterials[3].color;
+                break;
         }
     }
 }
