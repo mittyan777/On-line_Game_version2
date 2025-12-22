@@ -6,6 +6,7 @@ using ExitGames.Client.Photon;
 using System.Drawing;
 using System.Linq;
 using System;
+using Unity.VisualScripting;
 
 public class MainGameManager : MonoBehaviourPunCallbacks
 {
@@ -425,6 +426,11 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         photonView.RPC(nameof(RPC_DeactivateOutlineSkill), RpcTarget.All);
 
     }
+    public void Game_Clear(string a)
+    {
+        photonView.RPC(nameof(Clear), RpcTarget.All,a);
+
+    }
 
 
     public void StopDrone_Ability()
@@ -434,9 +440,15 @@ public class MainGameManager : MonoBehaviourPunCallbacks
             Drone_Objects[num].Call_Stop_Drone();
         }
     }
-
-    //アウトライン透過能力
     [PunRPC]
+    void Clear(string target)
+    {
+        GameObject.FindWithTag(target).GetComponent<PlayerController>().Mermaid.SetActive(false);
+        GameObject.FindWithTag(target).gameObject.layer = 20;
+
+    }
+        //アウトライン透過能力
+        [PunRPC]
     void RPC_ActivateOutlineSkill()
     {
 

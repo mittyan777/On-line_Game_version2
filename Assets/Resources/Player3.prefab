@@ -1653,6 +1653,7 @@ MonoBehaviour:
   - {fileID: 5953388045145867855}
   - {fileID: 5072326249289859741}
   Notepad: {fileID: 399949889523612824}
+  Mermaid: {fileID: 6792570429043739121}
   skillDuration: 5
   itemslot: {fileID: 7769793958420099666}
   skillslot: {fileID: 7879562323716798087}
