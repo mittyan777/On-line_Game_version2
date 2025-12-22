@@ -214565,7 +214565,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sabaiba_text: {fileID: 2662599}
   killer_text: {fileID: 157985590}
-  Start_pos: []
+  Start_pos:
+  - {fileID: 2041575764}
+  - {fileID: 1296514521}
+  - {fileID: 1541767055}
+  Gamemanager: {fileID: 1527164663}
 --- !u!65 &935192826
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -341942,6 +341946,8 @@ MonoBehaviour:
   GameTime: 300
   TimerLabel: {fileID: 215148934}
   CurrentRoll_Label: {fileID: 215148935}
+  sabaiba_count: 0
+  killer_count: 0
   Player: {fileID: 0}
   Player2: {fileID: 0}
   killer: {fileID: 0}
@@ -467123,7 +467129,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sabaiba_text: {fileID: 2662599}
   killer_text: {fileID: 157985590}
-  Start_pos: []
+  Start_pos:
+  - {fileID: 2041575764}
+  - {fileID: 1296514521}
+  - {fileID: 1541767055}
+  Gamemanager: {fileID: 1527164663}
 --- !u!65 &2049565139
 BoxCollider:
   m_ObjectHideFlags: 0

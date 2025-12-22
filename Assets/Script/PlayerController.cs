@@ -218,7 +218,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                         }
 
                         //アウトライン透過スキル　発動
-                        if (gameObject.tag == "Killer" && Input.GetMouseButtonDown(0))
+                        if (gameObject.tag == "Killer" && Input.GetMouseButton(0))
                         {
                             if (cooltime_Image.GetComponent<Image>().fillAmount <= 0)
                             {

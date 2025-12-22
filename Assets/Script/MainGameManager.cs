@@ -18,6 +18,9 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     float timerSendInterval = 0.2f;
     float timerSendCounter = 0f;
 
+    public int sabaiba_count = 0;
+    public int killer_count = 0;
+
     [Header("キャラクター設定")]
     [SerializeField] GameObject Player;
     [SerializeField] GameObject Player2;
