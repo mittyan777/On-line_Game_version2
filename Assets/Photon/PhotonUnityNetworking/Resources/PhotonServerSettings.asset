@@ -57,6 +57,7 @@ MonoBehaviour:
   - RPC_SetOpen4
   - RPC_DeactivateOutlineSkill
   - RPC_Update
+  - SetColor
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
