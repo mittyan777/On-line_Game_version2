@@ -87,6 +87,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
             if (this.gameObject.tag == "Killer")
             {
+                Manager = GameObject.Find("GameManager");
                 GameObject.Find("killerImage").SetActive(true);
                 GameObject.Find("PlayerImage").SetActive(false);
                 GameObject.Find("Player2Image").SetActive(false);
@@ -221,21 +222,33 @@ public class PlayerController : MonoBehaviourPunCallbacks
                         {
                             if (cooltime_Image.GetComponent<Image>().fillAmount <= 0)
                             {
-                                photonView.RPC(nameof(RPC_ActivateOutlineSkill), RpcTarget.All);
                                 cooltime_Image.GetComponent<Image>().fillAmount = 1;
+                                Manager.GetComponent<MainGameManager>().killer_skill();
+
                             }
 
                         }
+                       
+                        
 
-                        cooltime_Image.GetComponent<Image>().fillAmount -= 0.005f * Time.deltaTime;
-                        // 移動方向ベクトル
-                        Vector3 move = (transform.forward * z + transform.right * x).normalized;
+
+                            // 移動方向ベクトル
+                            Vector3 move = (transform.forward * z + transform.right * x).normalized;
 
                         // 実際の移動
                         transform.position += move * MoveSpeed * Time.deltaTime;
                     }
                 }
             }
+            cooltime_Image.GetComponent<Image>().fillAmount -= 0.005f * Time.deltaTime;
+            if (gameObject.tag == "Killer" )
+            {
+                if (cooltime_Image.GetComponent<Image>().fillAmount <= 0.95f)
+                {
+                    Manager.GetComponent<MainGameManager>().killer_skillOF();
+                }
+            }
+
         }
         if (photonView.IsMine && sceneName == "lobby")
         {
@@ -528,33 +541,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         //camera_Object.transform.rotation = Quaternion.Euler(-ver, transform.eulerAngles.y, 0f);
     }
 
-    //アウトライン透過能力
-    [PunRPC]
-    void RPC_ActivateOutlineSkill()
-    {
-
-        // スキル使用者の名前などを出力
-        Debug.Log($"{photonView.Owner.NickName} がアウトラインスキルを発動！");
-
-        // 自分以外のプレイヤーを対象に壁越し可視化
-        // 全てのプレイヤーオブジェクトを捜索
-
-        GameObject.FindGameObjectWithTag("Player").GetComponent<Outline>().OutlineMode = Outline.Mode.OutlineAll;
-        GameObject.FindGameObjectWithTag("Player2").GetComponent<Outline>().OutlineMode = Outline.Mode.OutlineAll;
-        GameObject.FindGameObjectWithTag("dummy_Player").GetComponent<Outline>().OutlineMode = Outline.Mode.OutlineAll;
-        Invoke("ActivateOutlineSkillOF", 5);
-
-
-
-
-
-    }
-    void ActivateOutlineSkillOF()
-    {
-        GameObject.FindGameObjectWithTag("Player").GetComponent<Outline>().OutlineMode = Outline.Mode.OutlineVisible;
-        GameObject.FindGameObjectWithTag("Player2").GetComponent<Outline>().OutlineMode = Outline.Mode.OutlineVisible;
-    }
-
+   
 
     void ApplyIfOtherPlayer(GameObject obj)
     {
@@ -610,22 +597,41 @@ public class PlayerController : MonoBehaviourPunCallbacks
             tutorial_UI.SetActive(true);
             tutorial_UI.GetComponent<Animator>().SetBool("show", true);
         }
+        if(other.gameObject.name == "Player_count")
+        {  
+            other.gameObject.GetComponent<GameStart_count>().SetOpen();
+        }
+        if (other.gameObject.name == "killer_count")
+        {
+            other.gameObject.GetComponent<GameStart_count>().SetOpen3();
+        }
 
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.name == "Player_count")
+        {
+            other.gameObject.GetComponent<GameStart_count>().SetOpen2();
+        }
+        if (other.gameObject.name == "killer_count")
+        {
+            other.gameObject.GetComponent<GameStart_count>().SetOpen4();
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (gameObject.tag == "Player" || gameObject.tag == "Player2")
-        {
-            if (collision.gameObject.tag == "Killer")
-            {
-
-                StartCoroutine(Trap());
-                StartCoroutine(caught());
-
-
-            }
-        }
+       // if (gameObject.tag == "Player" || gameObject.tag == "Player2")
+       // {
+       //     if (collision.gameObject.tag == "Killer")
+       //     {
+       //
+       //         StartCoroutine(Trap());
+       //         StartCoroutine(caught());
+       //
+       //
+       //     }
+       // }
     }
     IEnumerator Trap()
     {
