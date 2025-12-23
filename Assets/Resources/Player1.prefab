@@ -1642,9 +1642,12 @@ MonoBehaviour:
   itemslot: {fileID: 7563002741243005882}
   skillslot: {fileID: 4670506439348669703}
   cooltime_Image: {fileID: 6642336555052664195}
+  Trap_trigger: 0
   Drone_Player_Detection: {fileID: 4431026302461855121}
   fade: {fileID: 0}
+  fade_trigger: 0
   tutorial_UI: {fileID: 0}
+  detainee_name: 
 --- !u!114 &5914042319032669370
 MonoBehaviour:
   m_ObjectHideFlags: 0

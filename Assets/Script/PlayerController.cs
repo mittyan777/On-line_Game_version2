@@ -45,16 +45,16 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [SerializeField] GameObject itemslot;
     [SerializeField] GameObject skillslot;
     [SerializeField] GameObject cooltime_Image;
-    bool Trap_trigger = false;
+    public bool Trap_trigger = false;
     GameObject tora;
     [SerializeField] GameObject Drone_Player_Detection;
     [SerializeField] Image fade;
-    bool fade_trigger = false;
+    public bool fade_trigger = false;
     float fade_a;
 
     [SerializeField] GameObject tutorial_UI;
 
-    string detainee_name;
+    [SerializeField]string detainee_name;
 
 
 // Start is called before the first frame update
@@ -482,8 +482,17 @@ void Start()
                             }
                         }
 
-
-
+                    }
+                    else if(hit.collider.gameObject.tag == "Player" || hit.collider.gameObject.tag == "Player2")
+                    {
+                        select.text = "[F]捕まえる";
+                        if (Input.GetKeyDown("f"))
+                        {
+                            if (gameObject.tag == "Killer")
+                            {
+                                Manager.GetComponent<MainGameManager>().killer_Securing(hit.collider.gameObject.tag);
+                            }
+                        }
                     }
 
 
@@ -517,7 +526,7 @@ void Start()
                                 }
                             }
                         }
-                        
+
 
 
 
@@ -561,24 +570,26 @@ void Start()
                 }
 
             }
-
-
-            if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.W))
+            if (gameObject.tag != "Killer")
             {
-                MoveSpeed = 8;
-                animator.SetBool("dash", true);
-                if (camera.GetComponent<Camera>().fieldOfView < 80)
+
+                if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.W))
                 {
-                    camera.GetComponent<Camera>().fieldOfView += 80f * Time.deltaTime;
+                    MoveSpeed = 8;
+                    animator.SetBool("dash", true);
+                    if (camera.GetComponent<Camera>().fieldOfView < 80)
+                    {
+                        camera.GetComponent<Camera>().fieldOfView += 80f * Time.deltaTime;
+                    }
                 }
-            }
-            else
-            {
-                animator.SetBool("dash", false);
-                MoveSpeed = 5;
-                if (camera.GetComponent<Camera>().fieldOfView > 60)
+                else
                 {
-                    camera.GetComponent<Camera>().fieldOfView -= 50f * Time.deltaTime;
+                    animator.SetBool("dash", false);
+                    MoveSpeed = 5;
+                    if (camera.GetComponent<Camera>().fieldOfView > 60)
+                    {
+                        camera.GetComponent<Camera>().fieldOfView -= 50f * Time.deltaTime;
+                    }
                 }
             }
         }
@@ -660,10 +671,7 @@ void Start()
         {
             StartCoroutine(END());
         }
-        if(gameObject.name == "Jail")
-        {
-            detainee_name = other.gameObject.tag;
-        }
+   
 
     }
     private void OnTriggerExit(Collider other)
@@ -684,17 +692,21 @@ void Start()
 
     private void OnCollisionEnter(Collision collision)
     {
-       // if (gameObject.tag == "Player" || gameObject.tag == "Player2")
-       // {
-       //     if (collision.gameObject.tag == "Killer")
-       //     {
-       //
-       //         StartCoroutine(Trap());
-       //         StartCoroutine(caught());
-       //
-       //
-       //     }
-       // }
+        if (collision.gameObject.tag == "Jail")
+        {
+            detainee_name = gameObject.tag;
+        }
+        // if (gameObject.tag == "Player" || gameObject.tag == "Player2")
+        // {
+        //     if (collision.gameObject.tag == "Killer")
+        //     {
+        //
+        //         StartCoroutine(Trap());
+        //         StartCoroutine(caught());
+        //
+        //
+        //     }
+        // }
     }
     IEnumerator Trap()
     {
@@ -703,13 +715,7 @@ void Start()
         Destroy(tora);
         Trap_trigger = false;
     }
-    IEnumerator caught()
-    {
-        fade_trigger = true;
-        yield return new WaitForSeconds(3f);
-        transform.position = new Vector3(84, 7, 16);
-        fade_trigger = false;
-    }
+   
     IEnumerator END()
     {
         fade_trigger = true;

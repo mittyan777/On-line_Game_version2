@@ -24,6 +24,7 @@ TagManager:
   - tutorial
   - dummy_Player
   - Prison_door
+  - Jail
   layers:
   - Default
   - TransparentFX
