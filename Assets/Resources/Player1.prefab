@@ -1637,13 +1637,17 @@ MonoBehaviour:
   - {fileID: 3181990943697852179}
   - {fileID: 975984038854867120}
   Notepad: {fileID: 7738443338094992136}
+  Mermaid: {fileID: 5112321646563768848}
   skillDuration: 5
   itemslot: {fileID: 7563002741243005882}
   skillslot: {fileID: 4670506439348669703}
   cooltime_Image: {fileID: 6642336555052664195}
+  Trap_trigger: 0
   Drone_Player_Detection: {fileID: 4431026302461855121}
   fade: {fileID: 0}
+  fade_trigger: 0
   tutorial_UI: {fileID: 0}
+  detainee_name: 
 --- !u!114 &5914042319032669370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2427,9 +2431,17 @@ PrefabInstance:
       propertyPath: m_AABB.m_Extent.z
       value: 0.19775274
       objectReference: {fileID: 0}
+    - target: {fileID: -4297446187249348513, guid: a6787375db06ea947ba54419047304c1, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -1728013695380148634, guid: a6787375db06ea947ba54419047304c1, type: 3}
       propertyPath: m_Name
       value: ippan
+      objectReference: {fileID: 0}
+    - target: {fileID: -1728013695380148634, guid: a6787375db06ea947ba54419047304c1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2953604236389334553, guid: a6787375db06ea947ba54419047304c1, type: 3}
       propertyPath: m_DirtyAABB

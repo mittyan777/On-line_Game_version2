@@ -1,11 +1,17 @@
-using UnityEngine;
-using UnityEngine.UI;
+using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
-using ExitGames.Client.Photon;
+using System;
 using System.Drawing;
 using System.Linq;
-using System;
+using Unity.Burst.CompilerServices;
+using Unity.VisualScripting;
+using System.Collections;
+using UnityEngine;
+using UnityEngine.UI;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
+
+
 
 public class MainGameManager : MonoBehaviourPunCallbacks
 {
@@ -425,6 +431,11 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         photonView.RPC(nameof(RPC_DeactivateOutlineSkill), RpcTarget.All);
 
     }
+    public void Game_Clear(string a)
+    {
+        photonView.RPC(nameof(Clear), RpcTarget.All,a);
+
+    }
 
 
     public void StopDrone_Ability()
@@ -434,9 +445,40 @@ public class MainGameManager : MonoBehaviourPunCallbacks
             Drone_Objects[num].Call_Stop_Drone();
         }
     }
-
-    //アウトライン透過能力
+    public void killer_Securing(string a)
+    {
+        StartCoroutine(caught(a));
+    }
+    IEnumerator caught(string target_name)
+    {
+        photonView.RPC(nameof(RPCkiller_Securing1), RpcTarget.All, target_name);
+        yield return new WaitForSeconds(3f);
+        photonView.RPC(nameof(RPCkiller_Securing2), RpcTarget.All, target_name);
+    }
     [PunRPC]
+    void RPCkiller_Securing1(string target_name)
+    {
+       
+        GameObject.FindWithTag(target_name).GetComponent<PlayerController>().Trap_trigger = true;
+        GameObject.FindWithTag(target_name).GetComponent<PlayerController>().fade_trigger = true;
+    }
+    [PunRPC]
+    void RPCkiller_Securing2(string target_name)
+    {
+        GameObject.FindWithTag(target_name).transform.position = new Vector3(84, 7, 16);
+        GameObject.FindWithTag(target_name).GetComponent<PlayerController>().fade_trigger = false;
+        GameObject.FindWithTag(target_name).GetComponent<PlayerController>().Trap_trigger = false;
+    }
+
+    [PunRPC]
+    void Clear(string target)
+    {
+        GameObject.FindWithTag(target).GetComponent<PlayerController>().Mermaid.SetActive(false);
+        GameObject.FindWithTag(target).gameObject.layer = 20;
+
+    }
+        //アウトライン透過能力
+        [PunRPC]
     void RPC_ActivateOutlineSkill()
     {
 

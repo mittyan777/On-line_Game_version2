@@ -58,6 +58,12 @@ MonoBehaviour:
   - RPC_DeactivateOutlineSkill
   - RPC_Update
   - SetColor
+  - PlayerDWS
+  - PlayerDWS2
+  - PlayerDWS3
+  - Clear
+  - RPCkiller_Securing1
+  - RPCkiller_Securing2
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

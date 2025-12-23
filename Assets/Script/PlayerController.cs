@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [SerializeField] GameObject passwordUI;
     [SerializeField] GameObject[] memo;
     [SerializeField] GameObject Notepad;
+    [SerializeField] public GameObject Mermaid;
 
     [Header("アウトライン能力")]
     [SerializeField] float skillDuration = 5f; // 壁越しアウトラインの持続時間
@@ -44,17 +45,20 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [SerializeField] GameObject itemslot;
     [SerializeField] GameObject skillslot;
     [SerializeField] GameObject cooltime_Image;
-    bool Trap_trigger = false;
+    public bool Trap_trigger = false;
     GameObject tora;
     [SerializeField] GameObject Drone_Player_Detection;
     [SerializeField] Image fade;
-    bool fade_trigger = false;
+    public bool fade_trigger = false;
     float fade_a;
 
     [SerializeField] GameObject tutorial_UI;
 
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]string detainee_name;
+
+
+// Start is called before the first frame update
+void Start()
     {
         string sceneName = SceneManager.GetActiveScene().name;
         if (sceneName == "main")
@@ -87,7 +91,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
             if (this.gameObject.tag == "Killer")
             {
-                Manager = GameObject.Find("GameManager");
                 GameObject.Find("killerImage").SetActive(true);
                 GameObject.Find("PlayerImage").SetActive(false);
                 GameObject.Find("Player2Image").SetActive(false);
@@ -249,6 +252,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 }
             }
 
+            if(Input.GetKeyDown("h"))
+            {
+                Manager.GetComponent<MainGameManager>().Game_Clear(gameObject.tag);
+            }
+
         }
         if (photonView.IsMine && sceneName == "lobby")
         {
@@ -305,6 +313,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
         string sceneName = SceneManager.GetActiveScene().name;
         if (sceneName == "main")
         {
+            if (GameObject.Find("GameManager") != null)
+            {
+                Manager = GameObject.Find("GameManager");
+            }
             if (select == null)
             {
                 select = GameObject.FindGameObjectWithTag("selectUI").GetComponent<Text>();
@@ -363,6 +375,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 // Ray飛ばす
                 if (Physics.Raycast(ray, out hit, rayDistance))
                 {
+                    Debug.Log("Ray hit: " + hit.collider.name + " Tag: " + hit.collider.tag);
                     if (hit.collider.CompareTag("DOA"))
                     {
 
@@ -403,7 +416,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                             select.text = "[F]開ける";
                             if (Input.GetKeyDown("f"))
                             {
-                                DoorController door = hit.collider.GetComponent<DoorController>();
+                                DoorController door = hit.collider.transform.parent.GetComponent<DoorController>();
                                 if (door != null)
                                 {
                                     door.SetOpen(true);
@@ -415,7 +428,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                             select.text = "[F]閉める";
                             if (Input.GetKeyDown("f"))
                             {
-                                DoorController door = hit.collider.GetComponent<DoorController>();
+                                DoorController door = hit.collider.transform.parent.GetComponent<DoorController>();
                                 if (door != null)
                                 {
                                     door.SetOpen(false);
@@ -460,7 +473,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                                     DoorController door = hit.collider.GetComponent<DoorController>();
                                     if (door != null)
                                     {
-                                        door.SetOpen(false);
+                                        door.SetOpen(true);
                                     }
                                 }
                            
@@ -468,6 +481,54 @@ public class PlayerController : MonoBehaviourPunCallbacks
                                 
                             }
                         }
+
+                    }
+                    else if(hit.collider.gameObject.tag == "Player" || hit.collider.gameObject.tag == "Player2")
+                    {
+                        select.text = "[F]捕まえる";
+                        if (Input.GetKeyDown("f"))
+                        {
+                            if (gameObject.tag == "Killer")
+                            {
+                                Manager.GetComponent<MainGameManager>().killer_Securing(hit.collider.gameObject.tag);
+                            }
+                        }
+                    }
+
+
+                    else if (hit.collider.CompareTag("Prison_door"))
+                    {
+                        Animator animator = hit.collider.gameObject.GetComponent<Animator>();
+                        if (animator.GetBool("open") == false)
+                        {
+                            if (gameObject.tag != detainee_name)
+                            {
+                                select.text = "[F]開ける";
+                                if (Input.GetKeyDown("f"))
+                                {
+                                    DoorController door = hit.collider.GetComponent<DoorController>();
+                                    if (door != null)
+                                    {
+                                        door.SetOpen(true);
+                                    }
+                                }
+                            }
+                        }
+                        else if (animator.GetBool("open") == true)
+                        {
+                            select.text = "[F]閉める";
+                            if (Input.GetKeyDown("f"))
+                            {
+                                DoorController door = hit.collider.GetComponent<DoorController>();
+                                if (door != null)
+                                {
+                                    door.SetOpen(false);
+                                }
+                            }
+                        }
+
+
+
 
                     }
                     else if (hit.collider.name == ("number1"))
@@ -509,24 +570,26 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 }
 
             }
-
-
-            if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.W))
+            if (gameObject.tag != "Killer")
             {
-                MoveSpeed = 8;
-                animator.SetBool("dash", true);
-                if (camera.GetComponent<Camera>().fieldOfView < 80)
+
+                if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.W))
                 {
-                    camera.GetComponent<Camera>().fieldOfView += 80f * Time.deltaTime;
+                    MoveSpeed = 8;
+                    animator.SetBool("dash", true);
+                    if (camera.GetComponent<Camera>().fieldOfView < 80)
+                    {
+                        camera.GetComponent<Camera>().fieldOfView += 80f * Time.deltaTime;
+                    }
                 }
-            }
-            else
-            {
-                animator.SetBool("dash", false);
-                MoveSpeed = 5;
-                if (camera.GetComponent<Camera>().fieldOfView > 60)
+                else
                 {
-                    camera.GetComponent<Camera>().fieldOfView -= 50f * Time.deltaTime;
+                    animator.SetBool("dash", false);
+                    MoveSpeed = 5;
+                    if (camera.GetComponent<Camera>().fieldOfView > 60)
+                    {
+                        camera.GetComponent<Camera>().fieldOfView -= 50f * Time.deltaTime;
+                    }
                 }
             }
         }
@@ -608,6 +671,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             StartCoroutine(END());
         }
+   
 
     }
     private void OnTriggerExit(Collider other)
@@ -620,21 +684,29 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             other.gameObject.GetComponent<GameStart_count>().SetOpen4();
         }
+        if (gameObject.name == "Jail")
+        {
+            detainee_name = "";
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-       // if (gameObject.tag == "Player" || gameObject.tag == "Player2")
-       // {
-       //     if (collision.gameObject.tag == "Killer")
-       //     {
-       //
-       //         StartCoroutine(Trap());
-       //         StartCoroutine(caught());
-       //
-       //
-       //     }
-       // }
+        if (collision.gameObject.tag == "Jail")
+        {
+            detainee_name = gameObject.tag;
+        }
+        // if (gameObject.tag == "Player" || gameObject.tag == "Player2")
+        // {
+        //     if (collision.gameObject.tag == "Killer")
+        //     {
+        //
+        //         StartCoroutine(Trap());
+        //         StartCoroutine(caught());
+        //
+        //
+        //     }
+        // }
     }
     IEnumerator Trap()
     {
@@ -643,18 +715,13 @@ public class PlayerController : MonoBehaviourPunCallbacks
         Destroy(tora);
         Trap_trigger = false;
     }
-    IEnumerator caught()
-    {
-        fade_trigger = true;
-        yield return new WaitForSeconds(3f);
-        transform.position = new Vector3(84, 7, 16);
-        fade_trigger = false;
-    }
+   
     IEnumerator END()
     {
         fade_trigger = true;
         yield return new WaitForSeconds(4f);
-        PhotonResetManager.Instance.BackToTitle();
+        Manager.GetComponent<MainGameManager>().Game_Clear(gameObject.tag);
+        //PhotonResetManager.Instance.BackToTitle();
 
     }
     IEnumerator tutorial()

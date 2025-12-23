@@ -1653,13 +1653,17 @@ MonoBehaviour:
   - {fileID: 5953388045145867855}
   - {fileID: 5072326249289859741}
   Notepad: {fileID: 399949889523612824}
+  Mermaid: {fileID: 6792570429043739121}
   skillDuration: 5
   itemslot: {fileID: 7769793958420099666}
   skillslot: {fileID: 7879562323716798087}
   cooltime_Image: {fileID: 6081020406100733063}
+  Trap_trigger: 0
   Drone_Player_Detection: {fileID: 3497855455755743301}
   fade: {fileID: 0}
+  fade_trigger: 0
   tutorial_UI: {fileID: 0}
+  detainee_name: 
 --- !u!114 &9107691279401016135
 MonoBehaviour:
   m_ObjectHideFlags: 0

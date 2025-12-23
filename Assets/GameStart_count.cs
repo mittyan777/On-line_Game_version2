@@ -20,10 +20,12 @@ public class GameStart_count : MonoBehaviourPun
         }
         else
         {
-            sabaiba_text.text = Gamemanager.GetComponent<MainGameManager>().sabaiba_count.ToString();
+            sabaiba_text.text = ($"{Gamemanager.GetComponent<MainGameManager>().sabaiba_count}/ 2");
         }
         if (Gamemanager.GetComponent<MainGameManager>().sabaiba_count == 2 && Gamemanager.GetComponent<MainGameManager>().killer_count == 1)
         {
+            sabaiba_text.gameObject.SetActive(false);
+            killer_text.gameObject.SetActive(false);
             GameObject.FindWithTag("Player").transform.position = Start_pos[0].position;
             GameObject.FindWithTag("Player2").transform.position = Start_pos[1].position;
             GameObject.FindWithTag("Killer").transform.position = Start_pos[3].position;
@@ -34,9 +36,11 @@ public class GameStart_count : MonoBehaviourPun
     {
 
         Gamemanager.GetComponent<MainGameManager>().sabaiba_count -= 1;
-      sabaiba_text.text = Gamemanager.GetComponent<MainGameManager>().sabaiba_count.ToString();
+      sabaiba_text.text = ($"{Gamemanager.GetComponent<MainGameManager>().sabaiba_count}/2");
         if (Gamemanager.GetComponent<MainGameManager>().sabaiba_count == 2 && Gamemanager.GetComponent<MainGameManager>().killer_count == 1)
         {
+            sabaiba_text.gameObject.SetActive(false);
+            killer_text.gameObject.SetActive(false);
             GameObject.FindWithTag("Player").transform.position = Start_pos[0].position;
             GameObject.FindWithTag("Player2").transform.position = Start_pos[1].position;
             GameObject.FindWithTag("Killer").transform.position = Start_pos[3].position;
@@ -54,12 +58,12 @@ public class GameStart_count : MonoBehaviourPun
         }
         else
         {
-            killer_text.text = Gamemanager.GetComponent<MainGameManager>().killer_count.ToString();
+            killer_text.text = ($"{Gamemanager.GetComponent<MainGameManager>().killer_count}/1");
         }
         if (Gamemanager.GetComponent<MainGameManager>().sabaiba_count == 2 && Gamemanager.GetComponent<MainGameManager>().killer_count == 1)
         {
-            sabaiba_text.text = "";
-            killer_text.text = "";
+            sabaiba_text.gameObject.SetActive(false);
+            killer_text.gameObject.SetActive(false);
             GameObject.FindWithTag("Player").transform.position = Start_pos[0].position;
             GameObject.FindWithTag("Player2").transform.position = Start_pos[1].position;
             GameObject.FindWithTag("Killer").transform.position = Start_pos[2].position;
@@ -70,9 +74,11 @@ public class GameStart_count : MonoBehaviourPun
     {
 
         Gamemanager.GetComponent<MainGameManager>().killer_count -= 1;
-        killer_text.text = Gamemanager.GetComponent<MainGameManager>().killer_count.ToString();
+        killer_text.text = ($"{Gamemanager.GetComponent<MainGameManager>().killer_count}/1");
         if (Gamemanager.GetComponent<MainGameManager>().sabaiba_count == 2 && Gamemanager.GetComponent<MainGameManager>().killer_count == 1)
         {
+            sabaiba_text.gameObject.SetActive(false);
+            killer_text.gameObject.SetActive(false);
             GameObject.FindWithTag("Player").transform.position = Start_pos[0].position;
             GameObject.FindWithTag("Player2").transform.position = Start_pos[1].position;
             GameObject.FindWithTag("Killer").transform.position = Start_pos[3].position;
