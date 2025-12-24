@@ -64,6 +64,10 @@ MonoBehaviour:
   - Clear
   - RPCkiller_Securing1
   - RPCkiller_Securing2
+  - Clear_load
+  - Game_over_count
+  - Game_over_count2
+  - Game_over_load
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

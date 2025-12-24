@@ -10,6 +10,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
+using UnityEngine.SceneManagement;
 
 
 
@@ -18,6 +19,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     [SerializeField] float GameTime = 120f;
     [SerializeField] Text TimerLabel;
     [SerializeField] Text CurrentRoll_Label;
+    [SerializeField]public bool GameStart_trigger = false;
 
     float CountTimer;
     bool gameEnd = false;
@@ -42,6 +44,13 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     [SerializeField] public bool blue = false;
     [SerializeField] public bool red = false;
     public bool Gamestart = false;
+    bool isLeaving = false;
+    public bool hasCalledGameOver = false;
+
+    int Game_completer;
+    public static string []Game_completer_name;
+    int i = 0;
+    [SerializeField]int DesPlayer;
 
     void Start()
     {
@@ -51,7 +60,10 @@ public class MainGameManager : MonoBehaviourPunCallbacks
 
         TrySetRoleLabel(PhotonNetwork.LocalPlayer);
 
-
+    }
+    void Awake()
+    {
+        Game_completer_name = new string[2]; // クリア人数分
     }
 
     void Update()
@@ -308,8 +320,11 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         //photonView.RPC(nameof(ChangeColor), RpcTarget.AllBuffered);
         if (PhotonNetwork.IsMasterClient || !gameEnd)
         {
-
-            CountTimer -= Time.deltaTime;
+            if (GameStart_trigger == true)
+            {
+                TimerLabel.gameObject.SetActive(true);
+                CountTimer -= Time.deltaTime;
+            }
             if (CountTimer <= 0f)
             {
                 CountTimer = 0f;
@@ -331,9 +346,32 @@ public class MainGameManager : MonoBehaviourPunCallbacks
 
             TimerLabel.text = $"{(int)CountTimer}";
         }
+
+        if (Game_completer == 2 && !isLeaving)
+        {
+            isLeaving = true;
+            if (PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.LoadLevel("Game_Clear");
+            }
+            photonView.RPC(nameof(Clear_load), RpcTarget.All);
+           
+        }
        
+
+    }
+    [PunRPC]
+    void Clear_load()
+    {
        
     }
+    [PunRPC]
+    void Game_over_load()
+    {
+        SceneManager.LoadScene("Game_over");
+        // PhotonNetwork.LeaveRoom();
+    }
+
 
     private void TrySetRoleLabel(Player player)
     {
@@ -371,6 +409,12 @@ public class MainGameManager : MonoBehaviourPunCallbacks
             gameEnd = (bool)propertiesThatChanged["GameEnd"];
             if (gameEnd)
                 Debug.Log("ゲーム終了 (同期)");
+            //if (Game_completer == 1 && !isLeaving)
+            //{
+            //    isLeaving = true;
+            //    photonView.RPC(nameof(Clear_load), RpcTarget.All);
+            //
+            //}
         }
 
         TimerLabel.text = $"{(int)CountTimer}";
@@ -436,6 +480,23 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         photonView.RPC(nameof(Clear), RpcTarget.All,a);
 
     }
+    public void Game_over()
+    {
+        if (!PhotonNetwork.IsMasterClient) return;
+
+        if (hasCalledGameOver) return;
+        hasCalledGameOver = true;
+
+        photonView.RPC(nameof(Game_over_count), RpcTarget.All);
+    }
+    public void Game_over_of()
+    {
+        if (!PhotonNetwork.IsMasterClient) return;
+
+        if (!hasCalledGameOver) return;
+        hasCalledGameOver = false;
+        photonView.RPC(nameof(Game_over_count2), RpcTarget.All);
+    }
 
 
     public void StopDrone_Ability()
@@ -454,6 +515,8 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         photonView.RPC(nameof(RPCkiller_Securing1), RpcTarget.All, target_name);
         yield return new WaitForSeconds(3f);
         photonView.RPC(nameof(RPCkiller_Securing2), RpcTarget.All, target_name);
+        yield return new WaitForSeconds(1f);
+        Game_over();
     }
     [PunRPC]
     void RPCkiller_Securing1(string target_name)
@@ -469,16 +532,47 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         GameObject.FindWithTag(target_name).GetComponent<PlayerController>().fade_trigger = false;
         GameObject.FindWithTag(target_name).GetComponent<PlayerController>().Trap_trigger = false;
     }
-
+    
     [PunRPC]
     void Clear(string target)
     {
-        GameObject.FindWithTag(target).GetComponent<PlayerController>().Mermaid.SetActive(false);
+      
+        Game_completer += 1;
+
+            GameObject.FindWithTag(target).GetComponent<PlayerController>().Mermaid.SetActive(false);
         GameObject.FindWithTag(target).gameObject.layer = 20;
+        GameObject.FindWithTag(target).transform.position = new Vector3(100, 7, 4);
+        Game_completer_name[i] = target;
+        i += 1;
 
     }
-        //アウトライン透過能力
-        [PunRPC]
+    [PunRPC]
+    void Game_over_count()
+    {
+        if (!PhotonNetwork.IsMasterClient) return;
+
+        Debug.Log("回数確認");
+        DesPlayer++;
+
+        Debug.Log($"[Master] DesPlayer = {DesPlayer}");
+
+        if (DesPlayer >= 2)
+        {
+            photonView.RPC(nameof(Game_over_load), RpcTarget.All);
+        }
+        else
+        {
+            hasCalledGameOver = false;
+        }
+    }
+
+    [PunRPC]
+    void Game_over_count2()
+    {
+        DesPlayer -= 1;
+    }
+    //アウトライン透過能力
+    [PunRPC]
     void RPC_ActivateOutlineSkill()
     {
 
