@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 
 public class PlayerController : MonoBehaviourPunCallbacks
@@ -55,6 +56,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [SerializeField] GameObject tutorial_UI;
 
     [SerializeField]string detainee_name;
+    string Back_name;
 
 
 // Start is called before the first frame update
@@ -221,7 +223,7 @@ void Start()
                         }
 
                         //アウトライン透過スキル　発動
-                        if (gameObject.tag == "Killer" && Input.GetMouseButton(0))
+                        if (gameObject.tag == "Killer" && Input.GetKey("e"))
                         {
                             if (cooltime_Image.GetComponent<Image>().fillAmount <= 0)
                             {
@@ -254,7 +256,8 @@ void Start()
 
             if(Input.GetKeyDown("h"))
             {
-                Manager.GetComponent<MainGameManager>().Game_Clear(gameObject.tag);
+                 Manager.GetComponent<MainGameManager>().Game_Clear(gameObject.tag);
+                //Manager.GetComponent<MainGameManager>().Game_over();
             }
 
         }
@@ -485,12 +488,14 @@ void Start()
                     }
                     else if(hit.collider.gameObject.tag == "Player" || hit.collider.gameObject.tag == "Player2")
                     {
-                        select.text = "[F]捕まえる";
-                        if (Input.GetKeyDown("f"))
+                        if (gameObject.tag == "Killer")
                         {
-                            if (gameObject.tag == "Killer")
+                            select.text = "[F]捕まえる";
+                            if (Input.GetKeyDown("f"))
                             {
+
                                 Manager.GetComponent<MainGameManager>().killer_Securing(hit.collider.gameObject.tag);
+
                             }
                         }
                     }
@@ -661,11 +666,11 @@ void Start()
         }
         if(other.gameObject.name == "Player_count")
         {  
-            other.gameObject.GetComponent<GameStart_count>().SetOpen();
+            GameObject.FindWithTag("Player_count").gameObject.GetComponent<GameStart_count>().SetOpen();
         }
         if (other.gameObject.name == "killer_count")
         {
-            other.gameObject.GetComponent<GameStart_count>().SetOpen3();
+            GameObject.FindWithTag("Player_count").gameObject.GetComponent<GameStart_count>().SetOpen3();
         }
         if(other.gameObject.name == "END")
         {
@@ -678,11 +683,11 @@ void Start()
     {
         if (other.gameObject.name == "Player_count")
         {
-            other.gameObject.GetComponent<GameStart_count>().SetOpen2();
+            GameObject.FindWithTag("Player_count").gameObject.GetComponent<GameStart_count>().SetOpen2();
         }
         if (other.gameObject.name == "killer_count")
         {
-            other.gameObject.GetComponent<GameStart_count>().SetOpen4();
+            GameObject.FindWithTag("Player_count").gameObject.GetComponent<GameStart_count>().SetOpen4();
         }
         if (gameObject.name == "Jail")
         {
@@ -694,19 +699,19 @@ void Start()
     {
         if (collision.gameObject.tag == "Jail")
         {
+            //Manager.GetComponent<MainGameManager>().Game_over();
             detainee_name = gameObject.tag;
+            Back_name = collision.gameObject.name;
+            collision.gameObject.name = "Jail_Player";
         }
-        // if (gameObject.tag == "Player" || gameObject.tag == "Player2")
-        // {
-        //     if (collision.gameObject.tag == "Killer")
-        //     {
-        //
-        //         StartCoroutine(Trap());
-        //         StartCoroutine(caught());
-        //
-        //
-        //     }
-        // }
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        if (gameObject.name == "Jail")
+        {
+            Manager.GetComponent<MainGameManager>().Game_over_of();
+            collision.gameObject.name = Back_name;
+        }
     }
     IEnumerator Trap()
     {

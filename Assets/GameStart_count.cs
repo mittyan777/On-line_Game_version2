@@ -6,8 +6,12 @@ public class GameStart_count : MonoBehaviourPun
 {
     [SerializeField] Text sabaiba_text;
     [SerializeField] Text killer_text;
+    [SerializeField] Text count_text;
+    [SerializeField] float count = 5;
+    int result;
     [SerializeField] Transform[] Start_pos;
     [SerializeField]GameObject Gamemanager;
+    bool time_count_trigger = false;
     // Start is called before the first frame update
     [PunRPC]
     void RPC_SetOpen()
@@ -26,9 +30,8 @@ public class GameStart_count : MonoBehaviourPun
         {
             sabaiba_text.gameObject.SetActive(false);
             killer_text.gameObject.SetActive(false);
-            GameObject.FindWithTag("Player").transform.position = Start_pos[0].position;
-            GameObject.FindWithTag("Player2").transform.position = Start_pos[1].position;
-            GameObject.FindWithTag("Killer").transform.position = Start_pos[3].position;
+            count_text.gameObject.SetActive(true);
+            time_count_trigger = true;
         }
     }
     [PunRPC]
@@ -41,9 +44,8 @@ public class GameStart_count : MonoBehaviourPun
         {
             sabaiba_text.gameObject.SetActive(false);
             killer_text.gameObject.SetActive(false);
-            GameObject.FindWithTag("Player").transform.position = Start_pos[0].position;
-            GameObject.FindWithTag("Player2").transform.position = Start_pos[1].position;
-            GameObject.FindWithTag("Killer").transform.position = Start_pos[3].position;
+            count_text.gameObject.SetActive(true);
+            time_count_trigger = true;
         }
 
     }
@@ -64,9 +66,8 @@ public class GameStart_count : MonoBehaviourPun
         {
             sabaiba_text.gameObject.SetActive(false);
             killer_text.gameObject.SetActive(false);
-            GameObject.FindWithTag("Player").transform.position = Start_pos[0].position;
-            GameObject.FindWithTag("Player2").transform.position = Start_pos[1].position;
-            GameObject.FindWithTag("Killer").transform.position = Start_pos[2].position;
+            count_text.gameObject.SetActive(true);
+            time_count_trigger = true;
         }
     }
     [PunRPC]
@@ -79,15 +80,31 @@ public class GameStart_count : MonoBehaviourPun
         {
             sabaiba_text.gameObject.SetActive(false);
             killer_text.gameObject.SetActive(false);
-            GameObject.FindWithTag("Player").transform.position = Start_pos[0].position;
-            GameObject.FindWithTag("Player2").transform.position = Start_pos[1].position;
-            GameObject.FindWithTag("Killer").transform.position = Start_pos[3].position;
+            count_text.gameObject.SetActive(true);
+            time_count_trigger = true;
+            
         }
 
     }
     private void Update()
     {
-       
+       if(time_count_trigger == true)
+       {
+            int result = Mathf.FloorToInt(count);
+            count -= Time.deltaTime;
+            count_text.text = ($"{result}");
+       }
+       if(count <= 0)
+       {
+            if (Gamemanager.GetComponent<MainGameManager>().GameStart_trigger == false)
+            {
+                GameObject.FindWithTag("Player").transform.position = Start_pos[0].position;
+                GameObject.FindWithTag("Player2").transform.position = Start_pos[1].position;
+                GameObject.FindWithTag("Killer").transform.position = Start_pos[2].position;
+            }
+            count_text.gameObject.SetActive(false);
+            Gamemanager.GetComponent<MainGameManager>().GameStart_trigger = true;
+       }
     }
     public void SetOpen()
     {
