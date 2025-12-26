@@ -68,6 +68,7 @@ MonoBehaviour:
   - Game_over_count
   - Game_over_count2
   - Game_over_load
+  - killer_skin_change
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

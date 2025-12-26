@@ -2,15 +2,16 @@ using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
 using System;
+using System.Collections;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
-using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
-using UnityEngine.SceneManagement;
 
 
 
@@ -486,7 +487,6 @@ public class MainGameManager : MonoBehaviourPunCallbacks
 
         if (hasCalledGameOver) return;
         hasCalledGameOver = true;
-
         photonView.RPC(nameof(Game_over_count), RpcTarget.All);
     }
     public void Game_over_of()
@@ -516,6 +516,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         yield return new WaitForSeconds(3f);
         photonView.RPC(nameof(RPCkiller_Securing2), RpcTarget.All, target_name);
         yield return new WaitForSeconds(1f);
+        Debug.Log("確認OK");
         Game_over();
     }
     [PunRPC]
@@ -532,7 +533,20 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         GameObject.FindWithTag(target_name).GetComponent<PlayerController>().fade_trigger = false;
         GameObject.FindWithTag(target_name).GetComponent<PlayerController>().Trap_trigger = false;
     }
-    
+
+    public void killer_skin(string target)
+    {
+        photonView.RPC(nameof(killer_skin_change), RpcTarget.All, target);
+    }
+
+    [PunRPC]
+    void killer_skin_change(string target_name)
+    {
+        GameObject.FindWithTag(target_name).GetComponent<PlayerController>().Mermaid.SetActive(false);
+        GameObject.FindWithTag(target_name).GetComponent<PlayerController>().killer_skin.SetActive(true);
+    }
+
+
     [PunRPC]
     void Clear(string target)
     {
@@ -540,6 +554,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         Game_completer += 1;
 
             GameObject.FindWithTag(target).GetComponent<PlayerController>().Mermaid.SetActive(false);
+        GameObject.FindWithTag(target).GetComponent<PlayerController>().Ghost_skin.SetActive(false);
         GameObject.FindWithTag(target).gameObject.layer = 20;
         GameObject.FindWithTag(target).transform.position = new Vector3(100, 7, 4);
         Game_completer_name[i] = target;
@@ -592,8 +607,17 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void RPC_DeactivateOutlineSkill()
     {
-        GameObject.FindGameObjectWithTag("Player").GetComponent<Outline>().OutlineMode = Outline.Mode.OutlineVisible;
-        GameObject.FindGameObjectWithTag("Player2").GetComponent<Outline>().OutlineMode = Outline.Mode.OutlineVisible;
-        GameObject.FindGameObjectWithTag("dummy_Player").GetComponent<Outline>().OutlineMode = Outline.Mode.OutlineVisible;
+        if (GameObject.FindGameObjectWithTag("Player") != null)
+        {
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Outline>().OutlineMode = Outline.Mode.OutlineVisible;
+        }
+        if (GameObject.FindGameObjectWithTag("Player2") != null)
+        {
+            GameObject.FindGameObjectWithTag("Player2").GetComponent<Outline>().OutlineMode = Outline.Mode.OutlineVisible;
+        }
+        if (GameObject.FindGameObjectWithTag("dummy_Player") != null)
+        {
+            GameObject.FindGameObjectWithTag("dummy_Player").GetComponent<Outline>().OutlineMode = Outline.Mode.OutlineVisible;
+        }
     }
 }

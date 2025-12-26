@@ -1,9 +1,10 @@
 using Photon.Pun;
 using System.Collections;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using static UnityEngine.GraphicsBuffer;
 
 
 public class PlayerController : MonoBehaviourPunCallbacks
@@ -36,6 +37,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [SerializeField] GameObject[] memo;
     [SerializeField] GameObject Notepad;
     [SerializeField] public GameObject Mermaid;
+    [SerializeField] public GameObject killer_skin;
+    [SerializeField] public　GameObject Ghost_skin;
 
     [Header("アウトライン能力")]
     [SerializeField] float skillDuration = 5f; // 壁越しアウトラインの持続時間
@@ -91,11 +94,13 @@ void Start()
             // 全員に共有する
             photonView.RPC("SetRole", RpcTarget.AllBuffered, role);
 
+
             if (this.gameObject.tag == "Killer")
             {
                 GameObject.Find("killerImage").SetActive(true);
                 GameObject.Find("PlayerImage").SetActive(false);
                 GameObject.Find("Player2Image").SetActive(false);
+                Manager.GetComponent<MainGameManager>().killer_skin(gameObject.tag);
             }
             else if (this.gameObject.tag == "Player")
             {
