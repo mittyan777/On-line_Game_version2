@@ -111,7 +111,7 @@ public class drawn : MonoBehaviourPunCallbacks
     {
         if (distance <= 10 || distance2 <= 10)
         {
-            StoppingCountTime = 5f;
+            StoppingCountTime = 10f;
             MoveDisabled = true;
             SmokeParticle.SetActive(true);
         }
@@ -155,4 +155,11 @@ public class drawn : MonoBehaviourPunCallbacks
             Debug.Log("í«ê’èIóπ -> " + other.tag);
         }
     }
+    void LateUpdate()
+    {
+        Vector3 pos = transform.position;
+        pos.y = 7.4f; // å≈íËÇµÇΩÇ¢çÇÇ≥
+        transform.position = pos;
+    }
+
 }

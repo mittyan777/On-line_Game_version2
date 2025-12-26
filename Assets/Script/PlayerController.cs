@@ -101,18 +101,21 @@ void Start()
                 GameObject.Find("PlayerImage").SetActive(false);
                 GameObject.Find("Player2Image").SetActive(false);
                 Manager.GetComponent<MainGameManager>().killer_skin(gameObject.tag);
+                camera.GetComponent<Camera>().cullingMask &= ~(1 << LayerMask.NameToLayer("killer_skin"));
             }
             else if (this.gameObject.tag == "Player")
             {
                 GameObject.Find("killerImage").SetActive(false);
                 GameObject.Find("PlayerImage").SetActive(true);
                 GameObject.Find("Player2Image").SetActive(false);
+                camera.GetComponent<Camera>().cullingMask &= ~(1 << LayerMask.NameToLayer("Ghost_skin"));
             }
             else if (this.gameObject.tag == "Player2")
             {
                 GameObject.Find("killerImage").SetActive(false);
                 GameObject.Find("PlayerImage").SetActive(false);
                 GameObject.Find("Player2Image").SetActive(true);
+                camera.GetComponent<Camera>().cullingMask &= ~(1 << LayerMask.NameToLayer("Ghost_skin"));
             }
             passwordUI = GameObject.Find("InputField");
             passwordUI.SetActive(false);

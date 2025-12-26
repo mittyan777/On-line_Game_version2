@@ -69,6 +69,8 @@ MonoBehaviour:
   - Game_over_count2
   - Game_over_load
   - killer_skin_change
+  - test
+  - RPCcaught
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

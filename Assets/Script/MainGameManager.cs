@@ -42,6 +42,8 @@ public class MainGameManager : MonoBehaviourPunCallbacks
 
     [SerializeField] GameObject[] CollarImage;
 
+    [SerializeField] GameObject effect;
+
     [SerializeField] public bool blue = false;
     [SerializeField] public bool red = false;
     public bool Gamestart = false;
@@ -506,25 +508,33 @@ public class MainGameManager : MonoBehaviourPunCallbacks
             Drone_Objects[num].Call_Stop_Drone();
         }
     }
+    [PunRPC]
+    void RPCcaught(string target_name)
+    {
+        StartCoroutine(caught(target_name));
+
+    }
     public void killer_Securing(string a)
     {
-        StartCoroutine(caught(a));
+        photonView.RPC(nameof(RPCcaught), RpcTarget.All, a);
     }
     IEnumerator caught(string target_name)
     {
+        Debug.Log("確認OK");
         photonView.RPC(nameof(RPCkiller_Securing1), RpcTarget.All, target_name);
         yield return new WaitForSeconds(3f);
         photonView.RPC(nameof(RPCkiller_Securing2), RpcTarget.All, target_name);
         yield return new WaitForSeconds(1f);
-        Debug.Log("確認OK");
+       
         Game_over();
     }
     [PunRPC]
     void RPCkiller_Securing1(string target_name)
     {
-       
         GameObject.FindWithTag(target_name).GetComponent<PlayerController>().Trap_trigger = true;
         GameObject.FindWithTag(target_name).GetComponent<PlayerController>().fade_trigger = true;
+        GameObject.FindWithTag(target_name).GetComponent<PlayerController>().Mermaid.SetActive(false);
+        Instantiate(effect, new Vector3(GameObject.FindWithTag(target_name).transform.position.x, GameObject.FindWithTag(target_name).transform.position.y + 2, GameObject.FindWithTag(target_name).transform.position.z), Quaternion.identity);
     }
     [PunRPC]
     void RPCkiller_Securing2(string target_name)
@@ -532,6 +542,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         GameObject.FindWithTag(target_name).transform.position = new Vector3(84, 7, 16);
         GameObject.FindWithTag(target_name).GetComponent<PlayerController>().fade_trigger = false;
         GameObject.FindWithTag(target_name).GetComponent<PlayerController>().Trap_trigger = false;
+        GameObject.FindWithTag(target_name).GetComponent<PlayerController>().Mermaid.SetActive(true);
     }
 
     public void killer_skin(string target)
@@ -554,7 +565,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         Game_completer += 1;
 
             GameObject.FindWithTag(target).GetComponent<PlayerController>().Mermaid.SetActive(false);
-        GameObject.FindWithTag(target).GetComponent<PlayerController>().Ghost_skin.SetActive(false);
+        GameObject.FindWithTag(target).GetComponent<PlayerController>().Ghost_skin.SetActive(true);
         GameObject.FindWithTag(target).gameObject.layer = 20;
         GameObject.FindWithTag(target).transform.position = new Vector3(100, 7, 4);
         Game_completer_name[i] = target;
