@@ -153,10 +153,9 @@ public class MainGameManager : MonoBehaviourPunCallbacks
                 Physics.IgnoreCollision(player2Col, col, false);
                 Physics.IgnoreCollision(killer, col, true);
             }
-
-            Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.blue);
-            Player2.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.blue);
-            dummy_Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.blue);
+            Player.GetComponent<Outline>().OutlineColor = UnityEngine.Color.blue;
+            Player2.GetComponent<Outline>().OutlineColor = UnityEngine.Color.blue;
+            dummy_Player.GetComponent<Outline>().OutlineColor = UnityEngine.Color.blue;
             dummy_Player_switch.GetComponent<Animator>().SetBool("switch", true);
             dummy_Player_switch2.GetComponent<Animator>().SetBool("switch", false);
         }
@@ -207,9 +206,9 @@ public class MainGameManager : MonoBehaviourPunCallbacks
                 Physics.IgnoreCollision(player2Col, col, false);
                 Physics.IgnoreCollision(killer, col, true);
             }
-            Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.red);
-            Player2.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.red);
-            dummy_Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.red);
+            Player.GetComponent<Outline>().OutlineColor = UnityEngine.Color.red;
+            Player2.GetComponent<Outline>().OutlineColor = UnityEngine.Color.red;
+            dummy_Player.GetComponent<Outline>().OutlineColor = UnityEngine.Color.red;
             dummy_Player_switch.GetComponent<Animator>().SetBool("switch", false);
             dummy_Player_switch2.GetComponent<Animator>().SetBool("switch", true);
         }
@@ -261,9 +260,9 @@ public class MainGameManager : MonoBehaviourPunCallbacks
                 Physics.IgnoreCollision(killer, col, true);
             }
 
-            Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.white);
-            Player2.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.white);
-            dummy_Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.white);
+            Player.GetComponent<Outline>().OutlineColor = UnityEngine.Color.white;
+            Player2.GetComponent<Outline>().OutlineColor = UnityEngine.Color.white;
+            dummy_Player.GetComponent<Outline>().OutlineColor = UnityEngine.Color.white;
             dummy_Player_switch.GetComponent<Animator>().SetBool("switch", false);
             dummy_Player_switch2.GetComponent<Animator>().SetBool("switch", false);
         }
@@ -313,9 +312,9 @@ public class MainGameManager : MonoBehaviourPunCallbacks
                 Physics.IgnoreCollision(player2Col, col, false);
                 Physics.IgnoreCollision(killer, col, true);
             }
-            Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", new UnityEngine.Color(0.5f, 0f, 0.5f, 1f));
-            Player2.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", new UnityEngine.Color(0.5f, 0f, 0.5f, 1f));
-            dummy_Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", new UnityEngine.Color(0.5f, 0f, 0.5f, 1f));
+            Player.GetComponent<Outline>().OutlineColor = new UnityEngine.Color(0.5f, 0f, 0.5f, 1f);
+            Player2.GetComponent<Outline>().OutlineColor = new UnityEngine.Color(0.5f, 0f, 0.5f, 1f);
+            dummy_Player.GetComponent<Outline>().OutlineColor = new UnityEngine.Color(0.5f, 0f, 0.5f, 1f);
             dummy_Player_switch.GetComponent<Animator>().SetBool("switch", true);
             dummy_Player_switch2.GetComponent<Animator>().SetBool("switch", true);
         }
@@ -608,9 +607,9 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         // 自分以外のプレイヤーを対象に壁越し可視化
         // 全てのプレイヤーオブジェクトを捜索
 
-       Player.GetComponent<Outline>().OutlineMode = Outline.Mode.OutlineAll;
-        Player2.GetComponent<Outline>().OutlineMode = Outline.Mode.OutlineAll;
-        GameObject.FindGameObjectWithTag("dummy_Player").GetComponent<Outline>().OutlineMode = Outline.Mode.OutlineAll;
+       Player.GetComponent<Outline>().OutlineMode = Outline.Mode.Skill_On;
+        Player2.GetComponent<Outline>().OutlineMode = Outline.Mode.Skill_On;
+        GameObject.FindGameObjectWithTag("dummy_Player").GetComponent<Outline>().OutlineMode = Outline.Mode.Skill_On;
 
 
 
@@ -620,15 +619,15 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     {
         if (GameObject.FindGameObjectWithTag("Player") != null)
         {
-            GameObject.FindGameObjectWithTag("Player").GetComponent<Outline>().OutlineMode = Outline.Mode.OutlineVisible;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Outline>().OutlineMode = Outline.Mode.Skill_Off;
         }
         if (GameObject.FindGameObjectWithTag("Player2") != null)
         {
-            GameObject.FindGameObjectWithTag("Player2").GetComponent<Outline>().OutlineMode = Outline.Mode.OutlineVisible;
+            GameObject.FindGameObjectWithTag("Player2").GetComponent<Outline>().OutlineMode = Outline.Mode.Skill_Off;
         }
         if (GameObject.FindGameObjectWithTag("dummy_Player") != null)
         {
-            GameObject.FindGameObjectWithTag("dummy_Player").GetComponent<Outline>().OutlineMode = Outline.Mode.OutlineVisible;
+            GameObject.FindGameObjectWithTag("dummy_Player").GetComponent<Outline>().OutlineMode = Outline.Mode.Skill_Off;
         }
     }
 }

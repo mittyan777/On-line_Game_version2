@@ -1529,13 +1529,13 @@ Transform:
   m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 7597286555734628358}
   - {fileID: 919064250005360348}
   - {fileID: 4980181045154245626}
   - {fileID: 7416770097792212942}
   - {fileID: 2707933772525084883}
   - {fileID: 857079899370200894}
   - {fileID: 3157399128106473773}
-  - {fileID: 7597286555734628358}
   - {fileID: 1398499097785152990}
   - {fileID: 1514526869086826468}
   - {fileID: 7677938565582783268}
@@ -1604,9 +1604,9 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 5914042319032669370}
+  - {fileID: 820575624330086424}
   - {fileID: 226547581811790652}
   - {fileID: 3546925717422868177}
-  - {fileID: 820575624330086424}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -1730,7 +1730,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineMode: 1
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
   outlineWidth: 10
   precomputeOutline: 0
   bakeKeys: []
@@ -2639,7 +2640,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5112321646563768848}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1599d2756450a18468d94c817b8ebc49, type: 3}
   m_Name: 
