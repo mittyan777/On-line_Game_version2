@@ -1,9 +1,11 @@
 using Photon.Pun;
 using System.Collections;
+using UniGLTF.Extensions.VRMC_vrm;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UniVRM10;
 using static UnityEngine.GraphicsBuffer;
 
 
@@ -61,9 +63,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [SerializeField]string detainee_name;
     string Back_name;
 
+    public ExpressionPreset preset;
 
-// Start is called before the first frame update
-void Start()
+
+    // Start is called before the first frame update
+    void Start()
     {
         string sceneName = SceneManager.GetActiveScene().name;
         if (sceneName == "main")
@@ -242,7 +246,15 @@ void Start()
 
                         }
                        
-                        
+                        if(Input.GetKey(KeyCode.Alpha1))
+                        {
+                            Mermaid.GetComponent<ExpressionController>().preset = preset;
+                            Mermaid.GetComponent<ExpressionController>()._value = 1f;
+                        }
+                        else 
+                        {
+                            Mermaid.GetComponent<ExpressionController>()._value = 0f;
+                        }
 
 
                             // 移動方向ベクトル
