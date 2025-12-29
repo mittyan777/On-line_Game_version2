@@ -1,59 +1,72 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Windows;
 
-public class Exit : MonoBehaviour
+public class Exit : MonoBehaviourPunCallbacks
 {
     [SerializeField] GameObject InputField;
-    [SerializeField]string Input_number;
-    [SerializeField]int Exit_number;
-    [SerializeField]Text[] number_text;
+    [SerializeField] Text[] number_text;
     [SerializeField] Text message;
+
+    int Exit_number;
+    [SerializeField]string numberStr;
+    string Input_number;
+
     public bool rock = true;
+
    
-    string numberStr;
-    char []firstChar;
-    // Start is called before the first frame update
+
     void Start()
     {
-        Exit_number = Random.Range(1000, 9999);
-        numberStr = Exit_number.ToString();
-       
-    
+        // オフライン or ルーム未参加なら何もしない
+        if (!PhotonNetwork.InRoom && !PhotonNetwork.OfflineMode)
+            return;
+
+        if (PhotonNetwork.IsMasterClient || PhotonNetwork.OfflineMode)
+        {
+            int num = Random.Range(1000, 9999);
+            photonView.RPC(nameof(RPC_SetExitNumber), RpcTarget.All, num);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    [PunRPC]
+    void RPC_SetExitNumber(int num)
     {
-        Input_number = InputField.GetComponent<InputField>().text;
+        Exit_number = num;
+        numberStr = Exit_number.ToString();
+
         number_text[0].text = numberStr.Substring(0, 1);
         number_text[1].text = numberStr.Substring(1, 1);
         number_text[2].text = numberStr.Substring(2, 1);
         number_text[3].text = numberStr.Substring(3, 1);
-       
-       
     }
+
+    void Update()
+    {
+        Input_number = InputField.GetComponent<InputField>().text;
+        Debug.Log(numberStr);
+    }
+
     public void Confirmation()
     {
-        if(Input_number == numberStr)
+        if (Input_number == numberStr)
         {
             rock = false;
         }
         else
         {
             message.text = "パスワードが違います";
-            Invoke("message_reset",2);
+            Invoke(nameof(message_reset), 2);
         }
     }
-    public void Cancel()
-    {
-        InputField.SetActive(false);
-    }
+
     void message_reset()
     {
         message.text = "";
+    }
+
+    public void Cancel()
+    {
+        InputField.SetActive(false);
     }
 }

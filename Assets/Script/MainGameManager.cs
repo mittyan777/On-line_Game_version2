@@ -19,7 +19,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] float GameTime = 120f;
     [SerializeField] Text TimerLabel;
-    [SerializeField] Text CurrentRoll_Label;
+   
     [SerializeField]public bool GameStart_trigger = false;
 
     float CountTimer;
@@ -382,12 +382,12 @@ public class MainGameManager : MonoBehaviourPunCallbacks
             string role = roleObj as string;
             if (role == "killer")
             {
-                CurrentRoll_Label.text = "あなたは Killer です！";
+             
                 player.NickName = "Killer";
             }
             else if (role == "survivor")
             {
-                CurrentRoll_Label.text = "あなたは Survivor です！";
+             
                 player.NickName = "Survivor";
             }
         }
@@ -507,6 +507,27 @@ public class MainGameManager : MonoBehaviourPunCallbacks
             Drone_Objects[num].Call_Stop_Drone();
         }
     }
+
+    public void Face_swap(string target)
+    {
+        photonView.RPC(nameof(RPC_Face_swap), RpcTarget.All,target);
+    }
+    public void Face_swapOF(string target)
+    {
+        photonView.RPC(nameof(RPC_Face_swapOF), RpcTarget.All, target);
+    }
+    [PunRPC]
+    void RPC_Face_swap(string target_name)
+    {
+        GameObject.FindWithTag(target_name).GetComponent<PlayerController>().Mermaid.GetComponent<ExpressionController>().preset = GameObject.FindWithTag(target_name).GetComponent<PlayerController>().preset;
+        GameObject.FindWithTag(target_name).GetComponent<PlayerController>().Mermaid.GetComponent<ExpressionController>()._value = 1f;
+    }
+    [PunRPC]
+    void RPC_Face_swapOF(string target_name)
+    {
+        GameObject.FindWithTag(target_name).GetComponent<PlayerController>().Mermaid.GetComponent<ExpressionController>()._value = 0f;
+    }
+
     [PunRPC]
     void RPCcaught(string target_name)
     {

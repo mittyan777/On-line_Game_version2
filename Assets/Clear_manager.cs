@@ -9,8 +9,10 @@ public class Clear_manager : MonoBehaviourPunCallbacks
     string[] a;
     [SerializeField] Text[] Game_completer_name;
     [SerializeField] TextMesh [] Game_completer_mesh;
+    [SerializeField] TextMesh[] Player_name;
     [SerializeField] GameObject Player;
     [SerializeField] GameObject Player2;
+    [SerializeField] GameObject control_P;
     // Start is called before the first frame update
     void Start()
     {
@@ -47,7 +49,11 @@ public class Clear_manager : MonoBehaviourPunCallbacks
         {
             Game_completer_mesh[1].text = "’EoŽ¸”s";
         }
-
+        if(control_P.transform.position.z >= -37)
+        {
+            control_P.transform.position = new Vector3(control_P.transform.position.x, control_P.transform.position.y, -71);
+        }
+        control_P.transform.position += transform.forward * 5 * Time.deltaTime;
 
     }
 }
