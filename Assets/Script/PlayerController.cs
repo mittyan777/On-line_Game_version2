@@ -1,5 +1,6 @@
 using Photon.Pun;
 using System.Collections;
+using TMPro;
 using UniGLTF.Extensions.VRMC_vrm;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -62,8 +63,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     [SerializeField]string detainee_name;
     string Back_name;
-
+    
     public ExpressionPreset preset;
+
+    [SerializeField] GameObject Record_name;
+    [SerializeField] public TextMeshPro my_name;
 
 
     // Start is called before the first frame update
@@ -77,8 +81,13 @@ public class PlayerController : MonoBehaviourPunCallbacks
             outlineLayer = LayerMask.NameToLayer("OutlineVisible");
             fade = GameObject.FindWithTag("fade").GetComponent<Image>();
             cooltime_Image.GetComponent<Image>().fillAmount = 0;
+            MainGameManager.Player_name = new string[3];
             //Roll Check
             Invoke("test", 5);
+        }
+        if(sceneName == "lobby")
+        {
+            Record_name.SetActive(false);
         }
 
     }
@@ -98,7 +107,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             // 全員に共有する
             photonView.RPC("SetRole", RpcTarget.AllBuffered, role);
 
-
+            Record_name.SetActive(true);
             if (this.gameObject.tag == "Killer")
             {
                 GameObject.Find("killerImage").SetActive(true);
@@ -325,6 +334,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             {
                 select = GameObject.FindGameObjectWithTag("selectUI").GetComponent<Text>();
             }
+          
 
         }
 
@@ -740,6 +750,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public void tutorial_of()
     {
         StartCoroutine(tutorial());
+    }
+    public void name_Input(string name)
+    {
+        name = Record_name.GetComponent<TMP_InputField>().text;
+        Manager.GetComponent<MainGameManager>().name_Record(name, gameObject.tag);
+        Record_name.SetActive(false);
     }
 
 
