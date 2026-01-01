@@ -53,7 +53,8 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     int Game_completer;
     public static string []Game_completer_name;
     int i = 0;
-    [SerializeField]int DesPlayer;
+    [SerializeField] int DesPlayer;
+    static public string[] Player_name;
 
     void Start()
     {
@@ -100,6 +101,10 @@ public class MainGameManager : MonoBehaviourPunCallbacks
             //Null発生
             dummy_Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.white);
         }
+
+        Debug.Log(Player_name[0]);
+        Debug.Log(Player_name[1]);
+        Debug.Log(Player_name[2]);
 
         if (killer != null)
         {
@@ -498,7 +503,38 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         hasCalledGameOver = false;
         photonView.RPC(nameof(Game_over_count2), RpcTarget.All);
     }
-
+    public void name_Record(string name,string target)
+    {
+        photonView.RPC(nameof(RPC_name_Record), RpcTarget.All,name,target);
+    }
+    [PunRPC]
+    void RPC_name_Record(string name,string target_name)
+    {
+        if (target_name == "Player")
+        {
+            Player_name[0] = name;
+            if (Player_name[0] != null)
+            {
+                GameObject.FindGameObjectWithTag(target_name).GetComponent<PlayerController>().my_name.text = Player_name[0];
+            }
+        }
+        if (target_name == "Player2")
+        {
+            Player_name[1] = name;
+            if (Player_name[1] != null)
+            {
+                GameObject.FindGameObjectWithTag(target_name).GetComponent<PlayerController>().my_name.text = Player_name[1];
+            }
+        }
+        if (target_name == "Killer")
+        {
+            Player_name[2] = name;
+            if (Player_name[2] != null)
+            {
+                GameObject.FindGameObjectWithTag(target_name).GetComponent<PlayerController>().my_name.text = Player_name[2];
+            }
+        }
+    }
 
     public void StopDrone_Ability()
     {
