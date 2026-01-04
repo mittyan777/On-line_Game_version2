@@ -3683,6 +3683,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _vrm: {fileID: 7685998279880295465}
   preset: 0
+  customName: 
   _value: 0
 --- !u!4 &7597286555734628358 stripped
 Transform:
