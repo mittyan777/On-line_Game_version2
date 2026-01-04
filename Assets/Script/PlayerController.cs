@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [SerializeField] GameObject Notepad;
     [SerializeField] public GameObject Mermaid;
     [SerializeField] public GameObject killer_skin;
-    [SerializeField] public　GameObject Ghost_skin;
+    [SerializeField] public GameObject Ghost_skin;
 
     [Header("アウトライン能力")]
     [SerializeField] float skillDuration = 5f; // 壁越しアウトラインの持続時間
@@ -61,9 +61,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     [SerializeField] GameObject tutorial_UI;
 
-    [SerializeField]string detainee_name;
+    [SerializeField] string detainee_name;
     string Back_name;
-    
+
     public ExpressionPreset preset;
 
     [SerializeField] GameObject Record_name;
@@ -83,16 +83,20 @@ public class PlayerController : MonoBehaviourPunCallbacks
             cooltime_Image.GetComponent<Image>().fillAmount = 0;
             MainGameManager.Player_name = new string[3];
             //Roll Check
-            Invoke("test", 5);
+            Invoke(nameof(PlayerStart), 5);
         }
-        if(sceneName == "lobby")
+        if (sceneName == "lobby")
         {
             Record_name.SetActive(false);
         }
 
+        if (photonView.IsMine)
+        {
+            rb = GetComponent<Rigidbody>();
+        }
     }
 
-    void test()
+    void PlayerStart()
     {
         if (!photonView.IsMine)
         {
@@ -244,12 +248,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
                             }
 
                         }
-                       
-                        if(Input.GetKey(KeyCode.Alpha1))
+
+                        if (Input.GetKey(KeyCode.Alpha1))
                         {
                             Manager.GetComponent<MainGameManager>().Face_swap(gameObject.tag);
                         }
-                        else 
+                        else
                         {
                             Manager.GetComponent<MainGameManager>().Face_swapOF(gameObject.tag);
                         }
@@ -265,7 +269,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 }
             }
             cooltime_Image.GetComponent<Image>().fillAmount -= 0.005f * Time.deltaTime;
-            if (gameObject.tag == "Killer" )
+            if (gameObject.tag == "Killer")
             {
                 if (cooltime_Image.GetComponent<Image>().fillAmount <= 0.95f)
                 {
@@ -273,9 +277,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 }
             }
 
-            if(Input.GetKeyDown("h"))
+            if (Input.GetKeyDown("h"))
             {
-                 Manager.GetComponent<MainGameManager>().Game_Clear(gameObject.tag);
+                Manager.GetComponent<MainGameManager>().Game_Clear(gameObject.tag);
                 //Manager.GetComponent<MainGameManager>().Game_over();
             }
 
@@ -334,7 +338,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             {
                 select = GameObject.FindGameObjectWithTag("selectUI").GetComponent<Text>();
             }
-          
+
 
         }
 
@@ -490,14 +494,14 @@ public class PlayerController : MonoBehaviourPunCallbacks
                                         door.SetOpen(true);
                                     }
                                 }
-                           
-                                   
-                                
+
+
+
                             }
                         }
 
                     }
-                    else if(hit.collider.gameObject.tag == "Player" || hit.collider.gameObject.tag == "Player2")
+                    else if (hit.collider.gameObject.tag == "Player" || hit.collider.gameObject.tag == "Player2")
                     {
                         if (gameObject.tag == "Killer")
                         {
@@ -619,7 +623,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         //camera_Object.transform.rotation = Quaternion.Euler(-ver, transform.eulerAngles.y, 0f);
     }
 
-   
+
 
     void ApplyIfOtherPlayer(GameObject obj)
     {
@@ -675,19 +679,19 @@ public class PlayerController : MonoBehaviourPunCallbacks
             tutorial_UI.SetActive(true);
             tutorial_UI.GetComponent<Animator>().SetBool("show", true);
         }
-        if(other.gameObject.name == "Player_count")
-        {  
+        if (other.gameObject.name == "Player_count")
+        {
             GameObject.FindWithTag("Player_count").gameObject.GetComponent<GameStart_count>().SetOpen();
         }
         if (other.gameObject.name == "killer_count")
         {
             GameObject.FindWithTag("Player_count").gameObject.GetComponent<GameStart_count>().SetOpen3();
         }
-        if(other.gameObject.name == "END")
+        if (other.gameObject.name == "END")
         {
             StartCoroutine(END());
         }
-   
+
 
     }
     private void OnTriggerExit(Collider other)
@@ -731,7 +735,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         Destroy(tora);
         Trap_trigger = false;
     }
-   
+
     IEnumerator END()
     {
         fade_trigger = true;

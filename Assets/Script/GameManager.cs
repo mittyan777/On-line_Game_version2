@@ -4,6 +4,7 @@ using UnityEngine;
 using ExitGames.Client.Photon;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using System.Security;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -13,6 +14,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     private float countTimer;
     [SerializeField] private Text SurvivorCount_Label;
     [SerializeField] private Text KillerCount_Label;
+    [SerializeField] private Text RoomNumber;
     [SerializeField] private GameObject SelectButtons;
 
 
@@ -21,7 +23,12 @@ public class GameManager : MonoBehaviourPunCallbacks
     private float ReloadInfoTimer = 1f;
     private float ReloadInfoCounter = 0f;
     private bool rolesConfirmed = false;
+    private bool isAllReadySent = false; // ★追加: 送信済みフラグ
     private int lastSentTimer = -1;
+
+    // 通信量を減らすためのキャッシュ変数
+    private int lastSentSurvivorCount = -1;
+    private int lastSentKillerCount = -1;
 
     private void Start()
     {
@@ -38,6 +45,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             // If you want to completely disable the SupportLogger component
             supportLogger.enabled = false;
         }
+        RoomNumber.text = $"{PhotonNetwork.CurrentRoom.Name}";
     }
 
     private void Update()
@@ -74,11 +82,11 @@ public class GameManager : MonoBehaviourPunCallbacks
                 // 全員が準備できていたら即時開始
                 if (!rolesConfirmed && (CheckAllReady() || countdown <= 0))
                 {
+                    Debug.Log("全員準備完了、または時間切れ。ステータス更新を送信します。");
+                    isAllReadySent = true; // ★一度だけ実行するためにフラグを立てる
                     PhotonNetwork.CurrentRoom.SetCustomProperties(new Hashtable { { "AllReady", true } });
                 }
-
             }
-
         }
     }
 
@@ -118,7 +126,6 @@ public class GameManager : MonoBehaviourPunCallbacks
                 {
                     Invoke(nameof(ConfirmRolesAndStart), 3f);
                 }
-
             }
         }
     }
@@ -176,7 +183,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
 
         // --- シーン遷移 ---
-         PhotonNetwork.LoadLevel("main");
+        PhotonNetwork.LoadLevel("main");
     }
 
     public override void OnJoinedRoom()
@@ -220,12 +227,19 @@ public class GameManager : MonoBehaviourPunCallbacks
                 }
             }
 
-            Hashtable props = new Hashtable
-{
-    { "SurvivorRequest_Counts", survivorCount },
-    { "KillerRequest_Counts", killerCount }
-};
-            PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+            // 前回の値と同じなら通信しない（通信負荷軽減）
+            if (survivorCount != lastSentSurvivorCount || killerCount != lastSentKillerCount)
+            {
+                lastSentSurvivorCount = survivorCount;
+                lastSentKillerCount = killerCount;
+
+                Hashtable props = new Hashtable
+                {
+                    { "SurvivorRequest_Counts", survivorCount },
+                    { "KillerRequest_Counts", killerCount }
+                };
+                PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+            }
         }
     }
 }

@@ -1,30 +1,45 @@
 using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Title_control : MonoBehaviour
+// MonoBehaviourPunCallbacksを継承することで、OnJoinedRoomなどが使えるようになります
+public class Title_control : MonoBehaviourPunCallbacks
 {
     [SerializeField] GameObject camera;
-    bool star_trigger;
+    [SerializeField] GameObject StartButton_obj;
+    [SerializeField] GameObject RoomSelect_obj;
+
+    bool Start_trigger;
+    bool isConnecting = false; // 重複して入室処理が走らないようにするフラグ
     float Speed = 10;
+    int roomnum;
+
     // Start is called before the first frame update
     void Start()
     {
         RenderSettings.fogDensity = 0.05f;
+        StartButton_obj.SetActive(true);
+        RoomSelect_obj.SetActive(false);
+
+        // ゲーム開始時にPhotonサーバーへ接続する
+        if (!PhotonNetwork.IsConnected)
+        {
+            PhotonNetwork.ConnectUsingSettings();
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (star_trigger == false)
+        if (Start_trigger == false)
         {
             if (camera.transform.position.z >= 0)
             {
                 camera.transform.position = new Vector3(camera.transform.position.x, camera.transform.position.y, -60);
             }
-
         }
         else
         {
@@ -33,23 +48,78 @@ public class Title_control : MonoBehaviour
                 RenderSettings.fogDensity += 0.001f;
             }
         }
+
+        // カメラ移動のロジック
         if (camera.transform.position.z <= 37)
         {
-            camera.transform.position += transform.forward * Speed * Time.deltaTime;
+            if (Start_trigger) // スタートボタンが押された後のみ動かす場合
+            {
+                camera.transform.position += transform.forward * Speed * Time.deltaTime;
+            }
         }
         else
         {
-            PhotonNetwork.LoadLevel("lobby");
-
+            // カメラが目的地に着き、かつまだ接続処理中でなければ接続開始
+            if (!isConnecting && Start_trigger)
+            {
+                ConnectRoom();
+            }
         }
-
     }
-    public void Gamestar()
+
+    public void GameStart()
     {
-        if (star_trigger == false)
+        StartButton_obj.SetActive(false);
+        RoomSelect_obj.SetActive(true);
+    }
+
+    public void Select_RoomNum(int num)
+    {
+        // まだスタートしておらず、かつPhotonサーバーに接続済みであれば進行可能
+        if (Start_trigger == false)
         {
-            star_trigger = true;
-            camera.transform.position = new Vector3(camera.transform.position.x, camera.transform.position.y, 0);
+            if (PhotonNetwork.IsConnectedAndReady)
+            {
+                roomnum = num;
+                Start_trigger = true;
+                // カメラ位置のリセット（必要であれば）
+                camera.transform.position = new Vector3(camera.transform.position.x, camera.transform.position.y, 0);
+                RoomSelect_obj.SetActive(false);
+            }
+            else
+            {
+                Debug.LogWarning("まだサーバーに接続できていません。少し待ってから押してください。");
+            }
         }
+    }
+
+    public void ConnectRoom()
+    {
+        isConnecting = true; // 処理中フラグを立てる
+        Debug.Log($"Room{roomnum} に入室を試みます...");
+
+        // ルームオプションの設定（必要に応じてMaxPlayersなどを設定）
+        RoomOptions roomOptions = new RoomOptions();
+        roomOptions.MaxPlayers = 4; // 例: 最大4人
+
+        PhotonNetwork.JoinOrCreateRoom($"Room{roomnum}", roomOptions, TypedLobby.Default);
+    }
+
+    // --- Photonのコールバック ---
+
+    // ルーム入室に成功した時に自動的に呼ばれる関数
+    public override void OnJoinedRoom()
+    {
+        Debug.Log("ルーム入室成功！ロビーシーンへ移動します。");
+
+        // 入室が完了してからシーンを読み込む
+        PhotonNetwork.LoadLevel("lobby");
+    }
+
+    // 入室に失敗した場合（念のため）
+    public override void OnJoinRoomFailed(short returnCode, string message)
+    {
+        Debug.LogError($"入室失敗: {message}");
+        isConnecting = false; // フラグを戻して再試行できるようにする
     }
 }
