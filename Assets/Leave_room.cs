@@ -11,6 +11,8 @@ public class Leave_room : MonoBehaviourPunCallbacks
         if (PhotonNetwork.InRoom)
         {
             Debug.Log("ƒ‹[ƒ€‚©‚çØ’f‚µ‚Ü‚·...");
+            PhotonNetwork.LocalPlayer.CustomProperties = new ExitGames.Client.Photon.Hashtable();
+            PhotonNetwork.LocalPlayer.TagObject = null;
             PhotonNetwork.LeaveRoom(); // Ø’fŠJŽn -> Š®—¹‚·‚é‚ÆOnLeftRoom‚ªŒÄ‚Î‚ê‚é
         }
         else

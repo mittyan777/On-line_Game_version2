@@ -20,12 +20,22 @@ public class PlayerSpawner : MonoBehaviourPunCallbacks
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    // ★追加: Startでも呼ぶ（OnSceneLoadedが登録前に終わっている場合の保険）
+    void Start()
+    {
+        if (PhotonNetwork.InRoom && PhotonNetwork.IsConnectedAndReady)
+        {
+            // シーンロード済みとみなして実行
+            TrySpawn();
+        }
+    }
+    private void TrySpawn()
     {
         if (!PhotonNetwork.InRoom || !PhotonNetwork.IsConnectedAndReady) return;
 
         // すでに生成済みなら何もしない
-        if (PhotonNetwork.LocalPlayer.TagObject != null) return;
+        GameObject existingPlayer = PhotonNetwork.LocalPlayer.TagObject as GameObject;
+        if (existingPlayer != null) return;
 
         // ActorNumber ではなく、Roomのプレイヤーリスト順でインデックス決定
         Player[] playerList = PhotonNetwork.PlayerList;
@@ -41,5 +51,8 @@ public class PlayerSpawner : MonoBehaviourPunCallbacks
 
         PhotonNetwork.LocalPlayer.TagObject = player;
         Debug.Log($"Spawned {prefabName} at {spawnPos}");
+    }
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
     }
 }

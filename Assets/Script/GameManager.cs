@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             supportLogger.enabled = false;
         }
         RoomNumber.text = $"{PhotonNetwork.CurrentRoom.Name}";
+        UpdatePlayerCount(); // ★修正: 開始時にも人数チェック
     }
 
     private void Update()
@@ -61,7 +62,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 ReloadInfoCounter = ReloadInfoTimer;
                 DisplayRequestCounts();
             }
-            if (CurrentPlayerCount != MaxPlayers)
+            if (CurrentPlayerCount < MaxPlayers)
             {
                 countTimer = selectTimer;
             }
@@ -70,7 +71,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 countTimer -= Time.deltaTime;
                 int countdown = Mathf.CeilToInt(countTimer);
                 // 1秒ごとに送信
-                if (countdown != lastSentTimer)
+                if (countdown != lastSentTimer && countdown >= 0)
                 {
                     lastSentTimer = countdown;
                     Hashtable timerProp = new Hashtable();
@@ -80,7 +81,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 }
 
                 // 全員が準備できていたら即時開始
-                if (!rolesConfirmed && (CheckAllReady() || countdown <= 0))
+                if (!rolesConfirmed && !isAllReadySent && (CheckAllReady() || countdown <= 0))
                 {
                     Debug.Log("全員準備完了、または時間切れ。ステータス更新を送信します。");
                     isAllReadySent = true; // ★一度だけ実行するためにフラグを立てる
@@ -94,15 +95,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
     {
         //投票数の更新
-        if (propertiesThatChanged.ContainsKey("SurvivorRequest_Counts") &&
-            propertiesThatChanged.ContainsKey("KillerRequest_Counts"))
-        {
-            Debug.Log("Received player request counts update.");
-            int survivorCount = (int)propertiesThatChanged["SurvivorRequest_Counts"];
-            int killerCount = (int)propertiesThatChanged["KillerRequest_Counts"];
-            SurvivorCount_Label.text = $"サバイバー希望: {survivorCount}/2";
-            KillerCount_Label.text = $"キラー希望: {killerCount}/1";
-        }
+        UpdateRequestUI(propertiesThatChanged);
 
         if (!rolesConfirmed)
         {
@@ -138,6 +131,19 @@ public class GameManager : MonoBehaviourPunCallbacks
                 return false;
         }
         return true;
+    }
+
+    private void UpdateRequestUI(Hashtable props)
+    {
+        if (props.ContainsKey("SurvivorRequest_Counts") &&
+                   props.ContainsKey("KillerRequest_Counts"))
+        {
+            Debug.Log("Received player request counts update.");
+            int survivorCount = (int)props["SurvivorRequest_Counts"];
+            int killerCount = (int)props["KillerRequest_Counts"];
+            SurvivorCount_Label.text = $"サバイバー希望: {survivorCount}/2";
+            KillerCount_Label.text = $"キラー希望: {killerCount}/1";
+        }
     }
 
     private void ConfirmRolesAndStart()
@@ -188,7 +194,13 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
+
         UpdatePlayerCount();
+        // ★追加: 入室時にも現在のルーム情報を使ってUIを更新する
+        if (PhotonNetwork.CurrentRoom != null)
+        {
+            UpdateRequestUI(PhotonNetwork.CurrentRoom.CustomProperties);
+        }
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
