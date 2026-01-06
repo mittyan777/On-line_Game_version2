@@ -3,21 +3,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Clear_manager : MonoBehaviourPunCallbacks
 {
     string[] a;
     [SerializeField] Text[] Game_completer_name;
-    [SerializeField] TextMesh [] Game_completer_mesh;
+    [SerializeField] TextMesh[] Game_completer_mesh;
     [SerializeField] TextMesh[] Player_name;
     [SerializeField] GameObject Player;
     [SerializeField] GameObject Player2;
     [SerializeField] GameObject control_P;
+
+    [SerializeField] string TitleScene_name = "Title";
     // Start is called before the first frame update
     void Start()
     {
-       // a = MainGameManager.Game_completer_name;
+        // a = MainGameManager.Game_completer_name;
         //PhotonNetwork.LeaveRoom();
+        // ??????????????????????????????
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     // Update is called once per frame
@@ -27,29 +33,29 @@ public class Clear_manager : MonoBehaviourPunCallbacks
         Game_completer_name[1].text = MainGameManager.Game_completer_name[1];
         if (MainGameManager.Game_completer_name[0] == "Player")
         {
-            Game_completer_mesh[0].text = "’Eo¬Œ÷";
+            Game_completer_mesh[0].text = "’Eo¬Œ÷";
         }
         else if (MainGameManager.Game_completer_name[1] == "Player")
         {
-            Game_completer_mesh[0].text = "’Eo¬Œ÷";
+            Game_completer_mesh[0].text = "’Eo¬Œ÷";
         }
         else
         {
-            Game_completer_mesh[0].text = "’EoŽ¸”s";
+            Game_completer_mesh[0].text = "’EoŽ¸”s";
         }
         if (MainGameManager.Game_completer_name[0] == "Player2")
         {
-            Game_completer_mesh[1].text = "’Eo¬Œ÷";
+            Game_completer_mesh[1].text = "’Eo¬Œ÷";
         }
         else if (MainGameManager.Game_completer_name[1] == "Player2")
         {
-            Game_completer_mesh[1].text = "’Eo¬Œ÷";
+            Game_completer_mesh[1].text = "’Eo¬Œ÷";
         }
         else
         {
-            Game_completer_mesh[1].text = "’EoŽ¸”s";
+            Game_completer_mesh[1].text = "’EoŽ¸”s";
         }
-        if(control_P.transform.position.z >= -37)
+        if (control_P.transform.position.z >= -37)
         {
             control_P.transform.position = new Vector3(control_P.transform.position.x, control_P.transform.position.y, -71);
         }

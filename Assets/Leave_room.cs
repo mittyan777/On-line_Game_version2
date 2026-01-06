@@ -3,14 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Leave_room: MonoBehaviourPunCallbacks
+public class Leave_room : MonoBehaviourPunCallbacks
 {
     // ゲーム終了時に呼ぶ
     public void LeaveRoomAndClose()
     {
-
-        // ルーム退出
-        PhotonNetwork.LeaveRoom();
+        if (PhotonNetwork.InRoom)
+        {
+            Debug.Log("ルームから切断します...");
+            PhotonNetwork.LeaveRoom(); // 切断開始 -> 完了するとOnLeftRoomが呼ばれる
+        }
+        else
+        {
+            // すでに切断されている場合は直接移動
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Title");
+        }
     }
 
     // ルーム退出完了時に呼ばれるコールバック
