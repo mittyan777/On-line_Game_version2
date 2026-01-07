@@ -2693,6 +2693,7 @@ MonoBehaviour:
   Mermaid_Face: {fileID: 6979278039701893383}
   killer_skin: {fileID: 2423401809791446158}
   Ghost_skin: {fileID: 5014067674325034701}
+  killer_player: {fileID: 0}
   skillDuration: 5
   itemslot: {fileID: 7769793958420099666}
   skillslot: {fileID: 7879562323716798087}
@@ -2707,6 +2708,7 @@ MonoBehaviour:
   Record_name: {fileID: 6715960459716435172}
   my_name: {fileID: 6100663644824702210}
   stamina_gage: {fileID: 4462156892656999446}
+  stamina_Transparency_: 0.6
 --- !u!114 &9107691279401016135
 MonoBehaviour:
   m_ObjectHideFlags: 0

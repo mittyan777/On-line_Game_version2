@@ -43,6 +43,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [SerializeField] public GameObject Mermaid_Face;
     [SerializeField] public GameObject killer_skin;
     [SerializeField] public GameObject Ghost_skin;
+    [SerializeField] GameObject killer_player;
+    float killerdistance;
+    bool killerplayer_trigger = false;
 
     [Header("アウトライン能力")]
     [SerializeField] float skillDuration = 5f; // 壁越しアウトラインの持続時間
@@ -73,6 +76,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [SerializeField] GameObject stamina_gage;
     float stamina = 300;
     float stamina_Collar = 1;
+   [SerializeField] float stamina_Transparency_ = 0.6f;
     bool stamina_trigger = false;
 
 
@@ -87,9 +91,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
             outlineLayer = LayerMask.NameToLayer("OutlineVisible");
             fade = GameObject.FindWithTag("fade").GetComponent<Image>();
             cooltime_Image.GetComponent<Image>().fillAmount = 0;
+         
+            
             MainGameManager.Player_name = new string[3];
             //Roll Check
             Invoke(nameof(PlayerStart), 5);
+            StartCoroutine(WaitForKiller());
         }
         if (sceneName == "lobby")
         {
@@ -132,6 +139,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 GameObject.Find("PlayerImage").SetActive(true);
                 GameObject.Find("Player2Image").SetActive(false);
                 camera.GetComponent<Camera>().cullingMask &= ~(1 << LayerMask.NameToLayer("Ghost_skin"));
+
             }
             else if (this.gameObject.tag == "Player2")
             {
@@ -139,11 +147,26 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 GameObject.Find("PlayerImage").SetActive(false);
                 GameObject.Find("Player2Image").SetActive(true);
                 camera.GetComponent<Camera>().cullingMask &= ~(1 << LayerMask.NameToLayer("Ghost_skin"));
+
             }
             passwordUI = GameObject.Find("InputField");
             passwordUI.SetActive(false);
         }
 
+    }
+
+    IEnumerator WaitForKiller()
+    {
+        if (gameObject.tag != "Killer")
+        {
+            while (killer_player == null)
+            {
+                killer_player = GameObject.FindWithTag("Killer");
+                yield return null; // ← これが重要！フリーズしない
+            }
+            killerplayer_trigger = true;
+            Debug.Log("Killer 見つかった: " + killer_player.name);
+        }
     }
 
     [PunRPC]
@@ -255,7 +278,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
                         }
 
-                        if (Input.GetKey(KeyCode.Alpha1))
+                        if (killerdistance <= 10)
                         {
                             Manager.GetComponent<MainGameManager>().Face_swap(gameObject.tag);
                         }
@@ -333,6 +356,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
     }
     void Update()
     {
+        if (gameObject.tag != "Killer" && killerplayer_trigger == true)
+        {
+            if (GameObject.FindWithTag("Killer") != null) { killerdistance = Vector3.Distance(transform.position, killer_player.transform.position); }
+        }
+        
+
         string sceneName = SceneManager.GetActiveScene().name;
         if (sceneName == "main")
         {
@@ -644,6 +673,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 {
                     stamina += 30 * Time.deltaTime;
                 }
+                stamina_Transparency_ = Mathf.Sin(Time.time * 10) * 0.25f + 0.35f;
+
+            }
+            else
+            {
+                stamina_Transparency_ = 0.6f;
             }
             if (stamina <= 150 && stamina_Collar >= 0)
             {
@@ -658,7 +693,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             {
                 stamina_trigger = false;
             }
-            stamina_gage.GetComponent<Image>().color = new Color(1, stamina_Collar, 0, 0.6f);
+            stamina_gage.GetComponent<Image>().color = new Color(1, stamina_Collar, 0, stamina_Transparency_);
         }
         else
         {
@@ -728,11 +763,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
         if (other.gameObject.name == "Player_count")
         {
-            GameObject.FindWithTag("Player_count").gameObject.GetComponent<GameStart_count>().SetOpen();
+            GameObject.FindWithTag("Player_count").gameObject.GetComponent<GameStart_count>().SetOpen(gameObject.tag);
         }
         if (other.gameObject.name == "killer_count")
         {
-            GameObject.FindWithTag("Player_count").gameObject.GetComponent<GameStart_count>().SetOpen3();
+            GameObject.FindWithTag("Player_count").gameObject.GetComponent<GameStart_count>().SetOpen3(gameObject.tag);
         }
         if (other.gameObject.name == "END")
         {
@@ -745,11 +780,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
     {
         if (other.gameObject.name == "Player_count")
         {
-            GameObject.FindWithTag("Player_count").gameObject.GetComponent<GameStart_count>().SetOpen2();
+            GameObject.FindWithTag("Player_count").gameObject.GetComponent<GameStart_count>().SetOpen2(gameObject.tag);
         }
         if (other.gameObject.name == "killer_count")
         {
-            GameObject.FindWithTag("Player_count").gameObject.GetComponent<GameStart_count>().SetOpen4();
+            GameObject.FindWithTag("Player_count").gameObject.GetComponent<GameStart_count>().SetOpen4(gameObject.tag);
         }
         if (gameObject.name == "Jail")
         {

@@ -22,12 +22,21 @@ public class FaceCamera1 : MonoBehaviourPunCallbacks
     {
         if (manager.GetComponent<MainGameManager>().Gamestart == true)
         {
-           
-            
+
+            if (target_name != "Killer")
+            {
                 Target = GameObject.FindGameObjectsWithTag(target_name);
                 transform.SetParent(Target[0].GetComponent<PlayerController>().Mermaid_Face.transform);
-                transform.localPosition = new Vector3(0f, 0.1f, 0.463f);
+                transform.localPosition = new Vector3(0f, 0.1f, 0.6f);
                 transform.LookAt(Target[0].GetComponent<PlayerController>().Mermaid_Face.transform);
+            }
+            elseÅ@if(target_name == "Killer")
+            {
+                Target = GameObject.FindGameObjectsWithTag(target_name);
+                transform.SetParent(Target[0].GetComponent<PlayerController>().killer_skin.transform);
+                transform.localPosition = new Vector3(0f, 0.65f, 0.6f);
+               // transform.LookAt(Target[0].GetComponent<PlayerController>().killer_skin.transform);
+            }
             
         }
     }
