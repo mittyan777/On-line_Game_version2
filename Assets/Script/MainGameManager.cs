@@ -39,10 +39,13 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     [SerializeField] GameObject dummy_Player_switch2;
     [SerializeField] drawn[] Drone_Objects;
     [SerializeField] GameObject Direction_right;
+    [SerializeField] GameObject []kakuho_UI;
 
     [SerializeField] GameObject[] CollarImage;
 
     [SerializeField] GameObject effect;
+
+    [SerializeField] GameObject jail_doa;
 
     [SerializeField] public bool blue = false;
     [SerializeField] public bool red = false;
@@ -367,6 +370,16 @@ public class MainGameManager : MonoBehaviourPunCallbacks
        
 
     }
+
+    public void jail_doa_control()
+    {
+                DoorController door = jail_doa.GetComponent<DoorController>();
+                if (door != null)
+                {
+                    door.SetOpen(false);
+                }
+        
+    }
     [PunRPC]
     void Clear_load()
     {
@@ -595,7 +608,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void RPCkiller_Securing2(string target_name)
     {
-        GameObject.FindWithTag(target_name).transform.position = new Vector3(84, 7, 16);
+        GameObject.FindWithTag(target_name).transform.position = new Vector3(82, 7, 10);
         GameObject.FindWithTag(target_name).GetComponent<PlayerController>().fade_trigger = false;
         GameObject.FindWithTag(target_name).GetComponent<PlayerController>().Trap_trigger = false;
         GameObject.FindWithTag(target_name).GetComponent<PlayerController>().Mermaid.SetActive(true);
@@ -686,5 +699,37 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         {
             GameObject.FindGameObjectWithTag("dummy_Player").GetComponent<Outline>().OutlineMode = Outline.Mode.Skill_Off;
         }
+    }
+    [PunRPC]
+    void RPCkakuho(string target)
+    {
+        if (target == "Player")
+        {
+            kakuho_UI[0].SetActive(true);
+        }
+        else if(target == "Player2")
+        {
+            kakuho_UI[1].SetActive(true);
+        }
+    }
+    public void kakuho(string target)
+    {
+        photonView.RPC(nameof(RPCkakuho), RpcTarget.All, target);
+    }
+    [PunRPC]
+    void RPCkakuhoOF(string target)
+    {
+        if (target == "Player")
+        {
+            kakuho_UI[0].SetActive(false);
+        }
+        else if (target == "Player2")
+        {
+            kakuho_UI[1].SetActive(false);
+        }
+    }
+    public void kakuhoOF(string target)
+    {
+        photonView.RPC(nameof(RPCkakuhoOF), RpcTarget.All, target);
     }
 }
