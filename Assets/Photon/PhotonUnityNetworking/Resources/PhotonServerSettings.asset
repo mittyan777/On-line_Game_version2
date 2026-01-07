@@ -75,6 +75,8 @@ MonoBehaviour:
   - RPC_Face_swap
   - RPC_Face_swapOF
   - RPC_name_Record
+  - RPCkakuho
+  - RPCkakuhoOF
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

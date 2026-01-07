@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [SerializeField] GameObject[] memo;
     [SerializeField] GameObject Notepad;
     [SerializeField] public GameObject Mermaid;
+    [SerializeField] public GameObject Mermaid_Face;
     [SerializeField] public GameObject killer_skin;
     [SerializeField] public GameObject Ghost_skin;
 
@@ -68,6 +69,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     [SerializeField] GameObject Record_name;
     [SerializeField] public TextMeshPro my_name;
+
+    [SerializeField] GameObject stamina_gage;
+    float stamina = 300;
+    float stamina_Collar = 1;
+    bool stamina_trigger = false;
 
 
     // Start is called before the first frame update
@@ -358,8 +364,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 {
                     if (passwordUI.activeSelf == false)
                     {
+                        RectTransform rt = stamina_gage.GetComponent<RectTransform>();
 
-
+                        Vector2 size = rt.sizeDelta;
+                        size.x = stamina;   // 幅として使う値
+                        rt.sizeDelta = size;
                         float h = Input.GetAxis("Mouse X");
                         float v = Input.GetAxis("Mouse Y");
                         side += h;
@@ -590,28 +599,66 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 }
 
             }
+         
             if (gameObject.tag != "Killer")
             {
-
-                if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.W))
+             
+                if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.W) && stamina_trigger == false)
                 {
                     MoveSpeed = 8;
                     animator.SetBool("dash", true);
+                    stamina -= 30 * Time.deltaTime;
                     if (camera.GetComponent<Camera>().fieldOfView < 80)
                     {
                         camera.GetComponent<Camera>().fieldOfView += 80f * Time.deltaTime;
                     }
                 }
-                else
+                else 
                 {
                     animator.SetBool("dash", false);
                     MoveSpeed = 5;
+
+                    if (stamina >= 1 && stamina <= 300)
+                    {
+                        stamina += 30 * Time.deltaTime;
+                    }
                     if (camera.GetComponent<Camera>().fieldOfView > 60)
                     {
                         camera.GetComponent<Camera>().fieldOfView -= 50f * Time.deltaTime;
                     }
+               
+                }
+              
+            }
+            else
+            {
+                MoveSpeed = 6;
+            }
+            if (stamina < 1)
+            {
+                stamina_trigger = true;
+            }
+            if (stamina_trigger == true)
+            {
+                if (stamina >= 0)
+                {
+                    stamina += 30 * Time.deltaTime;
                 }
             }
+            if (stamina <= 150 && stamina_Collar >= 0)
+            {
+                stamina_Collar -= Time.deltaTime / 2;
+            }
+            if (stamina >= 150 && stamina_Collar <= 1)
+            {
+                stamina_Collar += Time.deltaTime / 2;
+            }
+
+            if (stamina >= 300)
+            {
+                stamina_trigger = false;
+            }
+            stamina_gage.GetComponent<Image>().color = new Color(1, stamina_Collar, 0, 0.6f);
         }
         else
         {
@@ -715,9 +762,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
         if (collision.gameObject.tag == "Jail")
         {
             //Manager.GetComponent<MainGameManager>().Game_over();
+            Debug.Log("捕まった");
             detainee_name = gameObject.tag;
             Back_name = collision.gameObject.name;
             collision.gameObject.name = "Jail_Player";
+            Manager.GetComponent<MainGameManager>().jail_doa_control();
+            Manager.GetComponent<MainGameManager>().kakuho(gameObject.tag);
         }
     }
     private void OnCollisionExit(Collision collision)
@@ -726,6 +776,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             Manager.GetComponent<MainGameManager>().Game_over_of();
             collision.gameObject.name = Back_name;
+            Manager.GetComponent<MainGameManager>().kakuhoOF(gameObject.tag);
         }
     }
     IEnumerator Trap()
