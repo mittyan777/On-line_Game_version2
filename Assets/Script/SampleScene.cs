@@ -14,19 +14,34 @@ public class SampleScene : MonoBehaviourPunCallbacks
 
     //?????
     bool plugs = false;
-    private void Start()
+    private IEnumerator Start()
     {
-        // PhotonServerSettings�̐ݒ���e���g���ă}�X�^�[�T�[�o�[�֐ڑ�����
-        // PhotonNetwork.ConnectUsingSettings();
+        // 1. もしオフライン（接続切れ）なら、少し待ってみる
+        // シーンロード直後はステータス同期が一瞬遅れることがあるため
+        if (!PhotonNetwork.InRoom)
+        {
+            Debug.Log("ルーム情報の同期を待機中...");
+            // 最大3秒間、InRoomになるのを待つ
+            float timeOut = 3.0f;
+            while (!PhotonNetwork.InRoom && timeOut > 0)
+            {
+                timeOut -= Time.deltaTime;
+                yield return null; // 1フレーム待つ
+            }
+        }
+
+        // 2. 待った結果、部屋にいるなら生成
         if (PhotonNetwork.InRoom)
         {
             SpawnPlayer();
         }
         else
         {
-            Debug.LogWarning("部屋に入っていません。オフラインモードまたはタイトルから開始してください。");
+            Debug.LogError("エラー：ルームに入っていません。");
+            Debug.LogError($"現在の状態: {PhotonNetwork.NetworkClientState}");
         }
     }
+
     private void Update()
     {
         if (plugs == true)

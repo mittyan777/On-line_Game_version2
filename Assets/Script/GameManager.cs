@@ -2,9 +2,11 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 using ExitGames.Client.Photon;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Security;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -30,7 +32,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     private int lastSentSurvivorCount = -1;
     private int lastSentKillerCount = -1;
 
-    private void Start()
+    private IEnumerator Start()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
         countTimer = selectTimer;
@@ -45,8 +47,23 @@ public class GameManager : MonoBehaviourPunCallbacks
             // If you want to completely disable the SupportLogger component
             supportLogger.enabled = false;
         }
+
+        // ★修正ポイント: ルーム情報が取得できるまで待機する
+        // CurrentRoom が null ではない、かつ プロパティがロードされるのを待つ
+        while (!PhotonNetwork.InRoom || PhotonNetwork.CurrentRoom == null)
+        {
+            yield return null; // 1フレーム待つ
+        }
+        // 念のため、カスタムプロパティの中身が空（同期前）かもしれないので、少しだけ余裕を持たせる
+        if (PhotonNetwork.CurrentRoom.CustomProperties.Count == 0)
+        {
+            yield return new WaitForSeconds(0.1f);
+        }
+
         RoomNumber.text = $"{PhotonNetwork.CurrentRoom.Name}";
-        UpdatePlayerCount(); // ★修正: 開始時にも人数チェック
+
+        UpdateRequestUI(PhotonNetwork.CurrentRoom.CustomProperties);
+        UpdatePlayerCount();
     }
 
     private void Update()
@@ -194,13 +211,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-
         UpdatePlayerCount();
-        // ★追加: 入室時にも現在のルーム情報を使ってUIを更新する
-        if (PhotonNetwork.CurrentRoom != null)
-        {
-            UpdateRequestUI(PhotonNetwork.CurrentRoom.CustomProperties);
-        }
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
