@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public ExpressionPreset preset;
 
     [SerializeField] GameObject Record_name;
-    [SerializeField] public TextMeshPro my_name;
+    [SerializeField] public TextMeshProUGUI my_name;
 
     [SerializeField] GameObject stamina_gage;
     float stamina = 300;
@@ -91,8 +91,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
             outlineLayer = LayerMask.NameToLayer("OutlineVisible");
             fade = GameObject.FindWithTag("fade").GetComponent<Image>();
             cooltime_Image.GetComponent<Image>().fillAmount = 0;
-         
-            
+            stamina_gage.SetActive(true);
+
             MainGameManager.Player_name = new string[3];
             //Roll Check
             Invoke(nameof(PlayerStart), 5);
@@ -101,6 +101,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         if (sceneName == "lobby")
         {
             Record_name.SetActive(false);
+            stamina_gage.SetActive(false);
         }
 
         if (photonView.IsMine)
@@ -220,7 +221,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             if (passwordUI != null)
             {
-                if (passwordUI.activeSelf == false)
+                if (passwordUI.activeSelf == false && Record_name.activeSelf == false)
                 {
                     float x = 0f;
                     float z = 0f;
