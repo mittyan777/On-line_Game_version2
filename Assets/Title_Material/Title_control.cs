@@ -16,6 +16,8 @@ public class Title_control : MonoBehaviourPunCallbacks
     bool isConnecting = false; // 重複して入室処理が走らないようにするフラグ
     float Speed = 10;
     int roomnum;
+    [SerializeField] GameObject errorWindow_UI;
+    static public bool errorWindow = false;
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +36,15 @@ public class Title_control : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
+        if(errorWindow == true)
+        {
+            errorWindow_UI.SetActive(true);
+        }
+        else
+        {
+            errorWindow_UI.SetActive(false);
+        }
+
         if (Start_trigger == false)
         {
             if (camera.transform.position.z >= 0)
@@ -49,22 +60,14 @@ public class Title_control : MonoBehaviourPunCallbacks
             }
         }
 
-        // カメラ移動のロジック
-        if (camera.transform.position.z <= 37)
+        if (Start_trigger)
         {
-            if (Start_trigger) // スタートボタンが押された後のみ動かす場合
-            {
-                camera.transform.position += transform.forward * Speed * Time.deltaTime;
-            }
+            ConnectRoom();
         }
-        else
-        {
-            // カメラが目的地に着き、かつまだ接続処理中でなければ接続開始
-            if (!isConnecting && Start_trigger)
-            {
-                ConnectRoom();
-            }
-        }
+    }
+    public void error_ext()
+    {
+        errorWindow = false;
     }
 
     public void GameStart()
@@ -100,7 +103,7 @@ public class Title_control : MonoBehaviourPunCallbacks
 
         // ルームオプションの設定（必要に応じてMaxPlayersなどを設定）
         RoomOptions roomOptions = new RoomOptions();
-        roomOptions.MaxPlayers = 4; // 例: 最大4人
+        roomOptions.MaxPlayers = 3; // 例: 最大3人
 
         PhotonNetwork.JoinOrCreateRoom($"Room{roomnum}", roomOptions, TypedLobby.Default);
     }
