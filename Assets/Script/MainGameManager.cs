@@ -59,6 +59,8 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     [SerializeField] int DesPlayer;
     static public string[] Player_name;
 
+    [SerializeField] GameObject []face_camera;
+
     void Start()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
@@ -105,9 +107,8 @@ public class MainGameManager : MonoBehaviourPunCallbacks
             dummy_Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.white);
         }
 
-        Debug.Log(Player_name[0]);
-        Debug.Log(Player_name[1]);
-        Debug.Log(Player_name[2]);
+        Debug.Log(Game_completer_name[0]);
+        Debug.Log(Game_completer_name[1]);
 
         if (killer != null)
         {
@@ -368,7 +369,6 @@ public class MainGameManager : MonoBehaviourPunCallbacks
            
         }
        
-
     }
 
     public void jail_doa_control()
@@ -632,12 +632,13 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     {
       
         Game_completer += 1;
-
             GameObject.FindWithTag(target).GetComponent<PlayerController>().Mermaid.SetActive(false);
         GameObject.FindWithTag(target).GetComponent<PlayerController>().Ghost_skin.SetActive(true);
         GameObject.FindWithTag(target).gameObject.layer = 20;
         GameObject.FindWithTag(target).transform.position = new Vector3(100, 7, 4);
-        Game_completer_name[i] = target;
+
+        
+            Game_completer_name[i] = target;
         i += 1;
 
     }

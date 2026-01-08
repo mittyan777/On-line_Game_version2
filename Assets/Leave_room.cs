@@ -1,10 +1,15 @@
 using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Leave_room : MonoBehaviourPunCallbacks
 {
+    private void Start()
+    {
+  
+    }
     // ゲーム終了時に呼ぶ
     public void LeaveRoomAndClose()
     {
@@ -28,5 +33,8 @@ public class Leave_room : MonoBehaviourPunCallbacks
         // タイトル画面などに遷移
         UnityEngine.SceneManagement.SceneManager.LoadScene("Title");
     }
+
+
+
 
 }

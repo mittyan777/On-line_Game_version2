@@ -2368,6 +2368,7 @@ MonoBehaviour:
   Mermaid_Face: {fileID: 1222535870967195358}
   killer_skin: {fileID: 1887280012626429673}
   Ghost_skin: {fileID: 8662054926774346186}
+  killer_player: {fileID: 0}
   skillDuration: 5
   itemslot: {fileID: 7563002741243005882}
   skillslot: {fileID: 4670506439348669703}
@@ -2382,6 +2383,7 @@ MonoBehaviour:
   Record_name: {fileID: 8087365011277739907}
   my_name: {fileID: 6182453460953351966}
   stamina_gage: {fileID: 8034643033528984438}
+  stamina_Transparency_: 0.6
 --- !u!114 &5914042319032669370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4246,6 +4248,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 22
       objectReference: {fileID: 0}
+    - target: {fileID: 3733439014412260905, guid: c5e5ef685ffe5c64ea21dbb0a14df52d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e01fc1c2612657d46a10ebfca12144bc, type: 2}
     - target: {fileID: 3765462450202980328, guid: c5e5ef685ffe5c64ea21dbb0a14df52d, type: 3}
       propertyPath: m_Layer
       value: 22
@@ -4338,6 +4344,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 22
       objectReference: {fileID: 0}
+    - target: {fileID: 8776509651121715728, guid: c5e5ef685ffe5c64ea21dbb0a14df52d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 37bec5bf67964874d9f07578024e8851, type: 2}
     - target: {fileID: 9124693849528704230, guid: c5e5ef685ffe5c64ea21dbb0a14df52d, type: 3}
       propertyPath: m_Layer
       value: 22

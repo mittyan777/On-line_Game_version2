@@ -1,11 +1,11 @@
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.GraphicsBuffer;
 
 public class GameStart_count : MonoBehaviourPun
 {
-    [SerializeField] Text sabaiba_text;
-    [SerializeField] Text killer_text;
+    [SerializeField] GameObject []ReadyUI;
     [SerializeField] Text count_text;
     [SerializeField] float count = 5;
     int result;
@@ -14,72 +14,100 @@ public class GameStart_count : MonoBehaviourPun
     bool time_count_trigger = false;
     // Start is called before the first frame update
     [PunRPC]
-    void RPC_SetOpen()
+    void RPC_SetOpen(string target)
     {
 
         Gamemanager.GetComponent<MainGameManager>().sabaiba_count += 1;
-        if (Gamemanager.GetComponent<MainGameManager>().sabaiba_count == 2)
+        if(target == "Player")
         {
-            sabaiba_text.text = "サバイバー準備OK";
+            ReadyUI[0].SetActive(true);
         }
-        else
+        else if(target == "Player2")
         {
-            sabaiba_text.text = ($"{Gamemanager.GetComponent<MainGameManager>().sabaiba_count}/ 2");
+            ReadyUI[1].SetActive(true);
+        }
+        else if (target == "Killer")
+        {
+            ReadyUI[2].SetActive(true);
         }
         if (Gamemanager.GetComponent<MainGameManager>().sabaiba_count == 2 && Gamemanager.GetComponent<MainGameManager>().killer_count == 1)
         {
-            sabaiba_text.gameObject.SetActive(false);
-            killer_text.gameObject.SetActive(false);
+
             count_text.gameObject.SetActive(true);
             time_count_trigger = true;
         }
     }
     [PunRPC]
-    void RPC_SetOpen2()
+    void RPC_SetOpen2(string target)
     {
 
         Gamemanager.GetComponent<MainGameManager>().sabaiba_count -= 1;
-      sabaiba_text.text = ($"{Gamemanager.GetComponent<MainGameManager>().sabaiba_count}/2");
+        if (target == "Player")
+        {
+            ReadyUI[0].SetActive(false);
+        }
+        else if (target == "Player2")
+        {
+            ReadyUI[1].SetActive(false);
+        }
+        else if (target == "Killer")
+        {
+            ReadyUI[2].SetActive(false);
+        }
+
         if (Gamemanager.GetComponent<MainGameManager>().sabaiba_count == 2 && Gamemanager.GetComponent<MainGameManager>().killer_count == 1)
         {
-            sabaiba_text.gameObject.SetActive(false);
-            killer_text.gameObject.SetActive(false);
+         
             count_text.gameObject.SetActive(true);
             time_count_trigger = true;
         }
 
     }
     [PunRPC]
-    void RPC_SetOpen3()
+    void RPC_SetOpen3(string target)
     {
 
         Gamemanager.GetComponent<MainGameManager>().killer_count += 1;
-        if (Gamemanager.GetComponent<MainGameManager>().killer_count == 1)
+        if (target == "Player")
         {
-            killer_text.text = "キラー準備OK";
+            ReadyUI[0].SetActive(true);
         }
-        else
+        else if (target == "Player2")
         {
-            killer_text.text = ($"{Gamemanager.GetComponent<MainGameManager>().killer_count}/1");
+            ReadyUI[1].SetActive(true);
         }
+        else if (target == "Killer")
+        {
+            ReadyUI[2].SetActive(true);
+        }
+
         if (Gamemanager.GetComponent<MainGameManager>().sabaiba_count == 2 && Gamemanager.GetComponent<MainGameManager>().killer_count == 1)
         {
-            sabaiba_text.gameObject.SetActive(false);
-            killer_text.gameObject.SetActive(false);
             count_text.gameObject.SetActive(true);
             time_count_trigger = true;
         }
     }
     [PunRPC]
-    void RPC_SetOpen4()
+    void RPC_SetOpen4(string target)
     {
 
         Gamemanager.GetComponent<MainGameManager>().killer_count -= 1;
-        killer_text.text = ($"{Gamemanager.GetComponent<MainGameManager>().killer_count}/1");
+
+        if (target == "Player")
+        {
+            ReadyUI[0].SetActive(false);
+        }
+        else if (target == "Player2")
+        {
+            ReadyUI[1].SetActive(false);
+        }
+        else if (target == "Killer")
+        {
+            ReadyUI[2].SetActive(false);
+        }
+
         if (Gamemanager.GetComponent<MainGameManager>().sabaiba_count == 2 && Gamemanager.GetComponent<MainGameManager>().killer_count == 1)
         {
-            sabaiba_text.gameObject.SetActive(false);
-            killer_text.gameObject.SetActive(false);
             count_text.gameObject.SetActive(true);
             time_count_trigger = true;
             
@@ -106,25 +134,25 @@ public class GameStart_count : MonoBehaviourPun
             Gamemanager.GetComponent<MainGameManager>().GameStart_trigger = true;
        }
     }
-    public void SetOpen()
+    public void SetOpen(string target)
     {
-        photonView.RPC(nameof(RPC_SetOpen), RpcTarget.AllBuffered);
+        photonView.RPC(nameof(RPC_SetOpen), RpcTarget.AllBuffered,target);
     }
-    public void SetOpen2()
+    public void SetOpen2(string target)
     {
         if (!PhotonNetwork.IsMasterClient) return;
 
-        photonView.RPC(nameof(RPC_SetOpen2), RpcTarget.All);
+        photonView.RPC(nameof(RPC_SetOpen2), RpcTarget.All, target);
     }
-    public void SetOpen3()
+    public void SetOpen3(string target)
     {
 
-        photonView.RPC(nameof(RPC_SetOpen3), RpcTarget.All);
+        photonView.RPC(nameof(RPC_SetOpen3), RpcTarget.All, target);
     }
-    public void SetOpen4()
+    public void SetOpen4(string target)
     {
         if (!PhotonNetwork.IsMasterClient) return;
-        photonView.RPC(nameof(RPC_SetOpen4), RpcTarget.All);
+        photonView.RPC(nameof(RPC_SetOpen4), RpcTarget.All, target);
     }
 
 
