@@ -521,33 +521,50 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         photonView.RPC(nameof(RPC_name_Record), RpcTarget.All,name,target);
     }
     [PunRPC]
-    void RPC_name_Record(string name,string target_name)
+    void RPC_name_Record(string name, string target_name)
     {
+        // 不可視文字を除去
+        string cleanName = name
+            .Replace("\r", "")
+            .Replace("\n", "")
+            .Replace("\t", "")
+            .Replace("\u200B", "") // ゼロ幅スペース
+            .Trim();
+
         if (target_name == "Player")
         {
-            Player_name[0] = name;
+            Player_name[0] = cleanName;
             if (Player_name[0] != null)
             {
-                GameObject.FindGameObjectWithTag(target_name).GetComponent<PlayerController>().my_name.text = Player_name[0];
+                GameObject.FindGameObjectWithTag(target_name).GetComponent<PlayerController>().my_name.richText = false;
+
+                GameObject.FindGameObjectWithTag(target_name)
+                    .GetComponent<PlayerController>().my_name.text = Player_name[0];
             }
         }
         if (target_name == "Player2")
         {
-            Player_name[1] = name;
+            Player_name[1] = cleanName;
             if (Player_name[1] != null)
             {
-                GameObject.FindGameObjectWithTag(target_name).GetComponent<PlayerController>().my_name.text = Player_name[1];
+                GameObject.FindGameObjectWithTag(target_name).GetComponent<PlayerController>().my_name.richText = false;
+                GameObject.FindGameObjectWithTag(target_name)
+                    .GetComponent<PlayerController>().my_name.text = Player_name[1];
             }
         }
         if (target_name == "Killer")
         {
-            Player_name[2] = name;
+            Player_name[2] = cleanName;
             if (Player_name[2] != null)
             {
-                GameObject.FindGameObjectWithTag(target_name).GetComponent<PlayerController>().my_name.text = Player_name[2];
+                GameObject.FindGameObjectWithTag(target_name).GetComponent<PlayerController>().my_name.richText = false;
+                GameObject.FindGameObjectWithTag(target_name)
+                    .GetComponent<PlayerController>().my_name.text = Player_name[2];
             }
         }
     }
+
+
 
     public void StopDrone_Ability()
     {

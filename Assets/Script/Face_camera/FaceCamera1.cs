@@ -36,7 +36,7 @@ public class FaceCamera1 : MonoBehaviourPunCallbacks
                 else
                 {
                     MY_camera.transform.SetParent(Target[0].GetComponent<PlayerController>().Ghost_skin.transform);
-                    MY_camera.transform.localPosition = new Vector3(0f, 0.65f, 0.8f);
+                    MY_camera.transform.localPosition = new Vector3(0f, 0.5f, 1f);
                 }
             }
             elseÅ@if(target_name == "Killer")
