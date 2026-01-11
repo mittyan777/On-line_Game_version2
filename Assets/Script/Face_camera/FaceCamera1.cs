@@ -8,14 +8,14 @@ using static UnityEngine.GraphicsBuffer;
 
 public class FaceCamera1 : MonoBehaviourPunCallbacks
 {
-    GameObject []Target;
-    [SerializeField]GameObject manager;
+    GameObject[] Target;
+    [SerializeField] GameObject manager;
     [SerializeField] string target_name;
     [SerializeField] GameObject MY_camera;
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -39,15 +39,15 @@ public class FaceCamera1 : MonoBehaviourPunCallbacks
                     MY_camera.transform.localPosition = new Vector3(0f, 0.5f, 1f);
                 }
             }
-            elseÅ@if(target_name == "Killer")
+            else if (target_name == "Killer")
             {
                 Target = GameObject.FindGameObjectsWithTag(target_name);
                 MY_camera.transform.SetParent(Target[0].GetComponent<PlayerController>().killer_skin.transform);
                 MY_camera.transform.localPosition = new Vector3(0f, 0.65f, 0.6f);
-               // transform.LookAt(Target[0].GetComponent<PlayerController>().killer_skin.transform);
+                // transform.LookAt(Target[0].GetComponent<PlayerController>().killer_skin.transform);
             }
-          
-            
+
+
         }
     }
 }
