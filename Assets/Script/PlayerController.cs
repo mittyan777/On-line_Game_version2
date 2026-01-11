@@ -79,6 +79,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
    [SerializeField] float stamina_Transparency_ = 0.6f;
     bool stamina_trigger = false;
 
+    [SerializeField] Image Collarchange_switch;
+    [SerializeField] Sprite []Collarchange_switch_sprite;
+
 
     // Start is called before the first frame update
     void Start()
@@ -140,6 +143,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 GameObject.Find("PlayerImage").SetActive(true);
                 GameObject.Find("Player2Image").SetActive(false);
                 camera.GetComponent<Camera>().cullingMask &= ~(1 << LayerMask.NameToLayer("Ghost_skin"));
+                Collarchange_switch.sprite = Collarchange_switch_sprite[0];
 
             }
             else if (this.gameObject.tag == "Player2")
@@ -148,6 +152,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 GameObject.Find("PlayerImage").SetActive(false);
                 GameObject.Find("Player2Image").SetActive(true);
                 camera.GetComponent<Camera>().cullingMask &= ~(1 << LayerMask.NameToLayer("Ghost_skin"));
+                Collarchange_switch.sprite = Collarchange_switch_sprite[1];
 
             }
             passwordUI = GameObject.Find("InputField");
