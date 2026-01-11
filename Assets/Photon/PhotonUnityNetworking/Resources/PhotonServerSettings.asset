@@ -77,6 +77,8 @@ MonoBehaviour:
   - RPC_name_Record
   - RPCkakuho
   - RPCkakuhoOF
+  - rockof
+  - rockon
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

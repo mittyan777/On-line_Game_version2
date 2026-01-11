@@ -114,6 +114,7 @@ public class drawn : MonoBehaviourPunCallbacks
             StoppingCountTime = 10f;
             MoveDisabled = true;
             SmokeParticle.SetActive(true);
+            marker.SetActive(false);
         }
     }
 
@@ -124,13 +125,8 @@ public class drawn : MonoBehaviourPunCallbacks
         {
             if (!MoveDisabled)
             {
-                marker.SetActive(true);
-                isChasing = true;
-                siren = true;
-                targetPlayer = other.transform;
-                
-
-                Debug.Log("追跡開始 -> " + other.tag);
+                photonView.RPC(nameof(rockon), RpcTarget.All, other.gameObject.tag);
+         
             }
         }
 
@@ -142,18 +138,36 @@ public class drawn : MonoBehaviourPunCallbacks
             Debug.Log("停止エリア侵入 -> " + other.tag);
         }
     }
+    [PunRPC]
+    void rockon(string target)
+    {
+       GameObject a =  GameObject.FindWithTag(target);
+        marker.SetActive(true);
+        isChasing = true;
+        siren = true;
+        targetPlayer = a.transform;
 
+
+        Debug.Log("追跡開始 -> " + a.tag);
+    }
     private void OnTriggerExit(Collider other)
     {
         // プレイヤー追跡終了
         if (other.CompareTag("Drone Player Detection"))
         {
-            marker.SetActive(false);
-            isChasing = false;
-            siren = false;
-            targetPlayer = null;
-            Debug.Log("追跡終了 -> " + other.tag);
+            photonView.RPC(nameof(rockof), RpcTarget.All, other.gameObject.tag);
+          
         }
+    }
+    [PunRPC]
+    void rockof(string target)
+    {
+        GameObject a = GameObject.FindWithTag(target);
+        marker.SetActive(false);
+        isChasing = false;
+        siren = false;
+        targetPlayer = null;
+        Debug.Log("追跡終了 -> " + a.tag);
     }
     void LateUpdate()
     {
