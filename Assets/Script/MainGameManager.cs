@@ -429,6 +429,23 @@ public class MainGameManager : MonoBehaviourPunCallbacks
             gameEnd = (bool)propertiesThatChanged["GameEnd"];
             if (gameEnd)
                 Debug.Log("ゲーム終了 (同期)");
+            if (Game_completer > 0 && !isLeaving)
+            {
+                isLeaving = true;
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    PhotonNetwork.LoadLevel("Game_Clear");
+                }
+
+            }
+            if (Game_completer == 0 && !isLeaving)
+            {
+                isLeaving = true;
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    PhotonNetwork.LoadLevel("Game_over");
+                }
+            }
             //if (Game_completer == 1 && !isLeaving)
             //{
             //    isLeaving = true;
@@ -654,9 +671,15 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         GameObject.FindWithTag(target).gameObject.layer = 20;
         GameObject.FindWithTag(target).transform.position = new Vector3(100, 7, 4);
 
-        
-            Game_completer_name[i] = target;
-        i += 1;
+        if (target == "Player")
+        {
+            Game_completer_name[0] = target;
+        }
+        if (target == "Player2")
+        {
+            Game_completer_name[1] = target;
+        }
+   
 
     }
     [PunRPC]
