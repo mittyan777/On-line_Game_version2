@@ -37,32 +37,21 @@ public class Clear_manager : MonoBehaviourPunCallbacks
             UnityEngine.SceneManagement.SceneManager.LoadScene("Title");
         }
         Debug.Log(MainGameManager.Game_completer_name[0]);
-        Game_completer_name[0].text = MainGameManager.Game_completer_name[0];
-        Game_completer_name[1].text = MainGameManager.Game_completer_name[1];
-        if (MainGameManager.Game_completer_name[0] == "Player")
-        {
-            Game_completer_mesh[0].text = "’Eo";
-        }
-        else if (MainGameManager.Game_completer_name[1] == "Player")
-        {
-            Game_completer_mesh[0].text = "’Eo";
-        }
-        else
-        {
-            Game_completer_mesh[0].text = "’Eo";
-        }
-        if (MainGameManager.Game_completer_name[0] == "Player2")
-        {
-            Game_completer_mesh[1].text = "’Eo";
-        }
-        else if (MainGameManager.Game_completer_name[1] == "Player2")
-        {
-            Game_completer_mesh[1].text = "’Eo";
-        }
-        else
-        {
-            Game_completer_mesh[1].text = "’EoŽ¸”s";
-        }
+
+        // ƒvƒŒƒCƒ„[1‚ª’Eo‚µ‚½‚©
+        bool p1 = MainGameManager.Game_completer_name[0] == "Player";
+
+        // ƒvƒŒƒCƒ„[2‚ª’Eo‚µ‚½‚©
+        bool p2 = MainGameManager.Game_completer_name[1] == "Player2";
+
+        // Œ‹‰Ê•\Ž¦
+        Game_completer_mesh[0].text = p1 ? "’Eo" : "’EoŽ¸”s";
+        Game_completer_mesh[1].text = p2 ? "’Eo" : "’EoŽ¸”s";
+
+        Debug.Log("P1 = " + MainGameManager.Game_completer_name[0]);
+        Debug.Log("P2 = " + MainGameManager.Game_completer_name[1]);
+
+
         if (control_P.transform.position.z >= -37)
         {
             control_P.transform.position = new Vector3(control_P.transform.position.x, control_P.transform.position.y, -71);

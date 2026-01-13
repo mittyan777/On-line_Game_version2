@@ -12,6 +12,7 @@ using static UnityEngine.GraphicsBuffer;
 
 public class PlayerController : MonoBehaviourPunCallbacks
 {
+    [SerializeField] GameObject []map_icon;
     [SerializeField] int gameManager;
     [SerializeField] GameObject camera_Object;
     [SerializeField] Canvas playerCanvas;
@@ -82,6 +83,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [SerializeField] Image Collarchange_switch;
     [SerializeField] Sprite []Collarchange_switch_sprite;
 
+    bool Game_Clear_trigger = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -112,9 +115,23 @@ public class PlayerController : MonoBehaviourPunCallbacks
             rb = GetComponent<Rigidbody>();
         }
     }
+    [PunRPC]
+    void RPCStart()
+    {
+        Debug.Log("OKOK");
+        if(gameObject.tag == "Player")
+        {
+            map_icon[0].SetActive(true);
+        }
+        if (gameObject.tag == "Player2")
+        {
+            map_icon[1].SetActive(true);
+        }
+    }
 
     void PlayerStart()
     {
+      
         if (!photonView.IsMine)
         {
             playerCanvas.gameObject.SetActive(false);
@@ -124,7 +141,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             rb = GetComponent<Rigidbody>();
             string role = (string)PhotonNetwork.LocalPlayer.CustomProperties["Role"];
-
+            
             // 全員に共有する
             photonView.RPC("SetRole", RpcTarget.AllBuffered, role);
 
@@ -224,6 +241,13 @@ public class PlayerController : MonoBehaviourPunCallbacks
         string sceneName = SceneManager.GetActiveScene().name;
         if (photonView.IsMine && sceneName == "main")
         {
+            if (Manager.GetComponent<MainGameManager>().Gamestart == true)
+            {
+                if (map_icon[0].activeSelf == false && map_icon[1].activeSelf == false)
+                {
+                    photonView.RPC(nameof(RPCStart), RpcTarget.All);
+                }
+            }
             if (passwordUI != null)
             {
                 if (passwordUI.activeSelf == false && Record_name.activeSelf == false)
@@ -314,7 +338,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
             if (Input.GetKeyDown("h"))
             {
-                Manager.GetComponent<MainGameManager>().Game_Clear(gameObject.tag);
+                if (Game_Clear_trigger == false)
+                {
+                    Manager.GetComponent<MainGameManager>().Game_Clear(gameObject.tag);
+                    Game_Clear_trigger = true;
+                }
                 //Manager.GetComponent<MainGameManager>().Game_over();
             }
 
