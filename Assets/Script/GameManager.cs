@@ -32,6 +32,11 @@ public class GameManager : MonoBehaviourPunCallbacks
     private int lastSentSurvivorCount = -1;
     private int lastSentKillerCount = -1;
 
+    [SerializeField] OptionScript optionScript;
+    AudioScript audioScript;
+
+    public AudioClip BGM_File;
+
     private IEnumerator Start()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
@@ -64,11 +69,20 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         UpdateRequestUI(PhotonNetwork.CurrentRoom.CustomProperties);
         UpdatePlayerCount();
+
+        //シングルトンで管理するので、Findを実行する
+        audioScript = GameObject.Find("BGM").GetComponent<AudioScript>();
+        audioScript.Change_PlayAudio(BGM_File);
     }
 
     private void Update()
     {
         if (!PhotonNetwork.InRoom) return;
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            optionScript.Option_Function();
+        }
 
         // タイマーはマスタークライアントのみ管理
         if (PhotonNetwork.IsMasterClient)

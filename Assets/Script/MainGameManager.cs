@@ -19,8 +19,8 @@ public class MainGameManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] float GameTime = 120f;
     [SerializeField] Text TimerLabel;
-   
-    [SerializeField]public bool GameStart_trigger = false;
+
+    [SerializeField] public bool GameStart_trigger = false;
 
     float CountTimer;
     bool gameEnd = false;
@@ -39,7 +39,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     [SerializeField] GameObject dummy_Player_switch2;
     [SerializeField] drawn[] Drone_Objects;
     [SerializeField] GameObject Direction_right;
-    [SerializeField] GameObject []kakuho_UI;
+    [SerializeField] GameObject[] kakuho_UI;
 
     [SerializeField] GameObject[] CollarImage;
 
@@ -54,12 +54,17 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     public bool hasCalledGameOver = false;
 
     int Game_completer;
-    public static string []Game_completer_name;
+    public static string[] Game_completer_name;
     int i = 0;
     [SerializeField] int DesPlayer;
     static public string[] Player_name;
 
-    [SerializeField] GameObject []face_camera;
+    [SerializeField] GameObject[] face_camera;
+
+    [SerializeField] OptionScript optionScript;
+    AudioScript audioScript;
+
+    public AudioClip BGM_File;
 
     void Start()
     {
@@ -68,6 +73,10 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         CountTimer = GameTime;
 
         TrySetRoleLabel(PhotonNetwork.LocalPlayer);
+
+        //シングルトンで管理するので、Findを実行する
+        audioScript = GameObject.Find("BGM").GetComponent<AudioScript>();
+        audioScript.Change_PlayAudio(BGM_File);
 
     }
     void Awake()
@@ -79,13 +88,18 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     {
         if (Gamestart == false) return;
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            optionScript.Option_Function();
+        }
+
         while (Player == null)
         {
             Player = GameObject.FindGameObjectWithTag("Player");
             //Null発生
             Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.white);
             Player.transform.position = new Vector3(210f, 2f, -31f);
-           
+
         }
         while (Player2 == null)
         {
@@ -100,7 +114,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
             killer.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", new Color32(0, 0, 0, 0));
             killer.transform.position = new Vector3(246f, 2f, -31f);
         }
-        while(dummy_Player == null)
+        while (dummy_Player == null)
         {
             dummy_Player = GameObject.FindGameObjectWithTag("dummy_Player");
             //Null発生
@@ -228,7 +242,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
             CollarImage[2].SetActive(true);
             CollarImage[3].SetActive(false);
 
-        
+
 
             GameObject[] blues = GameObject.FindGameObjectsWithTag("blue");
             GameObject[] reds = GameObject.FindGameObjectsWithTag("red");
@@ -281,7 +295,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
             CollarImage[1].SetActive(false);
             CollarImage[2].SetActive(false);
             CollarImage[3].SetActive(true);
-      
+
 
             GameObject[] blues = GameObject.FindGameObjectsWithTag("blue");
             GameObject[] reds = GameObject.FindGameObjectsWithTag("red");
@@ -366,24 +380,24 @@ public class MainGameManager : MonoBehaviourPunCallbacks
                 PhotonNetwork.LoadLevel("Game_Clear");
             }
             photonView.RPC(nameof(Clear_load), RpcTarget.All);
-           
+
         }
-       
+
     }
 
     public void jail_doa_control()
     {
-                DoorController door = jail_doa.GetComponent<DoorController>();
-                if (door != null)
-                {
-                    door.SetOpen(false);
-                }
-        
+        DoorController door = jail_doa.GetComponent<DoorController>();
+        if (door != null)
+        {
+            door.SetOpen(false);
+        }
+
     }
     [PunRPC]
     void Clear_load()
     {
-       
+
     }
     [PunRPC]
     void Game_over_load()
@@ -400,12 +414,12 @@ public class MainGameManager : MonoBehaviourPunCallbacks
             string role = roleObj as string;
             if (role == "killer")
             {
-             
+
                 player.NickName = "Killer";
             }
             else if (role == "survivor")
             {
-             
+
                 player.NickName = "Survivor";
             }
         }
@@ -514,7 +528,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     }
     public void Game_Clear(string a)
     {
-        photonView.RPC(nameof(Clear), RpcTarget.All,a);
+        photonView.RPC(nameof(Clear), RpcTarget.All, a);
 
     }
     public void Game_over()
@@ -533,9 +547,9 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         hasCalledGameOver = false;
         photonView.RPC(nameof(Game_over_count2), RpcTarget.All);
     }
-    public void name_Record(string name,string target)
+    public void name_Record(string name, string target)
     {
-        photonView.RPC(nameof(RPC_name_Record), RpcTarget.All,name,target);
+        photonView.RPC(nameof(RPC_name_Record), RpcTarget.All, name, target);
     }
     [PunRPC]
     void RPC_name_Record(string name, string target_name)
@@ -593,7 +607,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
 
     public void Face_swap(string target)
     {
-        photonView.RPC(nameof(RPC_Face_swap), RpcTarget.All,target);
+        photonView.RPC(nameof(RPC_Face_swap), RpcTarget.All, target);
     }
     public void Face_swapOF(string target)
     {
@@ -628,7 +642,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         yield return new WaitForSeconds(3f);
         photonView.RPC(nameof(RPCkiller_Securing2), RpcTarget.All, target_name);
         yield return new WaitForSeconds(1f);
-       
+
         Game_over();
     }
     [PunRPC]
@@ -664,9 +678,9 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void Clear(string target)
     {
-      
+
         Game_completer += 1;
-            GameObject.FindWithTag(target).GetComponent<PlayerController>().Mermaid.SetActive(false);
+        GameObject.FindWithTag(target).GetComponent<PlayerController>().Mermaid.SetActive(false);
         GameObject.FindWithTag(target).GetComponent<PlayerController>().Ghost_skin.SetActive(true);
         GameObject.FindWithTag(target).gameObject.layer = 20;
         GameObject.FindWithTag(target).transform.position = new Vector3(100, 7, 4);
@@ -679,7 +693,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         {
             Game_completer_name[1] = target;
         }
-   
+
 
     }
     [PunRPC]
@@ -718,7 +732,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         // 自分以外のプレイヤーを対象に壁越し可視化
         // 全てのプレイヤーオブジェクトを捜索
 
-       Player.GetComponent<Outline>().OutlineMode = Outline.Mode.Skill_On;
+        Player.GetComponent<Outline>().OutlineMode = Outline.Mode.Skill_On;
         Player2.GetComponent<Outline>().OutlineMode = Outline.Mode.Skill_On;
         GameObject.FindGameObjectWithTag("dummy_Player").GetComponent<Outline>().OutlineMode = Outline.Mode.Skill_On;
 
@@ -748,7 +762,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         {
             kakuho_UI[0].SetActive(true);
         }
-        else if(target == "Player2")
+        else if (target == "Player2")
         {
             kakuho_UI[1].SetActive(true);
         }
