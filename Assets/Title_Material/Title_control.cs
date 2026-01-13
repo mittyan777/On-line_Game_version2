@@ -12,6 +12,7 @@ public class Title_control : MonoBehaviourPunCallbacks
     [SerializeField] GameObject StartButton_obj;
     [SerializeField] GameObject RoomSelect_obj;
 
+    AudioScript audioScript;
     bool Start_trigger;
     bool isConnecting = false; // 重複して入室処理が走らないようにするフラグ
     float Speed = 10;
@@ -31,6 +32,11 @@ public class Title_control : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.ConnectUsingSettings();
         }
+        if (GameObject.Find("BGM") != null)
+        {
+            audioScript = GameObject.Find("BGM").GetComponent<AudioScript>();
+        }
+        audioScript.Change_PlayAudio(null);
     }
 
     // Update is called once per frame

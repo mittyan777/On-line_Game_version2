@@ -26,6 +26,7 @@ public class ItemSelect : MonoBehaviourPunCallbacks
     public bool tora = false;
     [SerializeField] Image Stop_device_cooltime;
     Collar collar = new Collar();
+    [SerializeField] ParticleSystem Stop_effect;
     // Start is called before the first frame update
     public class Collar
     {
@@ -207,10 +208,16 @@ public class ItemSelect : MonoBehaviourPunCallbacks
                 //ドローン停止
                 if (Stop_device_cooltime.fillAmount <= 0)
                 {
+                    photonView.RPC(nameof(RPCstop), RpcTarget.All);
                     Manager.GetComponent<MainGameManager>().StopDrone_Ability();
                     Stop_device_cooltime.fillAmount = 1f;
                 }
                 break;
         }
+    }
+    [PunRPC]
+    void RPCstop()
+    {
+        Stop_effect.Play();
     }
 }
