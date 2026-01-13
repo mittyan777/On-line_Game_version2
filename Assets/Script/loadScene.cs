@@ -7,12 +7,12 @@ public class loadScene : MonoBehaviour
 {
     [SerializeField] private GameObject _loadingUI;
     [SerializeField] private Slider _slider;
-    [SerializeField] private GameObject []_sliderImage;
+    [SerializeField] private GameObject[] _sliderImage;
     [SerializeField] private UnityEngine.UI.Image testImage;
-    [SerializeField] private UnityEngine.UI.Image []sliderImage;
-    [SerializeField] private GameObject loadTEXTQparent;
+    [SerializeField] private UnityEngine.UI.Image[] sliderImage;
+    [SerializeField] private GameObject loadTEXTQparent;
     Animator animator;
-    
+
     GameObject gameManager;
 
     // Start is called before the first frame update
@@ -20,14 +20,14 @@ public class loadScene : MonoBehaviour
     {
         _loadingUI.SetActive(true);
 
-        // “¯‚¶GameObject‚ÉƒAƒ^ƒbƒ`‚³‚ê‚Ä‚¢‚éButton‚ğæ“¾
+        // ï¿½ï¿½ï¿½ï¿½GameObjectï¿½ÉƒAï¿½^ï¿½bï¿½`ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½Buttonï¿½ï¿½ï¿½æ“¾
         testImage = _loadingUI.GetComponent<UnityEngine.UI.Image>();
-    
+
         sliderImage[1] = _sliderImage[1].GetComponent<UnityEngine.UI.Image>();
         sliderImage[2] = _sliderImage[2].GetComponent<UnityEngine.UI.Image>();
 
-        animator = loadTEXTQparent.GetComponent<Animator>();
-       
+        animator = loadTEXTQparent.GetComponent<Animator>();
+
 
         gameManager = GameObject.Find("GameManager");
     }
@@ -35,7 +35,7 @@ public class loadScene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+
 
         Color slider2 = sliderImage[1].color;
         Color slider3 = sliderImage[2].color;
@@ -54,9 +54,9 @@ public class loadScene : MonoBehaviour
         {
             gameManager.GetComponent<MainGameManager>().Gamestart = true;
         }
- 
-      
-    
+
+
+
         sliderImage[1].color = slider2;
         sliderImage[2].color = slider3;
     }
