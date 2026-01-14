@@ -17,9 +17,15 @@ public class Clear_manager : MonoBehaviourPunCallbacks
     [SerializeField] GameObject control_P;
 
     [SerializeField] string TitleScene_name = "Title";
+
+    AudioScript audioScript;
+
+    public AudioClip BGM_File;
     // Start is called before the first frame update
     void Start()
     {
+        audioScript = GameObject.Find("BGM").GetComponent<AudioScript>();
+        audioScript.Change_PlayAudio(BGM_File);
         // a = MainGameManager.Game_completer_name;
         //PhotonNetwork.LeaveRoom();
         // ??????????????????????????????
@@ -38,15 +44,15 @@ public class Clear_manager : MonoBehaviourPunCallbacks
         }
         Debug.Log(MainGameManager.Game_completer_name[0]);
 
-        // ƒvƒŒƒCƒ„[1‚ª’Eo‚µ‚½‚©
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼1ãŒè„±å‡ºã—ãŸã‹
         bool p1 = MainGameManager.Game_completer_name[0] == "Player";
 
-        // ƒvƒŒƒCƒ„[2‚ª’Eo‚µ‚½‚©
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼2ãŒè„±å‡ºã—ãŸã‹
         bool p2 = MainGameManager.Game_completer_name[1] == "Player2";
 
-        // Œ‹‰Ê•\¦
-        Game_completer_mesh[0].text = p1 ? "’Eo" : "’Eo¸”s";
-        Game_completer_mesh[1].text = p2 ? "’Eo" : "’Eo¸”s";
+        // çµæœè¡¨ç¤º
+        Game_completer_mesh[0].text = p1 ? "è„±å‡º" : "è„±å‡ºå¤±æ•—";
+        Game_completer_mesh[1].text = p2 ? "è„±å‡º" : "è„±å‡ºå¤±æ•—";
 
         Debug.Log("P1 = " + MainGameManager.Game_completer_name[0]);
         Debug.Log("P2 = " + MainGameManager.Game_completer_name[1]);

@@ -27,6 +27,7 @@ public class ItemSelect : MonoBehaviourPunCallbacks
     [SerializeField] Image Stop_device_cooltime;
     Collar collar = new Collar();
     [SerializeField] ParticleSystem Stop_effect;
+    [SerializeField]AudioSource switch_audio;
     // Start is called before the first frame update
     public class Collar
     {
@@ -170,6 +171,7 @@ public class ItemSelect : MonoBehaviourPunCallbacks
                 //バリア色変更
                 if (gameObject.tag == "Player")
                 {
+                    switch_audio.Play();
                     Manager.GetComponent<MainGameManager>().playercontrol();
                     if (Manager.GetComponent<MainGameManager>().blue == true)
                     {
@@ -182,6 +184,7 @@ public class ItemSelect : MonoBehaviourPunCallbacks
                 }
                 if (gameObject.tag == "Player2")
                 {
+                    switch_audio.Play();
                     Manager.GetComponent<MainGameManager>().player2control();
                     if (Manager.GetComponent<MainGameManager>().red == true)
                     {
@@ -208,6 +211,7 @@ public class ItemSelect : MonoBehaviourPunCallbacks
                 //ドローン停止
                 if (Stop_device_cooltime.fillAmount <= 0)
                 {
+                    switch_audio.Play();
                     photonView.RPC(nameof(RPCstop), RpcTarget.All);
                     Manager.GetComponent<MainGameManager>().StopDrone_Ability();
                     Stop_device_cooltime.fillAmount = 1f;

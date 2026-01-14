@@ -1313,7 +1313,7 @@ MonoBehaviour:
   RoomNumber: {fileID: 1104980211}
   SelectButtons: {fileID: 1978124819}
   optionScript: {fileID: 1946792068}
-  BGM_File: {fileID: 8300000, guid: 639f77c792fab87cb91329edd6835521, type: 3}
+  BGM_File: {fileID: 8300000, guid: 1d6105b28855c9c4a961efb47996820d, type: 3}
 --- !u!4 &187379941
 Transform:
   m_ObjectHideFlags: 0

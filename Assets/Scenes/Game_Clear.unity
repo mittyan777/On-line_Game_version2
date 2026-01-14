@@ -3444,6 +3444,7 @@ MonoBehaviour:
   Player2: {fileID: 0}
   control_P: {fileID: 2127787049}
   TitleScene_name: Title
+  BGM_File: {fileID: 8300000, guid: 35496811e1e10e745ae0aa4672342701, type: 3}
 --- !u!4 &1102413412
 Transform:
   m_ObjectHideFlags: 0

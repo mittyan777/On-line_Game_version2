@@ -9,6 +9,7 @@ public class DoorController : MonoBehaviourPun
     void RPC_SetOpen(bool isOpen)
     {
         animator.SetBool("open", isOpen);
+        GetComponent<AudioSource>().Play();
     }
 
     public void SetOpen(bool isOpen)

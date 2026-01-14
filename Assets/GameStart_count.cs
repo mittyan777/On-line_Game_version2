@@ -7,16 +7,17 @@ public class GameStart_count : MonoBehaviourPun
 {
     [SerializeField] GameObject []ReadyUI;
     [SerializeField] Text count_text;
-    [SerializeField] float count = 5;
+    [SerializeField] public float count = 5;
     int result;
     [SerializeField] Transform[] Start_pos;
     [SerializeField]GameObject Gamemanager;
     bool time_count_trigger = false;
+   
     // Start is called before the first frame update
     [PunRPC]
     void RPC_SetOpen(string target)
     {
-
+        GetComponent<AudioSource>().Play();
         Gamemanager.GetComponent<MainGameManager>().sabaiba_count += 1;
         if(target == "Player")
         {
@@ -66,7 +67,7 @@ public class GameStart_count : MonoBehaviourPun
     [PunRPC]
     void RPC_SetOpen3(string target)
     {
-
+        GetComponent<AudioSource>().Play();
         Gamemanager.GetComponent<MainGameManager>().killer_count += 1;
         if (target == "Player")
         {
@@ -119,7 +120,7 @@ public class GameStart_count : MonoBehaviourPun
        if(time_count_trigger == true)
        {
             int result = Mathf.FloorToInt(count);
-            count -= Time.deltaTime;
+           
             count_text.text = ($"{result}");
        }
        if(count <= 0)

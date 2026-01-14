@@ -7,10 +7,14 @@ public class GameOver_manager : MonoBehaviour
 {
     [SerializeField] GameObject Jail;
     [SerializeField] GameObject camera;
+    AudioScript audioScript;
+
+    public AudioClip BGM_File;
     // Start is called before the first frame update
     void Start()
     {
-        
+        audioScript = GameObject.Find("BGM").GetComponent<AudioScript>();
+        audioScript.Change_PlayAudio(BGM_File);
     }
 
     // Update is called once per frame
