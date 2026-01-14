@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 // MonoBehaviourPunCallbacksを継承することで、OnJoinedRoomなどが使えるようになります
 public class Title_control : MonoBehaviourPunCallbacks
@@ -11,6 +12,7 @@ public class Title_control : MonoBehaviourPunCallbacks
     [SerializeField] GameObject camera;
     [SerializeField] GameObject StartButton_obj;
     [SerializeField] GameObject RoomSelect_obj;
+    [SerializeField] GameObject fade;
 
     AudioScript audioScript;
     bool Start_trigger;
@@ -23,7 +25,8 @@ public class Title_control : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-        RenderSettings.fogDensity = 0.05f;
+        fade.SetActive(false);
+        //RenderSettings.fogDensity = 0.05f;
         StartButton_obj.SetActive(true);
         RoomSelect_obj.SetActive(false);
 
@@ -53,20 +56,15 @@ public class Title_control : MonoBehaviourPunCallbacks
 
         if (Start_trigger == false)
         {
-            if (camera.transform.position.z >= 0)
-            {
-                camera.transform.position = new Vector3(camera.transform.position.x, camera.transform.position.y, -60);
-            }
+      
         }
-        else
-        {
-            if (RenderSettings.fogDensity > 0f && RenderSettings.fogDensity < 1f)
-            {
-                RenderSettings.fogDensity += 0.001f;
-            }
-        }
+   
 
         if (Start_trigger)
+        {
+            fade.SetActive(true);
+        }
+        if(fade.GetComponent<Image>().color.a == 1)
         {
             ConnectRoom();
         }
@@ -91,8 +89,7 @@ public class Title_control : MonoBehaviourPunCallbacks
             {
                 roomnum = num;
                 Start_trigger = true;
-                // カメラ位置のリセット（必要であれば）
-                camera.transform.position = new Vector3(camera.transform.position.x, camera.transform.position.y, 0);
+                
                 RoomSelect_obj.SetActive(false);
             }
             else
