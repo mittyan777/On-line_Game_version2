@@ -85,6 +85,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     bool Game_Clear_trigger = false;
 
+    [SerializeField] AudioClip tousou_Sound;
+    AudioScript BGM;
+    bool sekin = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -92,6 +96,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         string sceneName = SceneManager.GetActiveScene().name;
         if (sceneName == "main")
         {
+            BGM = GameObject.Find("BGM").GetComponent<AudioScript>();
             Is_PlayMode = true;
             normalLayer = LayerMask.NameToLayer("PlayerNormal");
             outlineLayer = LayerMask.NameToLayer("OutlineVisible");
@@ -153,6 +158,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 GameObject.Find("Player2Image").SetActive(false);
                 Manager.GetComponent<MainGameManager>().killer_skin(gameObject.tag);
                 camera.GetComponent<Camera>().cullingMask &= ~(1 << LayerMask.NameToLayer("killer_skin"));
+                GameObject.FindWithTag("Collar_Image").SetActive(false);
             }
             else if (this.gameObject.tag == "Player")
             {
@@ -308,12 +314,17 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
                         }
 
-                        if (killerdistance <= 10)
+                        if (killerdistance <= 10 && sekin == false)
                         {
+                            sekin = true;
+                            BGM.Change_PlayAudio(tousou_Sound);
+                     
                             Manager.GetComponent<MainGameManager>().Face_swap(gameObject.tag);
                         }
-                        else
+                        else if(killerdistance >= 10 && sekin == true)
                         {
+                            sekin = false;
+                            BGM.Change_PlayAudio(Manager.GetComponent<MainGameManager>().BGM_File);
                             Manager.GetComponent<MainGameManager>().Face_swapOF(gameObject.tag);
                         }
 

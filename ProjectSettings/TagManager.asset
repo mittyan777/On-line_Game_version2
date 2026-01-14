@@ -27,6 +27,8 @@ TagManager:
   - Jail
   - Ghost
   - Player_count
+  - Floor
+  - Collar_Image
   layers:
   - Default
   - TransparentFX
@@ -52,8 +54,8 @@ TagManager:
   - Jall
   - killer_skin
   - Ghost_skin
-  - 
-  - 
+  - Leg
+  - Floor
   - 
   - 
   - 
