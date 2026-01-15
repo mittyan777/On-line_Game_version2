@@ -904,14 +904,15 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 Manager.GetComponent<MainGameManager>().jail_doa_control();
                 Manager.GetComponent<MainGameManager>().kakuho(gameObject.tag);
             }
-            if (gameObject.tag != "Killer")
+          
+        }
+        if (gameObject.tag != "Killer")
+        {
+            if (collision.gameObject.tag == "Jail")
             {
-                if (gameObject.name == "Floor")
-                {
-                    Manager.GetComponent<MainGameManager>().Game_over_of();
-                    collision.gameObject.name = Back_name;
-                    Manager.GetComponent<MainGameManager>().kakuhoOF(gameObject.tag);
-                }
+                Manager.GetComponent<MainGameManager>().Game_over_of();
+                collision.gameObject.name = Back_name;
+                Manager.GetComponent<MainGameManager>().kakuhoOF(gameObject.tag);
             }
         }
     }

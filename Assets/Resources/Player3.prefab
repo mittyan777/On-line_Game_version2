@@ -3151,7 +3151,6 @@ GameObject:
   - component: {fileID: 2290905251396614656}
   - component: {fileID: 9107691279401016135}
   - component: {fileID: 8734420940111898690}
-  - component: {fileID: 4005672527927678055}
   - component: {fileID: 113935674141139218}
   m_Layer: 0
   m_Name: Player3
@@ -3435,27 +3434,6 @@ MonoBehaviour:
   Stop_device_cooltime: {fileID: 6581525349953731869}
   Stop_effect: {fileID: 8794057255889732806}
   switch_audio: {fileID: 8255772575566788603}
---- !u!95 &4005672527927678055
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7555086055963586709}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &113935674141139218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3929,38 +3907,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_TargetDisplay: 0
---- !u!1 &8794057255889732806
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 100000, guid: 0211f56c1dcc00f479c8d7342db06c51, type: 3}
-  m_PrefabInstance: {fileID: 8794057255889699430}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8794057255890098406}
-  - component: {fileID: 4096170307786932269}
-  m_Layer: 0
-  m_Name: 'L_water_essencel(Main Camera_click play) (Missing Prefab with guid: 0211f56c1dcc00f479c8d7342db06c51)'
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8794057255890098406
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 400000, guid: 0211f56c1dcc00f479c8d7342db06c51, type: 3}
-  m_PrefabInstance: {fileID: 8794057255889699430}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8794057255889732806}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.011016319, y: 1.2558603, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
-  m_Children: []
-  m_Father: {fileID: 1820239701405618143}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9042440962234970563
 GameObject:
   m_ObjectHideFlags: 0
@@ -5169,6 +5115,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 4096170307786932269}
   m_SourcePrefab: {fileID: 100100000, guid: 0211f56c1dcc00f479c8d7342db06c51, type: 3}
+--- !u!1 &8794057255889732806 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 0211f56c1dcc00f479c8d7342db06c51, type: 3}
+  m_PrefabInstance: {fileID: 8794057255889699430}
+  m_PrefabAsset: {fileID: 0}
 --- !u!95 &4096170307786932269
 Animator:
   serializedVersion: 5
@@ -5190,3 +5141,8 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!4 &8794057255890098406 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: 0211f56c1dcc00f479c8d7342db06c51, type: 3}
+  m_PrefabInstance: {fileID: 8794057255889699430}
+  m_PrefabAsset: {fileID: 0}

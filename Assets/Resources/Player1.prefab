@@ -2788,7 +2788,6 @@ GameObject:
   - component: {fileID: 1367171385440864182}
   - component: {fileID: -5679506862975433025}
   - component: {fileID: 2509061968326474275}
-  - component: {fileID: 3195761919500731366}
   - component: {fileID: 8312856165021873450}
   m_Layer: 0
   m_Name: Player1
@@ -3071,27 +3070,6 @@ MonoBehaviour:
   Stop_device_cooltime: {fileID: 4742910408207868143}
   Stop_effect: {fileID: 4491255601308289186}
   switch_audio: {fileID: 8164477750302862511}
---- !u!95 &3195761919500731366
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7555086055963586709}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &8312856165021873450
 MonoBehaviour:
   m_ObjectHideFlags: 0
