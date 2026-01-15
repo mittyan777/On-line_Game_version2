@@ -264,7 +264,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             {
                 if (passwordUI.activeSelf == false && Record_name.activeSelf == false)
                 {
-                    GameObject.Find("cursor_control").GetComponent<cursor_control>().cursorOF();
+                    GameObject.Find("cursor_control").GetComponent<cursor_control>().cursorON();
                     float x = 0f;
                     float z = 0f;
                     if (Trap_trigger == false)
@@ -351,7 +351,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 }
                 else
                 {
-                    GameObject.Find("cursor_control").GetComponent<cursor_control>().cursorON();
+                    GameObject.Find("cursor_control").GetComponent<cursor_control>().cursorOF();
                 }
             }
             cooltime_Image.GetComponent<Image>().fillAmount -= 0.005f * Time.deltaTime;
