@@ -133378,7 +133378,7 @@ GameObject:
   - component: {fileID: 624299536}
   - component: {fileID: 624299535}
   - component: {fileID: 624299534}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Text (TMP) (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133405,7 +133405,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: aaaaaaa
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 36bb2987f33f5d04b86e8cb89c619855, type: 2}
   m_sharedMaterial: {fileID: -526646884766030534, guid: 36bb2987f33f5d04b86e8cb89c619855, type: 2}
