@@ -6,6 +6,7 @@ using System.Collections;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using TMPro;
 using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -18,7 +19,7 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 public class MainGameManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] float GameTime = 120f;
-    [SerializeField] Text TimerLabel;
+    [SerializeField] TextMeshProUGUI TimerLabel;
 
     [SerializeField] public bool GameStart_trigger = false;
 
