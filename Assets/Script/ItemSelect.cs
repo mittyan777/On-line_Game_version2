@@ -26,7 +26,7 @@ public class ItemSelect : MonoBehaviourPunCallbacks
     public bool tora = false;
     [SerializeField] Image Stop_device_cooltime;
     Collar collar = new Collar();
-    [SerializeField] ParticleSystem Stop_effect;
+    [SerializeField] GameObject Stop_effect;
     [SerializeField]AudioSource switch_audio;
     // Start is called before the first frame update
     public class Collar
@@ -135,6 +135,11 @@ public class ItemSelect : MonoBehaviourPunCallbacks
                 ItemSlots[1].GetComponent<Image>().color = UnityEngine.Color.white;
             }
 
+            if (Stop_effect.transform.localScale == new Vector3(1.5f, 1.5f, 1.5f))
+            {
+                photonView.RPC(nameof(RPCstop), RpcTarget.All);
+            }
+
         }
 
         // --- ここで null チェック ---
@@ -212,7 +217,7 @@ public class ItemSelect : MonoBehaviourPunCallbacks
                 if (Stop_device_cooltime.fillAmount <= 0)
                 {
                     switch_audio.Play();
-                    photonView.RPC(nameof(RPCstop), RpcTarget.All);
+                    photonView.RPC(nameof(RPCPlay), RpcTarget.All);
                     Manager.GetComponent<MainGameManager>().StopDrone_Ability();
                     Stop_device_cooltime.fillAmount = 1f;
                 }
@@ -220,8 +225,13 @@ public class ItemSelect : MonoBehaviourPunCallbacks
         }
     }
     [PunRPC]
+    void RPCPlay()
+    {
+        Stop_effect.SetActive(true);
+    }
+    [PunRPC]
     void RPCstop()
     {
-        Stop_effect.Play();
+        Stop_effect.SetActive(false);
     }
 }

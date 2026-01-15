@@ -66,6 +66,8 @@ public class MainGameManager : MonoBehaviourPunCallbacks
 
     public AudioClip BGM_File;
 
+    bool Start_BGM＿trigger = false;
+
     void Start()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
@@ -74,9 +76,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
 
         TrySetRoleLabel(PhotonNetwork.LocalPlayer);
 
-        //シングルトンで管理するので、Findを実行する
-        audioScript = GameObject.Find("BGM").GetComponent<AudioScript>();
-        audioScript.Change_PlayAudio(BGM_File);
+       
 
     }
     void Awake()
@@ -87,6 +87,13 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     void Update()
     {
         if (Gamestart == false) return;
+        if (Start_BGM＿trigger == false)
+        {
+            //シングルトンで管理するので、Findを実行する
+            audioScript = GameObject.Find("BGM").GetComponent<AudioScript>();
+            audioScript.Change_PlayAudio(BGM_File);
+            Start_BGM＿trigger = true;
+        }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
