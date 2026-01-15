@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class Exit : MonoBehaviourPunCallbacks
 {
     [SerializeField] GameObject InputField;
+    [SerializeField] GameObject InputField_Child;
     [SerializeField] Text[] number_text;
     [SerializeField] Text message;
 
@@ -18,7 +19,7 @@ public class Exit : MonoBehaviourPunCallbacks
 
     void Start()
     {
-        // ƒIƒtƒ‰ƒCƒ“ or ƒ‹[ƒ€–¢Q‰Á‚È‚ç‰½‚à‚µ‚È‚¢
+        // ã‚ªãƒ•ãƒ©ã‚¤ãƒ³ or ãƒ«ãƒ¼ãƒ æœªå‚åŠ ãªã‚‰ä½•ã‚‚ã—ãªã„
         if (!PhotonNetwork.InRoom && !PhotonNetwork.OfflineMode)
             return;
 
@@ -43,7 +44,7 @@ public class Exit : MonoBehaviourPunCallbacks
 
     void Update()
     {
-        Input_number = InputField.GetComponent<InputField>().text;
+        Input_number = InputField_Child.GetComponent<InputField>().text;
         Debug.Log(numberStr);
     }
 
@@ -55,7 +56,7 @@ public class Exit : MonoBehaviourPunCallbacks
         }
         else
         {
-            message.text = "ƒpƒXƒ[ƒh‚ªˆá‚¢‚Ü‚·";
+            message.text = "ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ãŒé•ã„ã¾ã™";
             Invoke(nameof(message_reset), 2);
         }
     }
