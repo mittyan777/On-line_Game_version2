@@ -88,6 +88,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [SerializeField] AudioClip tousou_Sound;
     AudioScript BGM;
     bool sekin = false;
+    GameObject Option;
 
 
     // Start is called before the first frame update
@@ -96,6 +97,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
         string sceneName = SceneManager.GetActiveScene().name;
         if (sceneName == "main")
         {
+            StartCoroutine(WaitForOption());
+
             BGM = GameObject.Find("BGM").GetComponent<AudioScript>();
             Is_PlayMode = true;
             normalLayer = LayerMask.NameToLayer("PlayerNormal");
@@ -111,6 +114,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
         if (sceneName == "lobby")
         {
+            StartCoroutine(WaitForOption());
+
             Record_name.SetActive(false);
             stamina_gage.SetActive(false);
         }
@@ -120,6 +125,30 @@ public class PlayerController : MonoBehaviourPunCallbacks
             rb = GetComponent<Rigidbody>();
         }
     }
+
+    IEnumerator WaitForOption()
+    {
+        string sceneName = SceneManager.GetActiveScene().name;
+        GameObject option = null;
+
+        while (option == null)
+        {
+            if (sceneName == "lobby")
+            {
+                option = GameObject.Find("GameManager").GetComponent<GameManager>().optionScript.gameObject;
+            }
+            if (sceneName == "main")
+            {
+                option = GameObject.Find("GameManager").GetComponent<MainGameManager>().optionwindow;
+            }
+            yield return null; // 1フレーム待つ
+        }
+
+        Option = option;
+    }
+
+
+
     [PunRPC]
     void RPCStart()
     {
@@ -264,7 +293,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             {
                 if (passwordUI.activeSelf == false && Record_name.activeSelf == false)
                 {
-                    GameObject.Find("cursor_control").GetComponent<cursor_control>().cursorON();
+                    //GameObject.Find("cursor_control").GetComponent<cursor_control>().cursorON();
                     float x = 0f;
                     float z = 0f;
                     if (Trap_trigger == false)
@@ -351,7 +380,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 }
                 else
                 {
-                    GameObject.Find("cursor_control").GetComponent<cursor_control>().cursorOF();
+                    //GameObject.Find("cursor_control").GetComponent<cursor_control>().cursorOF();
                 }
             }
             cooltime_Image.GetComponent<Image>().fillAmount -= 0.005f * Time.deltaTime;
@@ -437,10 +466,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 select = GameObject.FindGameObjectWithTag("selectUI").GetComponent<Text>();
             }
 
-            if (passwordUI.activeSelf == false && Record_name.activeSelf == false)
-            {
-                GameObject.Find("cursor_control").GetComponent<cursor_control>().cursorOF();
-            }
+          
         }
 
         // Ray作成
@@ -457,7 +483,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             {
                 if (passwordUI != null)
                 {
-                    if (passwordUI.activeSelf == false)
+                    if (passwordUI.activeSelf == false && Record_name.activeSelf == false && Option.activeSelf == false)
                     {
                         RectTransform rt = stamina_gage.GetComponent<RectTransform>();
 
@@ -479,15 +505,18 @@ public class PlayerController : MonoBehaviourPunCallbacks
             }
             if (sceneName == "lobby")
             {
-                float h = Input.GetAxis("Mouse X");
-                float v = Input.GetAxis("Mouse Y");
-                side += h;
-                ver += v;
-                ver = Mathf.Clamp(ver, -50f, 90f);
-                // side = Mathf.Clamp(side, -90, 90f);
-                camera.transform.rotation = Quaternion.Euler(-ver, side, camera.transform.eulerAngles.z);
+                if (Option.activeSelf == false)
+                {
+                    float h = Input.GetAxis("Mouse X");
+                    float v = Input.GetAxis("Mouse Y");
+                    side += h;
+                    ver += v;
+                    ver = Mathf.Clamp(ver, -50f, 90f);
+                    // side = Mathf.Clamp(side, -90, 90f);
+                    camera.transform.rotation = Quaternion.Euler(-ver, side, camera.transform.eulerAngles.z);
 
-                transform.rotation = Quaternion.Euler(0f, side, 0f);
+                    transform.rotation = Quaternion.Euler(0f, side, 0f);
+                }
             }
 
             if (sceneName == "main")

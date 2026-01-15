@@ -79,7 +79,7 @@ public class OptionScript : MonoBehaviour
     private void SwitchWindow(GameObject activeWindow, GameObject focusTarget)
     {
         Option_Window.SetActive(activeWindow == Option_Window);
-        GameObject.Find("cursor_control").GetComponent<cursor_control>().cursorON();
+        //GameObject.Find("cursor_control").GetComponent<cursor_control>().cursorON();
         if (focusTarget != null)
         {
             EventSystem.current.SetSelectedGameObject(focusTarget);

@@ -67,6 +67,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     public AudioClip BGM_File;
 
     bool Start_BGM＿trigger = false;
+    [SerializeField] public GameObject optionwindow;
 
     void Start()
     {

@@ -30,6 +30,7 @@ TagManager:
   - Floor
   - Collar_Image
   - TAZOFX
+  - Option
   layers:
   - Default
   - TransparentFX
