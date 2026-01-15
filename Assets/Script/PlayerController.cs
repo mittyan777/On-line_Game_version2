@@ -155,7 +155,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             photonView.RPC("SetRole", RpcTarget.AllBuffered, role);
 
             Record_name.SetActive(true);
-            GameObject.Find("cursor_control").GetComponent<cursor_control>().cursorON();
+           
             if (this.gameObject.tag == "Killer")
             {
                 stamina_gage.SetActive(false);
@@ -264,6 +264,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             {
                 if (passwordUI.activeSelf == false && Record_name.activeSelf == false)
                 {
+                    GameObject.Find("cursor_control").GetComponent<cursor_control>().cursorOF();
                     float x = 0f;
                     float z = 0f;
                     if (Trap_trigger == false)
@@ -347,6 +348,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
                         x = 0;
                         z = 0;
                     }
+                }
+                else
+                {
+                    GameObject.Find("cursor_control").GetComponent<cursor_control>().cursorON();
                 }
             }
             cooltime_Image.GetComponent<Image>().fillAmount -= 0.005f * Time.deltaTime;
