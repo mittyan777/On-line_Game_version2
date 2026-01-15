@@ -132,7 +132,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             map_icon[1].SetActive(true);
         }
-        else if(gameObject.tag == "")
+        else if(gameObject.tag == "Killer")
         {
             map_icon[2].SetActive(true);
         }
