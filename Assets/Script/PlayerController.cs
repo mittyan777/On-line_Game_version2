@@ -155,6 +155,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             photonView.RPC("SetRole", RpcTarget.AllBuffered, role);
 
             Record_name.SetActive(true);
+            GameObject.Find("cursor_control").GetComponent<cursor_control>().cursorON();
             if (this.gameObject.tag == "Killer")
             {
                 stamina_gage.SetActive(false);
@@ -319,14 +320,14 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
                         }
 
-                        if (killerdistance <= 10 && sekin == false)
+                        if (killerdistance <= 20 && sekin == false)
                         {
                             sekin = true;
                             BGM.Change_PlayAudio(tousou_Sound);
                      
                             Manager.GetComponent<MainGameManager>().Face_swap(gameObject.tag);
                         }
-                        else if(killerdistance >= 10 && sekin == true)
+                        else if(killerdistance >= 20 && sekin == true)
                         {
                             sekin = false;
                             BGM.Change_PlayAudio(Manager.GetComponent<MainGameManager>().BGM_File);
@@ -415,9 +416,14 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             if (GameObject.FindWithTag("Killer") != null) { killerdistance = Vector3.Distance(transform.position, killer_player.transform.position); }
         }
-        
+      
+        if(passwordUI.activeSelf == false && Record_name.activeSelf == false)
+        {
+            GameObject.Find("cursor_control").GetComponent<cursor_control>().cursorOF();
+        }
 
-        string sceneName = SceneManager.GetActiveScene().name;
+
+            string sceneName = SceneManager.GetActiveScene().name;
         if (sceneName == "main")
         {
             if (GameObject.Find("GameManager") != null)

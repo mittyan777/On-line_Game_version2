@@ -13,20 +13,22 @@ public class TextAnimation : MonoBehaviour
     void Start()
     {
         StartCoroutine(Simple());
+        MeshRenderer renderer = tmpText.GetComponent<MeshRenderer>();
+        renderer.sortingLayerName = "UI"; renderer.sortingOrder = 10;
     }
 
     private IEnumerator Simple()
     {
-        // •¶š‚Ì•\¦”‚ğ0‚É(ƒeƒLƒXƒg‚ª•\¦‚³‚ê‚È‚­‚È‚é)
+        // æ–‡å­—ã®è¡¨ç¤ºæ•°ã‚’0ã«(ãƒ†ã‚­ã‚¹ãƒˆãŒè¡¨ç¤ºã•ã‚Œãªããªã‚‹)
         tmpText.maxVisibleCharacters = 0;
 
-        // ƒeƒLƒXƒg‚Ì•¶š”•ªƒ‹[ƒv
+        // ãƒ†ã‚­ã‚¹ãƒˆã®æ–‡å­—æ•°åˆ†ãƒ«ãƒ¼ãƒ—
         for (var i = 0; i < tmpText.text.Length; i++)
         {
-            // ˆê•¶š‚²‚Æ‚É0.2•b‘Ò‹@
+            // ä¸€æ–‡å­—ã”ã¨ã«0.2ç§’å¾…æ©Ÿ
             yield return new WaitForSeconds(0.2f);
 
-            // •¶š‚Ì•\¦”‚ğ‘‚â‚µ‚Ä‚¢‚­
+            // æ–‡å­—ã®è¡¨ç¤ºæ•°ã‚’å¢—ã‚„ã—ã¦ã„ã
             tmpText.maxVisibleCharacters = i + 1;
         }
         if (Story_count >= 0)
