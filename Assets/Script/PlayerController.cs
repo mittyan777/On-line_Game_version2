@@ -132,6 +132,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             map_icon[1].SetActive(true);
         }
+        else if(gameObject.tag == "Killer")
+        {
+            map_icon[2].SetActive(true);
+        }
     }
 
     void PlayerStart()
@@ -153,6 +157,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             Record_name.SetActive(true);
             if (this.gameObject.tag == "Killer")
             {
+                stamina_gage.SetActive(false);
                 GameObject.Find("killerImage").SetActive(true);
                 GameObject.Find("PlayerImage").SetActive(false);
                 GameObject.Find("Player2Image").SetActive(false);
@@ -335,6 +340,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
                         velocity.y = rb.velocity.y; // 重力維持
 
                         rb.velocity = velocity;
+                    }
+                    else
+                    {
+                        x = 0;
+                        z = 0;
                     }
                 }
             }
@@ -814,9 +824,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             GameObject.FindWithTag("Player_count").gameObject.GetComponent<GameStart_count>().SetOpen3(gameObject.tag);
         }
-        if (other.gameObject.name == "END")
+        if (gameObject.tag != "killer")
         {
-            StartCoroutine(END());
+            if (other.gameObject.name == "END")
+            {
+                StartCoroutine(END());
+            }
         }
 
 
@@ -839,24 +852,30 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Jail")
+        if (gameObject.tag != "Killer")
         {
-            //Manager.GetComponent<MainGameManager>().Game_over();
-            Debug.Log("捕まった");
-            detainee_name = gameObject.tag;
-            Back_name = collision.gameObject.name;
-            collision.gameObject.name = "Jail_Player";
-            Manager.GetComponent<MainGameManager>().jail_doa_control();
-            Manager.GetComponent<MainGameManager>().kakuho(gameObject.tag);
+            if (collision.gameObject.tag == "Jail")
+            {
+                //Manager.GetComponent<MainGameManager>().Game_over();
+                Debug.Log("捕まった");
+                detainee_name = gameObject.tag;
+                Back_name = collision.gameObject.name;
+                collision.gameObject.name = "Jail_Player";
+                Manager.GetComponent<MainGameManager>().jail_doa_control();
+                Manager.GetComponent<MainGameManager>().kakuho(gameObject.tag);
+            }
         }
     }
     private void OnCollisionExit(Collision collision)
     {
-        if (gameObject.name == "Jail")
+        if (gameObject.tag != "Killer")
         {
-            Manager.GetComponent<MainGameManager>().Game_over_of();
-            collision.gameObject.name = Back_name;
-            Manager.GetComponent<MainGameManager>().kakuhoOF(gameObject.tag);
+            if (gameObject.name == "Jail")
+            {
+                Manager.GetComponent<MainGameManager>().Game_over_of();
+                collision.gameObject.name = Back_name;
+                Manager.GetComponent<MainGameManager>().kakuhoOF(gameObject.tag);
+            }
         }
     }
     IEnumerator Trap()
