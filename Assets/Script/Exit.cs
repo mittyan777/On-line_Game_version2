@@ -1,4 +1,5 @@
 using Photon.Pun;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -44,7 +45,7 @@ public class Exit : MonoBehaviourPunCallbacks
 
     void Update()
     {
-        Input_number = InputField_Child.GetComponent<InputField>().text;
+        Input_number = InputField_Child.GetComponent<TMP_InputField>().text;
         Debug.Log(numberStr);
     }
 
