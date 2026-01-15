@@ -16,6 +16,9 @@ public class Clear_manager : MonoBehaviourPunCallbacks
     [SerializeField] GameObject Player2;
     [SerializeField] GameObject control_P;
 
+    [SerializeField] GameObject []p1_obj;
+    [SerializeField] GameObject []p2_obj;
+
     [SerializeField] string TitleScene_name = "Title";
 
     AudioScript audioScript;
@@ -26,6 +29,7 @@ public class Clear_manager : MonoBehaviourPunCallbacks
     {
         audioScript = GameObject.Find("BGM").GetComponent<AudioScript>();
         audioScript.Change_PlayAudio(BGM_File);
+        Cursor.lockState = CursorLockMode.None;
         // a = MainGameManager.Game_completer_name;
         //PhotonNetwork.LeaveRoom();
         // ??????????????????????????????
@@ -43,6 +47,34 @@ public class Clear_manager : MonoBehaviourPunCallbacks
             UnityEngine.SceneManagement.SceneManager.LoadScene("Title");
         }
         Debug.Log(MainGameManager.Game_completer_name[0]);
+        Debug.Log(MainGameManager.Player_GameObject_name[0]);
+        Debug.Log(MainGameManager.Player_GameObject_name[1]);
+
+
+        if (MainGameManager.Player_GameObject_name[0] == "Player1(Clone)")
+        {
+            p1_obj[0].SetActive(true);
+        }
+        if (MainGameManager.Player_GameObject_name[0] == "Player2(Clone)")
+        {
+            p1_obj[1].SetActive(true);
+        }
+        if (MainGameManager.Player_GameObject_name[0] == "Player3(Clone)")
+        {
+            p1_obj[2].SetActive(true);
+        }
+        if (MainGameManager.Player_GameObject_name[1] == "Player1(Clone)")
+        {
+            p2_obj[0].SetActive(true);
+        }
+        if (MainGameManager.Player_GameObject_name[1] == "Player2(Clone)")
+        {
+            p2_obj[1].SetActive(true);
+        }
+        if (MainGameManager.Player_GameObject_name[1] == "Player3(Clone)")
+        {
+            p2_obj[2].SetActive(true);
+        }
 
         // プレイヤー1が脱出したか
         bool p1 = MainGameManager.Game_completer_name[0] == "Player";

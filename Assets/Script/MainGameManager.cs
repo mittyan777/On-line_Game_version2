@@ -56,9 +56,11 @@ public class MainGameManager : MonoBehaviourPunCallbacks
 
     int Game_completer;
     public static string[] Game_completer_name;
+    static public string[] Player_GameObject_name;
     int i = 0;
     [SerializeField] int DesPlayer;
     static public string[] Player_name;
+
 
     [SerializeField] GameObject[] face_camera;
 
@@ -85,6 +87,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     void Awake()
     {
         Game_completer_name = new string[2]; // クリア人数分
+        Player_GameObject_name = new string[2];
     }
 
     void Update()
@@ -98,6 +101,14 @@ public class MainGameManager : MonoBehaviourPunCallbacks
             Start_BGM＿trigger = true;
         }
 
+        if (Player_GameObject_name[0] == null)
+        {
+            Player_GameObject_name[0] = GameObject.FindWithTag("Player").name;
+        }
+        if (Player_GameObject_name[1] == null)
+        {
+            Player_GameObject_name[1] = GameObject.FindWithTag("Player2").name;
+        }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             optionScript.Option_Function();

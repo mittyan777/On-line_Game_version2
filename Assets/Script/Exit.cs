@@ -54,6 +54,8 @@ public class Exit : MonoBehaviourPunCallbacks
         if (Input_number == numberStr)
         {
             rock = false;
+            message.text = "鍵が開きました";
+            Invoke(nameof(message_reset), 2);
         }
         else
         {
