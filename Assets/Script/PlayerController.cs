@@ -110,7 +110,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             MainGameManager.Player_name = new string[3];
             //Roll Check
             Invoke(nameof(PlayerStart), 5);
-            StartCoroutine(WaitForKiller());
+         
             //Record_name.GetComponent<TMP_InputField>().Select();
             //Record_name.GetComponent<TMP_InputField>().ActivateInputField();
         }
@@ -185,6 +185,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             // 全員に共有する
             photonView.RPC("SetRole", RpcTarget.AllBuffered, role);
 
+            StartCoroutine(WaitForKiller());
             Record_name.SetActive(true);
            
             if (this.gameObject.tag == "Killer")
