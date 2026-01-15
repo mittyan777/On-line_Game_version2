@@ -908,9 +908,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
         if (gameObject.tag != "Killer")
         {
-            if (collision.gameObject.tag == "Jail")
+            if (collision.gameObject.tag == "Floor")
             {
                 Manager.GetComponent<MainGameManager>().Game_over_of();
+                detainee_name = "";
                 collision.gameObject.name = Back_name;
                 Manager.GetComponent<MainGameManager>().kakuhoOF(gameObject.tag);
             }

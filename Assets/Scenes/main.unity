@@ -108273,7 +108273,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &507324147
 RectTransform:
   m_ObjectHideFlags: 0
@@ -145406,7 +145406,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 759
+    m_Bits: 67109431
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: a92ac5a85bd5bec4dbda1ce37a0b4d57, type: 2}
   m_TargetDisplay: 0
@@ -194764,7 +194764,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 67109111
+    m_Bits: 67108919
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: bf2f988dd60496b498172e0d22862745, type: 2}
   m_TargetDisplay: 0
@@ -240896,7 +240896,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 67109111
+    m_Bits: 67108919
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 44f7983e6669c7745bb22b72bb36a8dd, type: 2}
   m_TargetDisplay: 0
