@@ -357,19 +357,21 @@ public class PlayerController : MonoBehaviourPunCallbacks
                             }
 
                         }
+                        if (gameObject.tag != "Killer")
+                        {
+                            if (killerdistance <= 20 && sekin == false)
+                            {
+                                sekin = true;
+                                BGM.Change_PlayAudio(tousou_Sound);
 
-                        if (killerdistance <= 20 && sekin == false)
-                        {
-                            sekin = true;
-                            BGM.Change_PlayAudio(tousou_Sound);
-                     
-                            Manager.GetComponent<MainGameManager>().Face_swap(gameObject.tag);
-                        }
-                        else if(killerdistance >= 20 && sekin == true)
-                        {
-                            sekin = false;
-                            BGM.Change_PlayAudio(Manager.GetComponent<MainGameManager>().BGM_File);
-                            Manager.GetComponent<MainGameManager>().Face_swapOF(gameObject.tag);
+                                Manager.GetComponent<MainGameManager>().Face_swap(gameObject.tag);
+                            }
+                            else if (killerdistance >= 20 && sekin == true)
+                            {
+                                sekin = false;
+                                BGM.Change_PlayAudio(Manager.GetComponent<MainGameManager>().BGM_File);
+                                Manager.GetComponent<MainGameManager>().Face_swapOF(gameObject.tag);
+                            }
                         }
 
 
