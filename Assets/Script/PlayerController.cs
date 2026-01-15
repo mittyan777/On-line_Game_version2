@@ -610,34 +610,36 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     }
                     else if (hit.collider.CompareTag("Ext_Door"))
                     {
-
-                        Animator animator = hit.collider.gameObject.GetComponent<Animator>();
-                        if (hit.collider.gameObject.GetComponent<Exit>().rock == true)
+                        if (gameObject.tag != "Killer")
                         {
-                            select.text = "[F]パスコードを入力する";
-                            if (Input.GetKeyDown("f"))
+                            Animator animator = hit.collider.gameObject.GetComponent<Animator>();
+                            if (hit.collider.gameObject.GetComponent<Exit>().rock == true)
                             {
-                                passwordUI.SetActive(true);
-                            }
-
-                        }
-                        else
-                        {
-                            passwordUI.SetActive(false);
-                            if (animator.GetBool("open") == false)
-                            {
-                                select.text = "[F]開ける";
+                                select.text = "[F]パスコードを入力する";
                                 if (Input.GetKeyDown("f"))
                                 {
-                                    DoorController door = hit.collider.GetComponent<DoorController>();
-                                    if (door != null)
-                                    {
-                                        door.SetOpen(true);
-                                    }
+                                    passwordUI.SetActive(true);
                                 }
 
+                            }
+                            else
+                            {
+                                passwordUI.SetActive(false);
+                                if (animator.GetBool("open") == false)
+                                {
+                                    select.text = "[F]開ける";
+                                    if (Input.GetKeyDown("f"))
+                                    {
+                                        DoorController door = hit.collider.GetComponent<DoorController>();
+                                        if (door != null)
+                                        {
+                                            door.SetOpen(true);
+                                        }
+                                    }
 
 
+
+                                }
                             }
                         }
 

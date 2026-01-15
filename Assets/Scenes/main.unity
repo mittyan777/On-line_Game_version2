@@ -93428,7 +93428,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: decf93254dc94eb41837e05b57cf43d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InputField: {fileID: 462163363}
+  InputField: {fileID: 2073227942}
   number_text:
   - {fileID: 1675488561}
   - {fileID: 265894036}
@@ -323026,7 +323026,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17006447927bbf644a6f41274a1a86ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameTime: 300
+  GameTime: 600
   TimerLabel: {fileID: 507324148}
   GameStart_trigger: 0
   sabaiba_count: 0
