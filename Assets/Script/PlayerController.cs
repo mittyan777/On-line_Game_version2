@@ -402,15 +402,15 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 }
             }
 
-            if (Input.GetKeyDown("h"))
-            {
-                if (Game_Clear_trigger == false)
-                {
-                    Manager.GetComponent<MainGameManager>().Game_Clear(gameObject.tag);
-                    Game_Clear_trigger = true;
-                }
-                //Manager.GetComponent<MainGameManager>().Game_over();
-            }
+           // if (Input.GetKeyDown("h"))
+           // {
+           //     if (Game_Clear_trigger == false)
+           //     {
+           //         Manager.GetComponent<MainGameManager>().Game_Clear(gameObject.tag);
+           //         Game_Clear_trigger = true;
+           //     }
+           //     //Manager.GetComponent<MainGameManager>().Game_over();
+           // }
 
         }
         if (photonView.IsMine && sceneName == "lobby")
