@@ -29,8 +29,8 @@ public class Clear_manager : MonoBehaviourPunCallbacks
         // a = MainGameManager.Game_completer_name;
         //PhotonNetwork.LeaveRoom();
         // ??????????????????????????????
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+        //Cursor.visible = true;
+        //Cursor.lockState = CursorLockMode.None;
     }
 
     // Update is called once per frame

@@ -1970,7 +1970,7 @@ GameObject:
   - component: {fileID: 4553215258894064413}
   - component: {fileID: 4206806149698233484}
   - component: {fileID: 3644908675472287836}
-  m_Layer: 26
+  m_Layer: 27
   m_Name: killer_icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}

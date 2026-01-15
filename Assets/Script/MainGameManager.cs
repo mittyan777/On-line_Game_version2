@@ -69,6 +69,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
 
     bool Start_BGM＿trigger = false;
     [SerializeField] public GameObject optionwindow;
+    [SerializeField] GameObject cursor_control;
 
     void Start()
     {
@@ -78,7 +79,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
 
         TrySetRoleLabel(PhotonNetwork.LocalPlayer);
 
-       
+        Cursor.lockState = CursorLockMode.None;
 
     }
     void Awake()
@@ -795,5 +796,9 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     public void kakuhoOF(string target)
     {
         photonView.RPC(nameof(RPCkakuhoOF), RpcTarget.All, target);
+    }
+    public void cursor_controlON()
+    {
+        cursor_control.SetActive(true);
     }
 }

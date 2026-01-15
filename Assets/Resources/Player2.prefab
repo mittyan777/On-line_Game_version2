@@ -307,7 +307,7 @@ GameObject:
   - component: {fileID: 8718131297187696705}
   - component: {fileID: 5842178567850202009}
   - component: {fileID: 6575422637781192636}
-  m_Layer: 26
+  m_Layer: 27
   m_Name: killer_icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}

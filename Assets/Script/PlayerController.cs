@@ -89,7 +89,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     AudioScript BGM;
     bool sekin = false;
     GameObject Option;
-
+    bool cursor = false;
 
     // Start is called before the first frame update
     void Start()
@@ -111,6 +111,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
             //Roll Check
             Invoke(nameof(PlayerStart), 5);
             StartCoroutine(WaitForKiller());
+            //Record_name.GetComponent<TMP_InputField>().Select();
+            //Record_name.GetComponent<TMP_InputField>().ActivateInputField();
         }
         if (sceneName == "lobby")
         {
@@ -300,6 +302,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     {
                         if (Input.GetKey("w"))
                         {
+                            if (cursor == false)
+                            {
+                                Manager.GetComponent<MainGameManager>().cursor_controlON();
+                                cursor = true;
+                            }
                             z += 1f;
                             animator.SetBool("forward_walk", true);
                         }
