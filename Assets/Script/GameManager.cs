@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     private int lastSentSurvivorCount = -1;
     private int lastSentKillerCount = -1;
 
-    [SerializeField] OptionScript optionScript;
+    [SerializeField] public OptionScript optionScript;
     AudioScript audioScript;
 
     public AudioClip BGM_File;
