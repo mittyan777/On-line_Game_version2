@@ -417,10 +417,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             if (GameObject.FindWithTag("Killer") != null) { killerdistance = Vector3.Distance(transform.position, killer_player.transform.position); }
         }
       
-        if(passwordUI.activeSelf == false && Record_name.activeSelf == false)
-        {
-            GameObject.Find("cursor_control").GetComponent<cursor_control>().cursorOF();
-        }
+       
 
 
             string sceneName = SceneManager.GetActiveScene().name;
@@ -435,7 +432,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 select = GameObject.FindGameObjectWithTag("selectUI").GetComponent<Text>();
             }
 
-
+            if (passwordUI.activeSelf == false && Record_name.activeSelf == false)
+            {
+                GameObject.Find("cursor_control").GetComponent<cursor_control>().cursorOF();
+            }
         }
 
         // Ray作成
