@@ -46,9 +46,7 @@ public class Clear_manager : MonoBehaviourPunCallbacks
             Title_control.errorWindow = true;
             UnityEngine.SceneManagement.SceneManager.LoadScene("Title");
         }
-        Debug.Log(MainGameManager.Game_completer_name[0]);
-        Debug.Log(MainGameManager.Player_GameObject_name[0]);
-        Debug.Log(MainGameManager.Player_GameObject_name[1]);
+    
 
 
         if (MainGameManager.Player_GameObject_name[0] == "Player1(Clone)")
@@ -86,6 +84,8 @@ public class Clear_manager : MonoBehaviourPunCallbacks
         Game_completer_mesh[0].text = p1 ? "脱出" : "脱出失敗";
         Game_completer_mesh[1].text = p2 ? "脱出" : "脱出失敗";
 
+        Game_completer_name[0].text = ($"{MainGameManager.Player_name[0]}");
+        Game_completer_name[1].text = ($"{MainGameManager.Player_name[1]}");
         Debug.Log("P1 = " + MainGameManager.Game_completer_name[0]);
         Debug.Log("P2 = " + MainGameManager.Game_completer_name[1]);
 

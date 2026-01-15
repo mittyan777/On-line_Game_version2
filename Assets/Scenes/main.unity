@@ -323100,7 +323100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17006447927bbf644a6f41274a1a86ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameTime: 600
+  GameTime: 50
   TimerLabel: {fileID: 507324148}
   GameStart_trigger: 0
   sabaiba_count: 0
