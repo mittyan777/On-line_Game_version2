@@ -12,6 +12,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static UnityEngine.GraphicsBuffer;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 
@@ -41,6 +42,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     [SerializeField] drawn[] Drone_Objects;
     [SerializeField] GameObject Direction_right;
     [SerializeField] GameObject[] kakuho_UI;
+    [SerializeField] TextMeshProUGUI[] memo;
 
     [SerializeField] GameObject[] CollarImage;
 
@@ -811,5 +813,29 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     public void cursor_controlON()
     {
         cursor_control.SetActive(true);
+    }
+    [PunRPC]
+    void RPCMEMO(string target,string name)
+    {
+        if (name == "number1")
+        {
+            memo[0].text = ($"{target}");
+        }
+        if (name == "number2")
+        {
+            memo[1].text = ($"{target}");
+        }
+        if (name == "number3")
+        {
+            memo[2].text = ($"{target}");
+        }
+        if (name == "number4")
+        {
+            memo[3].text = ($"{target}");
+        }
+    }
+    public void MEMO(string target, string name)
+    {
+        photonView.RPC(nameof(RPCMEMO), RpcTarget.All, target,name);
     }
 }
