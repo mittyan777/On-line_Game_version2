@@ -20,7 +20,9 @@ public class Title_control : MonoBehaviourPunCallbacks
     float Speed = 10;
     int roomnum;
     [SerializeField] GameObject errorWindow_UI;
+    [SerializeField] GameObject errorWindow_UI2;
     static public bool errorWindow = false;
+    static public bool errorWindow2 = false;
 
     // Start is called before the first frame update
     void Start()
@@ -53,6 +55,14 @@ public class Title_control : MonoBehaviourPunCallbacks
         {
             errorWindow_UI.SetActive(false);
         }
+        if (errorWindow2 == true)
+        {
+            errorWindow_UI2.SetActive(true);
+        }
+        else
+        {
+            errorWindow_UI2.SetActive(false);
+        }
 
         if (Start_trigger == false)
         {
@@ -73,7 +83,10 @@ public class Title_control : MonoBehaviourPunCallbacks
     {
         errorWindow = false;
     }
-
+    public void error_ext2()
+    {
+        errorWindow2 = false;
+    }
     public void GameStart()
     {
         StartButton_obj.SetActive(false);
