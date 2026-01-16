@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -49,6 +50,12 @@ public class GameOver_manager : MonoBehaviour
         if (MainGameManager.Player_GameObject_name[1] == "Player3(Clone)")
         {
             p2_obj[2].SetActive(true);
+        }
+        if (GameObject.Find("Player1(Clone)") != null || GameObject.Find("Player2(Clone)") != null || GameObject.Find("Player3(Clone)") != null)
+        {
+            PhotonNetwork.LeaveRoom();
+            Title_control.errorWindow = true;
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Title");
         }
     }
 }

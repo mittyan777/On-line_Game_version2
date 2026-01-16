@@ -38,7 +38,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [SerializeField] Animator animator;
 
     [SerializeField] GameObject passwordUI;
-    [SerializeField] GameObject[] memo;
     [SerializeField] GameObject Notepad;
     [SerializeField] public GameObject Mermaid;
     [SerializeField] public GameObject Mermaid_Face;
@@ -698,19 +697,35 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     }
                     else if (hit.collider.name == ("number1"))
                     {
-                        memo[0].GetComponent<Text>().text = hit.collider.GetComponent<Text>().text;
+                        select.text = "[F]メモする";
+                        if (Input.GetKey("f"))
+                        {
+                            Manager.GetComponent<MainGameManager>().MEMO(hit.collider.GetComponent<Text>().text, hit.collider.name);
+                        }
                     }
                     else if (hit.collider.name == ("number2"))
                     {
-                        memo[1].GetComponent<Text>().text = hit.collider.GetComponent<Text>().text;
+                        select.text = "[F]メモする";
+                        if (Input.GetKey("f"))
+                        {
+                            Manager.GetComponent<MainGameManager>().MEMO(hit.collider.GetComponent<Text>().text, hit.collider.name);
+                        }
                     }
                     else if (hit.collider.name == ("number3"))
                     {
-                        memo[2].GetComponent<Text>().text = hit.collider.GetComponent<Text>().text;
+                        select.text = "[F]メモする";
+                        if (Input.GetKey("f"))
+                        {
+                            Manager.GetComponent<MainGameManager>().MEMO(hit.collider.GetComponent<Text>().text, hit.collider.name);
+                        }
                     }
                     else if (hit.collider.name == ("number4"))
                     {
-                        memo[3].GetComponent<Text>().text = hit.collider.GetComponent<Text>().text;
+                        select.text = "[F]メモする";
+                        if (Input.GetKey("f"))
+                        {
+                            Manager.GetComponent<MainGameManager>().MEMO(hit.collider.GetComponent<Text>().text, hit.collider.name);
+                        }
                     }
                     else
                     {

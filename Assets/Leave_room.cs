@@ -10,27 +10,33 @@ public class Leave_room : MonoBehaviourPunCallbacks
     {
   
     }
-    // ƒQ[ƒ€I—¹‚ÉŒÄ‚Ô
+    // ã‚²ãƒ¼ãƒ çµ‚äº†æ™‚ã«å‘¼ã¶
     public void LeaveRoomAndClose()
     {
         if (PhotonNetwork.InRoom)
         {
-            Debug.Log("ƒ‹[ƒ€‚©‚çØ’f‚µ‚Ü‚·...");
+            Debug.Log("ãƒ«ãƒ¼ãƒ ã‹ã‚‰åˆ‡æ–­ã—ã¾ã™...");
             PhotonNetwork.LocalPlayer.CustomProperties = new ExitGames.Client.Photon.Hashtable();
             PhotonNetwork.LocalPlayer.TagObject = null;
-            PhotonNetwork.LeaveRoom(); // Ø’fŠJn -> Š®—¹‚·‚é‚ÆOnLeftRoom‚ªŒÄ‚Î‚ê‚é
+            PhotonNetwork.LeaveRoom(); // åˆ‡æ–­é–‹å§‹ -> å®Œäº†ã™ã‚‹ã¨OnLeftRoomãŒå‘¼ã°ã‚Œã‚‹
         }
         else
         {
-            // ‚·‚Å‚ÉØ’f‚³‚ê‚Ä‚¢‚éê‡‚Í’¼ÚˆÚ“®
+            // ã™ã§ã«åˆ‡æ–­ã•ã‚Œã¦ã„ã‚‹å ´åˆã¯ç›´æ¥ç§»å‹•
             UnityEngine.SceneManagement.SceneManager.LoadScene("Title");
         }
     }
 
-    // ƒ‹[ƒ€‘ŞoŠ®—¹‚ÉŒÄ‚Î‚ê‚éƒR[ƒ‹ƒoƒbƒN
+    // ãƒ«ãƒ¼ãƒ é€€å‡ºå®Œäº†æ™‚ã«å‘¼ã°ã‚Œã‚‹ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯
     public override void OnLeftRoom()
     {
-        // ƒ^ƒCƒgƒ‹‰æ–Ê‚È‚Ç‚É‘JˆÚ
+        // ã‚¿ã‚¤ãƒˆãƒ«ç”»é¢ãªã©ã«é·ç§»
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Title");
+    }
+    public void RoomEXT()
+    {
+        PhotonNetwork.LeaveRoom();
+        Title_control.errorWindow = true;
         UnityEngine.SceneManagement.SceneManager.LoadScene("Title");
     }
 
