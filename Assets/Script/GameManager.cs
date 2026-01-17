@@ -214,12 +214,12 @@ public class GameManager : MonoBehaviourPunCallbacks
         // --- 役割を設定 ---
         foreach (var p in players)
         {
-            cnt++;
             string finalRole = (p == killer) ? "killer" : "survivor";
 
             if (finalRole == "survivor")
             {
                 //サバイバーのアイテムタイプ決定
+                cnt++;
                 Hashtable props = new Hashtable { { "Role", finalRole }, { "ItemType", cnt } };
                 p.SetCustomProperties(props);
             }
