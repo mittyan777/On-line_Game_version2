@@ -289,7 +289,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         string sceneName = SceneManager.GetActiveScene().name;
         if (photonView.IsMine && sceneName == "main")
         {
-            if (Manager.GetComponent<MainGameManager>().Gamestart == true)
+            if (Manager?.GetComponent<MainGameManager>().Gamestart == true)
             {
                 if (map_icon[0].activeSelf == false && map_icon[1].activeSelf == false)
                 {
@@ -524,7 +524,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             }
             if (sceneName == "lobby")
             {
-                if (Option.activeSelf == false)
+                if (Option?.activeSelf == false)
                 {
                     float h = Input.GetAxis("Mouse X");
                     float v = Input.GetAxis("Mouse Y");
