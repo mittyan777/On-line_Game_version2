@@ -63,6 +63,8 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     [SerializeField] public int DesPlayer;
     static public string[] Player_name;
 
+    bool gameover_trigger = false;
+
 
     [SerializeField] GameObject[] face_camera;
 
@@ -409,18 +411,16 @@ public class MainGameManager : MonoBehaviourPunCallbacks
             photonView.RPC(nameof(Clear_load), RpcTarget.All);
 
         }
-        if (DesPlayer == 2)
-        {
-            if (DesPlayer == 2 && !isLeaving)
+      
+            if (DesPlayer >= 2 && !isLeaving)
             {
                 isLeaving = true;
-                if (PhotonNetwork.IsMasterClient)
-                {
-                    PhotonNetwork.LoadLevel("Game_over");
-                }
+               
+                    Invoke("Jail_count", 4);
+                
                 // photonView.RPC(nameof(Game_over_load), RpcTarget.All);
             }
-        }
+        
 
 
     }
@@ -681,18 +681,19 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     void RPCcaught(string target_name)
     {
         //if (!PhotonNetwork.IsMasterClient) return;
-        Invoke("Jail_count", 4);
-     
+        Debug.Log("回数確認");
+        DesPlayer++;
+
+        Debug.Log($"[Master] DesPlayer = {DesPlayer}");
+
         StartCoroutine(caught(target_name));
 
     }
     void Jail_count()
     {
-        Debug.Log("回数確認");
-        DesPlayer++;
-
-        Debug.Log($"[Master] DesPlayer = {DesPlayer}");
+        PhotonNetwork.LoadLevel("Game_over");
     }
+
     public void killer_Securing(string a)
     {
         photonView.RPC(nameof(RPCcaught), RpcTarget.All, a);
