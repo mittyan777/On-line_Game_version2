@@ -2,6 +2,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -9,7 +10,7 @@ using UnityEngine.UI;
 // MonoBehaviourPunCallbacksを継承することで、OnJoinedRoomなどが使えるようになります
 public class Title_control : MonoBehaviourPunCallbacks
 {
-    [SerializeField] GameObject camera;
+    // [SerializeField] GameObject camera;
     [SerializeField] GameObject StartButton_obj;
     [SerializeField] GameObject RoomSelect_obj;
     [SerializeField] GameObject fade;
@@ -42,12 +43,16 @@ public class Title_control : MonoBehaviourPunCallbacks
             audioScript = GameObject.Find("BGM").GetComponent<AudioScript>();
         }
         audioScript.Change_PlayAudio(null);
+        Cursor.lockState = CursorLockMode.None;
+        {
+
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(errorWindow == true)
+        if (errorWindow == true)
         {
             errorWindow_UI.SetActive(true);
         }
@@ -66,15 +71,15 @@ public class Title_control : MonoBehaviourPunCallbacks
 
         if (Start_trigger == false)
         {
-      
+
         }
-   
+
 
         if (Start_trigger)
         {
             fade.SetActive(true);
         }
-        if(fade.GetComponent<Image>().color.a == 1)
+        if (fade.GetComponent<Image>().color.a == 1)
         {
             ConnectRoom();
         }
@@ -102,7 +107,7 @@ public class Title_control : MonoBehaviourPunCallbacks
             {
                 roomnum = num;
                 Start_trigger = true;
-                
+
                 RoomSelect_obj.SetActive(false);
             }
             else
