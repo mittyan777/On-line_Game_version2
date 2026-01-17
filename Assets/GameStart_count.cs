@@ -5,26 +5,26 @@ using static UnityEngine.GraphicsBuffer;
 
 public class GameStart_count : MonoBehaviourPun
 {
-    [SerializeField] GameObject []ReadyUI;
+    [SerializeField] GameObject[] ReadyUI;
     [SerializeField] Text count_text;
     [SerializeField] public float count = 5;
     int result;
     [SerializeField] Transform[] Start_pos;
-    [SerializeField]GameObject Gamemanager;
+    [SerializeField] GameObject Gamemanager;
     [SerializeField] GameObject StartText;
     bool time_count_trigger = false;
-   
+
     // Start is called before the first frame update
     [PunRPC]
     void RPC_SetOpen(string target)
     {
         GetComponent<AudioSource>().Play();
         Gamemanager.GetComponent<MainGameManager>().sabaiba_count += 1;
-        if(target == "Player")
+        if (target == "Player")
         {
             ReadyUI[0].SetActive(true);
         }
-        else if(target == "Player2")
+        else if (target == "Player2")
         {
             ReadyUI[1].SetActive(true);
         }
@@ -59,7 +59,7 @@ public class GameStart_count : MonoBehaviourPun
 
         if (Gamemanager.GetComponent<MainGameManager>().sabaiba_count == 2 && Gamemanager.GetComponent<MainGameManager>().killer_count == 1)
         {
-         
+
             count_text.gameObject.SetActive(true);
             time_count_trigger = true;
         }
@@ -112,34 +112,34 @@ public class GameStart_count : MonoBehaviourPun
         {
             count_text.gameObject.SetActive(true);
             time_count_trigger = true;
-            
+
         }
 
     }
     private void Update()
     {
-       if(time_count_trigger == true)
-       {
+        if (time_count_trigger == true)
+        {
             int result = Mathf.FloorToInt(count);
-           
+
             count_text.text = ($"{result}");
-       }
-       if(count <= 0)
-       {
+        }
+        if (count <= 0)
+        {
             if (Gamemanager.GetComponent<MainGameManager>().GameStart_trigger == false)
             {
                 GameObject.FindWithTag("Player").transform.position = Start_pos[0].position;
                 GameObject.FindWithTag("Player2").transform.position = Start_pos[1].position;
                 GameObject.FindWithTag("Killer").transform.position = Start_pos[2].position;
             }
-            StartText.SetActive(true);
+            if (StartText != null) StartText.SetActive(true);
             count_text.gameObject.SetActive(false);
             Gamemanager.GetComponent<MainGameManager>().GameStart_trigger = true;
-       }
+        }
     }
     public void SetOpen(string target)
     {
-        photonView.RPC(nameof(RPC_SetOpen), RpcTarget.AllBuffered,target);
+        photonView.RPC(nameof(RPC_SetOpen), RpcTarget.AllBuffered, target);
     }
     public void SetOpen2(string target)
     {

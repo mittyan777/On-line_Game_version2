@@ -573,11 +573,9 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     }
     public void Game_over()
     {
-        if (!PhotonNetwork.IsMasterClient) return;
-
         if (hasCalledGameOver) return;
         hasCalledGameOver = true;
-
+        PhotonNetwork.LoadLevel("Game_over");
     }
 
     public void Game_over_of(string target)
@@ -689,36 +687,29 @@ public class MainGameManager : MonoBehaviourPunCallbacks
 
         StartCoroutine(caught(target_name));
 
+        // 名前で判定してフラグを立てる
+        if (target_name == "Player")
+        {
+            p1_caught = true;
+        }
+        else if (target_name == "Player2")
+        {
+            p2_caught = true;
+        }
+
         if (PhotonNetwork.IsMasterClient)
         {
-            Debug.Log($"捕獲確認: {target_name}");
-
-            // 名前で判定してフラグを立てる
-            if (target_name == "Player")
-            {
-                p1_caught = true;
-            }
-            else if (target_name == "Player2")
-            {
-                p2_caught = true;
-            }
-
             // 両方のフラグが立っていたらゲームオーバー処理へ
             if (p1_caught && p2_caught && !isLeaving)
             {
-                Debug.Log("全員捕獲完了。4秒後にゲームオーバー遷移します。");
+                Debug.LogError("全員捕獲完了。4秒後にゲームオーバー遷移します。");
                 isLeaving = true;
-                Invoke(nameof(Jail_count), 4); // 4秒後にJail_countを呼ぶ
+                Invoke(nameof(Game_over), 4); // 4秒後にJail_countを呼ぶ
             }
         }
+        Debug.LogError($"捕獲確認: {target_name}");
+        Debug.LogError($"{p1_caught},{p2_caught}");
 
-    }
-    void Jail_count()
-    {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            PhotonNetwork.LoadLevel("Game_over");
-        }
     }
 
     public void killer_Securing(string target)
