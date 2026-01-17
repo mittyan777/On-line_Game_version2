@@ -952,6 +952,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 collision.gameObject.name = "Jail_Player";
                 Manager.GetComponent<MainGameManager>().jail_doa_control();
                 Manager.GetComponent<MainGameManager>().kakuho(gameObject.tag);
+
+                Debug.Log("回数確認");
+                Manager.GetComponent<MainGameManager>().DesPlayer++;
+
+                //Debug.Log($"[Master] DesPlayer = {DesPlayer}");
             }
 
         }

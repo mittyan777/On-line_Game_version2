@@ -60,7 +60,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     public static string[] Game_completer_name;
     static public string[] Player_GameObject_name;
     int i = 0;
-    [SerializeField] int DesPlayer;
+    [SerializeField] public int DesPlayer;
     static public string[] Player_name;
 
 
@@ -682,10 +682,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     {
         //if (!PhotonNetwork.IsMasterClient) return;
 
-        Debug.Log("回数確認");
-        DesPlayer++;
-
-        Debug.Log($"[Master] DesPlayer = {DesPlayer}");
+      
         StartCoroutine(caught(target_name));
 
     }
