@@ -95,13 +95,13 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     void Update()
     {
         if (Gamestart == false) return;
-        if (Start_BGM＿trigger == false)
+        if (PhotonNetwork.IsMasterClient && !Start_BGM＿trigger)
         {
-            //シングルトンで管理するので、Findを実行する
             audioScript = GameObject.Find("BGM").GetComponent<AudioScript>();
             audioScript.Change_PlayAudio(BGM_File);
             Start_BGM＿trigger = true;
         }
+
 
         if (Player_GameObject_name[0] == null)
         {
@@ -405,6 +405,19 @@ public class MainGameManager : MonoBehaviourPunCallbacks
             photonView.RPC(nameof(Clear_load), RpcTarget.All);
 
         }
+        if (DesPlayer == 2)
+        {
+            if (DesPlayer == 2 && !isLeaving)
+            {
+                isLeaving = true;
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    PhotonNetwork.LoadLevel("Game_over");
+                }
+                // photonView.RPC(nameof(Game_over_load), RpcTarget.All);
+            }
+        }
+       
 
     }
 
@@ -566,9 +579,10 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     {
         if (!PhotonNetwork.IsMasterClient) return;
 
-        if (!hasCalledGameOver) return;
+        //if (!hasCalledGameOver) return;
         hasCalledGameOver = false;
-        photonView.RPC(nameof(Game_over_count2), RpcTarget.All);
+        photonView.RPC(nameof(Game_over_count2), RpcTarget.MasterClient);
+
     }
     public void name_Record(string name, string target)
     {
@@ -729,22 +743,18 @@ public class MainGameManager : MonoBehaviourPunCallbacks
 
         Debug.Log($"[Master] DesPlayer = {DesPlayer}");
 
-        if (DesPlayer >= 2)
-        {
-            photonView.RPC(nameof(Game_over_load), RpcTarget.All);
-        }
-        else
-        {
-            hasCalledGameOver = false;
-        }
+      
     }
 
     [PunRPC]
     void Game_over_count2()
     {
         if (!PhotonNetwork.IsMasterClient) return;
+
         DesPlayer -= 1;
+        Debug.Log($"[Master] DesPlayer-- → {DesPlayer}");
     }
+
     //アウトライン透過能力
     [PunRPC]
     void RPC_ActivateOutlineSkill()

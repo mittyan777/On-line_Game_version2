@@ -119,11 +119,17 @@ public class OptionScript : MonoBehaviour
     {
         Confirmation[0].SetActive(true);
         Confirmation[1].SetActive(true);
+
+        Confirmation[2].SetActive(false);
+        Confirmation[3].SetActive(false);
     }
     public void Selection_cancel()
     {
         Confirmation[0].SetActive(false);
         Confirmation[1].SetActive(false);
+
+        Confirmation[2].SetActive(true);
+        Confirmation[3].SetActive(true);
     }
 
     void OnDisable()

@@ -37,7 +37,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 71.8, y: -33.521}
+  m_AnchoredPosition: {x: 71.8, y: -4.3999863}
   m_SizeDelta: {x: 97.4172, y: 96.6419}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7904230126975164783
@@ -193,7 +193,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.002600278, y: -68.5}
+  m_AnchoredPosition: {x: 0.002600278, y: -32.9}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7906065877095967449
@@ -277,7 +277,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5342713406202414235}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1447815655396482763}
+        m_TargetAssemblyTypeName: OptionScript, Assembly-CSharp
+        m_MethodName: Selection_cancel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1565339667495401712
 GameObject:
   m_ObjectHideFlags: 0
@@ -766,7 +778,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.002600278, y: -25}
+  m_AnchoredPosition: {x: 0.002600278, y: 10.60001}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1703768803492708854
@@ -1374,7 +1386,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -79, y: -33.521}
+  m_AnchoredPosition: {x: -79, y: -4.4}
   m_SizeDelta: {x: 97.4172, y: 96.6419}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5273291971151258076
