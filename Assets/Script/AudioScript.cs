@@ -96,6 +96,7 @@ public class AudioScript : MonoBehaviour
     {
         if (Function_BGM_VolumeDown == true) return;
         Current_Volume = Volume;
+        audioSource.volume = Volume;
 
         float volumeInDecibels = Get_AudioRatio(Volume);
 
