@@ -44,9 +44,6 @@ public class Title_control : MonoBehaviourPunCallbacks
         }
         audioScript.Change_PlayAudio(null);
         Cursor.lockState = CursorLockMode.None;
-        {
-
-        }
     }
 
     // Update is called once per frame
