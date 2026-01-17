@@ -111,7 +111,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             MainGameManager.Player_name = new string[3];
             //Roll Check
             Invoke(nameof(PlayerStart), 5);
-
+            GetComponent<ItemSelect>().enabled = true;
             //Record_name.GetComponent<TMP_InputField>().Select();
             //Record_name.GetComponent<TMP_InputField>().ActivateInputField();
         }
