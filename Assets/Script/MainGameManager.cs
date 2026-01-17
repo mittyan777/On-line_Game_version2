@@ -681,10 +681,17 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     void RPCcaught(string target_name)
     {
         //if (!PhotonNetwork.IsMasterClient) return;
-
-
+        Invoke("Jail_count", 4);
+     
         StartCoroutine(caught(target_name));
 
+    }
+    void Jail_count()
+    {
+        Debug.Log("回数確認");
+        DesPlayer++;
+
+        Debug.Log($"[Master] DesPlayer = {DesPlayer}");
     }
     public void killer_Securing(string a)
     {
@@ -697,10 +704,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         yield return new WaitForSeconds(3f);
         photonView.RPC(nameof(RPCkiller_Securing2), RpcTarget.All, target_name);
         yield return new WaitForSeconds(1f);
-        Debug.Log("回数確認");
-        DesPlayer++;
-
-        Debug.Log($"[Master] DesPlayer = {DesPlayer}");
+   
  
     }
     [PunRPC]
