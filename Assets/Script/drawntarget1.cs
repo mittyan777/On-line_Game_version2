@@ -27,7 +27,12 @@ public class drawntarget1: MonoBehaviourPunCallbacks
         target[0] = GameObject.Find("drawn2");
         if (photonView.IsMine)
         {
-            transform.LookAt(new Vector3(90, 0, target[0].transform.position.z));
+            Vector3 dir = target[0].transform.position - transform.position;
+            dir.y = 0f;
+
+            transform.rotation =
+                Quaternion.LookRotation(dir) * Quaternion.Euler(90f, 0f, 0f);
+
             distance = Vector3.Distance(transform.position, killer.transform.position);
             distance2 = Vector3.Distance(killer.transform.position, target[0].transform.position);
 
