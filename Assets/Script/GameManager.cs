@@ -210,12 +210,25 @@ public class GameManager : MonoBehaviourPunCallbacks
             killer = players[Random.Range(0, players.Count)];
         }
 
+        int cnt = 0;
         // --- 役割を設定 ---
         foreach (var p in players)
         {
+            cnt++;
             string finalRole = (p == killer) ? "killer" : "survivor";
-            Hashtable props = new Hashtable { { "Role", finalRole } };
-            p.SetCustomProperties(props);
+
+            if (finalRole == "survivor")
+            {
+                //サバイバーのアイテムタイプ決定
+                Hashtable props = new Hashtable { { "Role", finalRole }, { "ItemType", cnt } };
+                p.SetCustomProperties(props);
+            }
+            else
+            {
+                Hashtable props = new Hashtable { { "Role", finalRole }, { "ItemType", -1 } };
+                p.SetCustomProperties(props);
+            }
+
             Debug.Log($"{p.NickName} のロール: {finalRole}");
         }
 

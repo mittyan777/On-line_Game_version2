@@ -101,7 +101,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             StartCoroutine(WaitForOption());
 
             BGM = GameObject.Find("BGM").GetComponent<AudioScript>();
-          
+
             Is_PlayMode = true;
             normalLayer = LayerMask.NameToLayer("PlayerNormal");
             outlineLayer = LayerMask.NameToLayer("OutlineVisible");
@@ -183,9 +183,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             rb = GetComponent<Rigidbody>();
             string role = (string)PhotonNetwork.LocalPlayer.CustomProperties["Role"];
+            int ItemType = (int)PhotonNetwork.LocalPlayer.CustomProperties["ItemType"];
 
             // 全員に共有する
-            photonView.RPC("SetRole", RpcTarget.AllBuffered, role);
+            photonView.RPC(nameof(SetRole), RpcTarget.AllBuffered, role, ItemType);
 
             StartCoroutine(WaitForKiller());
             Record_name.SetActive(true);
@@ -240,7 +241,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    void SetRole(string role)
+    void SetRole(string role, int itemtype)
     {
         string sceneName = SceneManager.GetActiveScene().name;
         if (sceneName == "main")
@@ -261,12 +262,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 skillslot.SetActive(false);
                 itemslot.SetActive(true);
                 gameObject.layer = LayerMask.NameToLayer("Player");
-                if (players.Length == 0)
+                if (itemtype == 1)
                 {
                     gameObject.tag = "Player";
 
                 }
-                else if (players.Length == 1)
+                else if (itemtype == 2)
                 {
                     gameObject.tag = "Player2";
 
@@ -475,7 +476,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         string sceneName = SceneManager.GetActiveScene().name;
         if (sceneName == "main")
         {
-            if (GameObject.Find("GameManager") != null)
+            if (Manager == null)
             {
                 Manager = GameObject.Find("GameManager");
             }
