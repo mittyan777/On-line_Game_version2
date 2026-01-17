@@ -682,7 +682,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     {
         //if (!PhotonNetwork.IsMasterClient) return;
 
-      
+
         StartCoroutine(caught(target_name));
 
     }
@@ -697,8 +697,11 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         yield return new WaitForSeconds(3f);
         photonView.RPC(nameof(RPCkiller_Securing2), RpcTarget.All, target_name);
         yield return new WaitForSeconds(1f);
-        photonView.RPC(nameof(Game_over_count), RpcTarget.All);
-        Game_over();
+        Debug.Log("回数確認");
+        DesPlayer++;
+
+        Debug.Log($"[Master] DesPlayer = {DesPlayer}");
+ 
     }
     [PunRPC]
     void RPCkiller_Securing1(string target_name)

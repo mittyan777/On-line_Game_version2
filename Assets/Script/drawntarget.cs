@@ -28,11 +28,7 @@ public class drawntarget : MonoBehaviourPunCallbacks
         target[0] = GameObject.Find("drawn");
         if (photonView.IsMine)
         {
-            Vector3 lookPos = target[0].transform.position;
-            lookPos.x = transform.position.x; // X方向は固定
-            lookPos.y = transform.position.y; // Y方向は固定
-
-            transform.LookAt(lookPos);
+            transform.LookAt(new Vector3(90, 0, target[0].transform.position.z));
             distance = Vector3.Distance(transform.position, killer.transform.position);
             distance2 = Vector3.Distance(killer.transform.position, target[0].transform.position);
 
