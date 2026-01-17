@@ -580,13 +580,13 @@ public class MainGameManager : MonoBehaviourPunCallbacks
 
     }
 
-    public void Game_over_of()
+    public void Game_over_of(string target)
     {
         // if (!PhotonNetwork.IsMasterClient) return;
 
         //if (!hasCalledGameOver) return;
         hasCalledGameOver = false;
-        photonView.RPC(nameof(Game_over_count2), RpcTarget.MasterClient);
+        photonView.RPC(nameof(Game_over_count2), RpcTarget.MasterClient, target);
 
     }
     public void name_Record(string name, string target)
@@ -721,9 +721,9 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         }
     }
 
-    public void killer_Securing(string a)
+    public void killer_Securing(string target)
     {
-        photonView.RPC(nameof(RPCcaught), RpcTarget.All, a);
+        photonView.RPC(nameof(RPCcaught), RpcTarget.All, target);
     }
     IEnumerator caught(string target_name)
     {

@@ -11,6 +11,7 @@ public class AudioScript : MonoBehaviour
     bool Function_BGM_VolumeDown = false;
     const float Down_Value = 0.25f;
     [SerializeField] private AudioMixer audioMixer; // 作成したMixerをアタッチ
+    [SerializeField, Range(0f, 1f)] private float MaxVolumeLimit = 0.5f;
 
     // Start is called before the first frame update
     void Awake()
@@ -107,8 +108,9 @@ public class AudioScript : MonoBehaviour
 
     private float Get_AudioRatio(float value)
     {
+        float vol = value * MaxVolumeLimit;
         // Mathf.Log10(0) はエラーになるため、最小値に注意
-        if (value <= 0)
+        if (value <= 0.0001f)
         {
             // スライダーが0の時は無音(-80dB)にする
             return -80f;

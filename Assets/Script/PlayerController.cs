@@ -966,7 +966,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             if (collision.gameObject.tag == "Jail")
             {
-                Manager.GetComponent<MainGameManager>().Game_over_of();
+                Manager.GetComponent<MainGameManager>().Game_over_of(gameObject.tag);
                 detainee_name = "";
                 collision.gameObject.name = Back_name;
                 Manager.GetComponent<MainGameManager>().kakuhoOF(gameObject.tag);
