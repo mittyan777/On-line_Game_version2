@@ -71,7 +71,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
 
     public AudioClip BGM_File;
 
-    bool Start_BGM＿trigger = false;
+    bool Start_BGM_trigger = false;
     [SerializeField] public GameObject optionwindow;
     [SerializeField] GameObject cursor_control;
 
@@ -85,6 +85,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
 
         Cursor.lockState = CursorLockMode.None;
 
+        audioScript = GameObject.Find("BGM").GetComponent<AudioScript>();
     }
     void Awake()
     {
@@ -95,11 +96,10 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     void Update()
     {
         if (Gamestart == false) return;
-        if (PhotonNetwork.IsMasterClient && !Start_BGM＿trigger)
+        if (PhotonNetwork.IsMasterClient && !Start_BGM_trigger)
         {
-            audioScript = GameObject.Find("BGM").GetComponent<AudioScript>();
             audioScript.Change_PlayAudio(BGM_File);
-            Start_BGM＿trigger = true;
+            Start_BGM_trigger = true;
         }
 
 
@@ -116,7 +116,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
             optionScript.Option_Function();
         }
 
-        while (Player == null)
+        if (Player == null)
         {
             Player = GameObject.FindGameObjectWithTag("Player");
             //Null発生
@@ -124,20 +124,20 @@ public class MainGameManager : MonoBehaviourPunCallbacks
             Player.transform.position = new Vector3(210f, 2f, -31f);
 
         }
-        while (Player2 == null)
+        if (Player2 == null)
         {
             Player2 = GameObject.FindGameObjectWithTag("Player2");
             //Null発生
             Player2.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.white);
             Player2.transform.position = new Vector3(210f, 2f, -31f);
         }
-        while (killer == null)
+        if (killer == null)
         {
             killer = GameObject.FindGameObjectWithTag("Killer");
             killer.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", new Color32(0, 0, 0, 0));
             killer.transform.position = new Vector3(246f, 2f, -31f);
         }
-        while (dummy_Player == null)
+        if (dummy_Player == null)
         {
             dummy_Player = GameObject.FindGameObjectWithTag("dummy_Player");
             //Null発生
@@ -417,7 +417,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
                 // photonView.RPC(nameof(Game_over_load), RpcTarget.All);
             }
         }
-       
+
 
     }
 
@@ -743,7 +743,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
 
         Debug.Log($"[Master] DesPlayer = {DesPlayer}");
 
-      
+
     }
 
     [PunRPC]
@@ -826,7 +826,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         cursor_control.SetActive(true);
     }
     [PunRPC]
-    void RPCMEMO(string target,string name)
+    void RPCMEMO(string target, string name)
     {
         if (name == "number1")
         {
@@ -847,6 +847,6 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     }
     public void MEMO(string target, string name)
     {
-        photonView.RPC(nameof(RPCMEMO), RpcTarget.All, target,name);
+        photonView.RPC(nameof(RPCMEMO), RpcTarget.All, target, name);
     }
 }

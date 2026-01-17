@@ -12,7 +12,7 @@ using static UnityEngine.GraphicsBuffer;
 
 public class PlayerController : MonoBehaviourPunCallbacks
 {
-    [SerializeField] GameObject []map_icon;
+    [SerializeField] GameObject[] map_icon;
     [SerializeField] int gameManager;
     [SerializeField] GameObject camera_Object;
     [SerializeField] Canvas playerCanvas;
@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     Rigidbody rb;
     Ray ray;
-    [SerializeField] GameObject camera;
+    [SerializeField] GameObject Player_camera;
 
     [SerializeField] private float rayDistance = 0.01f;
     [SerializeField] private GameObject rayObject;
@@ -77,11 +77,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [SerializeField] GameObject stamina_gage;
     float stamina = 300;
     float stamina_Collar = 1;
-   [SerializeField] float stamina_Transparency_ = 0.6f;
+    [SerializeField] float stamina_Transparency_ = 0.6f;
     bool stamina_trigger = false;
 
     [SerializeField] Image Collarchange_switch;
-    [SerializeField] Sprite []Collarchange_switch_sprite;
+    [SerializeField] Sprite[] Collarchange_switch_sprite;
 
     bool Game_Clear_trigger = false;
 
@@ -110,7 +110,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             MainGameManager.Player_name = new string[3];
             //Roll Check
             Invoke(nameof(PlayerStart), 5);
-         
+
             //Record_name.GetComponent<TMP_InputField>().Select();
             //Record_name.GetComponent<TMP_InputField>().ActivateInputField();
         }
@@ -155,7 +155,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     void RPCStart()
     {
         Debug.Log("OKOK");
-        if(gameObject.tag == "Player")
+        if (gameObject.tag == "Player")
         {
             map_icon[0].SetActive(true);
         }
@@ -163,7 +163,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             map_icon[1].SetActive(true);
         }
-        else if(gameObject.tag == "Killer")
+        else if (gameObject.tag == "Killer")
         {
             map_icon[2].SetActive(true);
         }
@@ -171,7 +171,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     void PlayerStart()
     {
-      
+
         if (!photonView.IsMine)
         {
             playerCanvas.gameObject.SetActive(false);
@@ -181,13 +181,13 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             rb = GetComponent<Rigidbody>();
             string role = (string)PhotonNetwork.LocalPlayer.CustomProperties["Role"];
-            
+
             // 全員に共有する
             photonView.RPC("SetRole", RpcTarget.AllBuffered, role);
 
             StartCoroutine(WaitForKiller());
             Record_name.SetActive(true);
-           
+
             if (this.gameObject.tag == "Killer")
             {
                 stamina_gage.SetActive(false);
@@ -195,7 +195,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 GameObject.Find("PlayerImage").SetActive(false);
                 GameObject.Find("Player2Image").SetActive(false);
                 Manager.GetComponent<MainGameManager>().killer_skin(gameObject.tag);
-                camera.GetComponent<Camera>().cullingMask &= ~(1 << LayerMask.NameToLayer("killer_skin"));
+                Player_camera.GetComponent<Camera>().cullingMask &= ~(1 << LayerMask.NameToLayer("killer_skin"));
                 GameObject.FindWithTag("Collar_Image").SetActive(false);
             }
             else if (this.gameObject.tag == "Player")
@@ -203,7 +203,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 GameObject.Find("killerImage").SetActive(false);
                 GameObject.Find("PlayerImage").SetActive(true);
                 GameObject.Find("Player2Image").SetActive(false);
-                camera.GetComponent<Camera>().cullingMask &= ~(1 << LayerMask.NameToLayer("Ghost_skin"));
+                Player_camera.GetComponent<Camera>().cullingMask &= ~(1 << LayerMask.NameToLayer("Ghost_skin"));
                 Collarchange_switch.sprite = Collarchange_switch_sprite[0];
 
             }
@@ -212,7 +212,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 GameObject.Find("killerImage").SetActive(false);
                 GameObject.Find("PlayerImage").SetActive(false);
                 GameObject.Find("Player2Image").SetActive(true);
-                camera.GetComponent<Camera>().cullingMask &= ~(1 << LayerMask.NameToLayer("Ghost_skin"));
+                Player_camera.GetComponent<Camera>().cullingMask &= ~(1 << LayerMask.NameToLayer("Ghost_skin"));
                 Collarchange_switch.sprite = Collarchange_switch_sprite[1];
 
             }
@@ -402,15 +402,15 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 }
             }
 
-           // if (Input.GetKeyDown("h"))
-           // {
-           //     if (Game_Clear_trigger == false)
-           //     {
-           //         Manager.GetComponent<MainGameManager>().Game_Clear(gameObject.tag);
-           //         Game_Clear_trigger = true;
-           //     }
-           //     //Manager.GetComponent<MainGameManager>().Game_over();
-           // }
+            // if (Input.GetKeyDown("h"))
+            // {
+            //     if (Game_Clear_trigger == false)
+            //     {
+            //         Manager.GetComponent<MainGameManager>().Game_Clear(gameObject.tag);
+            //         Game_Clear_trigger = true;
+            //     }
+            //     //Manager.GetComponent<MainGameManager>().Game_over();
+            // }
 
         }
         if (photonView.IsMine && sceneName == "lobby")
@@ -460,11 +460,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             if (GameObject.FindWithTag("Killer") != null) { killerdistance = Vector3.Distance(transform.position, killer_player.transform.position); }
         }
-      
-       
 
 
-            string sceneName = SceneManager.GetActiveScene().name;
+
+
+        string sceneName = SceneManager.GetActiveScene().name;
         if (sceneName == "main")
         {
             if (GameObject.Find("GameManager") != null)
@@ -476,7 +476,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 select = GameObject.FindGameObjectWithTag("selectUI").GetComponent<Text>();
             }
 
-          
+
         }
 
         // Ray作成
@@ -506,7 +506,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                         ver += v;
                         ver = Mathf.Clamp(ver, -50f, 90f);
                         // side = Mathf.Clamp(side, -90, 90f);
-                        camera.transform.rotation = Quaternion.Euler(-ver, side, camera.transform.eulerAngles.z);
+                        Player_camera.transform.rotation = Quaternion.Euler(-ver, side, Player_camera.transform.eulerAngles.z);
 
                         transform.rotation = Quaternion.Euler(0f, side, 0f);
 
@@ -523,7 +523,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     ver += v;
                     ver = Mathf.Clamp(ver, -50f, 90f);
                     // side = Mathf.Clamp(side, -90, 90f);
-                    camera.transform.rotation = Quaternion.Euler(-ver, side, camera.transform.eulerAngles.z);
+                    Player_camera.transform.rotation = Quaternion.Euler(-ver, side, Player_camera.transform.eulerAngles.z);
 
                     transform.rotation = Quaternion.Euler(0f, side, 0f);
                 }
@@ -659,7 +659,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                             }
                         }
                     }
-                    else if (hit.collider.gameObject.tag == "dummy_Player" )
+                    else if (hit.collider.gameObject.tag == "dummy_Player")
                     {
                         if (gameObject.tag == "Killer")
                         {
@@ -764,21 +764,21 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 }
 
             }
-         
+
             if (gameObject.tag != "Killer")
             {
-             
+
                 if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.W) && stamina_trigger == false)
                 {
                     MoveSpeed = 8;
                     animator.SetBool("dash", true);
                     stamina -= 30 * Time.deltaTime;
-                    if (camera.GetComponent<Camera>().fieldOfView < 80)
+                    if (Player_camera.GetComponent<Camera>().fieldOfView < 80)
                     {
-                        camera.GetComponent<Camera>().fieldOfView += 80f * Time.deltaTime;
+                        Player_camera.GetComponent<Camera>().fieldOfView += 80f * Time.deltaTime;
                     }
                 }
-                else 
+                else
                 {
                     animator.SetBool("dash", false);
                     MoveSpeed = 5;
@@ -787,13 +787,13 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     {
                         stamina += 30 * Time.deltaTime;
                     }
-                    if (camera.GetComponent<Camera>().fieldOfView > 60)
+                    if (Player_camera.GetComponent<Camera>().fieldOfView > 60)
                     {
-                        camera.GetComponent<Camera>().fieldOfView -= 50f * Time.deltaTime;
+                        Player_camera.GetComponent<Camera>().fieldOfView -= 50f * Time.deltaTime;
                     }
-               
+
                 }
-              
+
             }
             else
             {
@@ -945,7 +945,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 Manager.GetComponent<MainGameManager>().jail_doa_control();
                 Manager.GetComponent<MainGameManager>().kakuho(gameObject.tag);
             }
-          
+
         }
 
     }
