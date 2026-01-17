@@ -63840,7 +63840,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -158625,7 +158625,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -202031,7 +202031,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -209532,7 +209532,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -254068,7 +254068,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -307193,7 +307193,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -348018,7 +348018,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -380706,7 +380706,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -414639,7 +414639,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -464883,7 +464883,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -469998,6 +469998,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 760961138}
+    - target: {fileID: 569857647295455732, guid: d2bd85001a180565091218f40bee4c6a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1447815655396482763, guid: d2bd85001a180565091218f40bee4c6a, type: 3}
       propertyPath: Confirmation.Array.size
       value: 4
@@ -470021,6 +470025,10 @@ PrefabInstance:
     - target: {fileID: 3313889789540917735, guid: d2bd85001a180565091218f40bee4c6a, type: 3}
       propertyPath: m_Name
       value: Option
+      objectReference: {fileID: 0}
+    - target: {fileID: 3977314842832120661, guid: d2bd85001a180565091218f40bee4c6a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -31.600012
       objectReference: {fileID: 0}
     - target: {fileID: 4144097256119826650, guid: d2bd85001a180565091218f40bee4c6a, type: 3}
       propertyPath: m_AnchorMax.y
@@ -470056,7 +470064,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5915741869383576853, guid: d2bd85001a180565091218f40bee4c6a, type: 3}
       propertyPath: m_SizeDelta.y
-      value: -336.45
+      value: -287.387
       objectReference: {fileID: 0}
     - target: {fileID: 5915741869383576853, guid: d2bd85001a180565091218f40bee4c6a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -470092,7 +470100,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5915741869383576853, guid: d2bd85001a180565091218f40bee4c6a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -24.531496
       objectReference: {fileID: 0}
     - target: {fileID: 5915741869383576853, guid: d2bd85001a180565091218f40bee4c6a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -470106,12 +470114,32 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6210228351235296768, guid: d2bd85001a180565091218f40bee4c6a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -25.10002
+      objectReference: {fileID: 0}
     - target: {fileID: 7738329291114073194, guid: d2bd85001a180565091218f40bee4c6a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: windowOF
       objectReference: {fileID: 0}
+    - target: {fileID: 8014730902642585235, guid: d2bd85001a180565091218f40bee4c6a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 11.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8525447067576718525, guid: d2bd85001a180565091218f40bee4c6a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -25.099997
+      objectReference: {fileID: 0}
+    - target: {fileID: 8664851578908392208, guid: d2bd85001a180565091218f40bee4c6a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -21.10002
+      objectReference: {fileID: 0}
     - target: {fileID: 8800122034035132051, guid: d2bd85001a180565091218f40bee4c6a, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9164542779865715248, guid: d2bd85001a180565091218f40bee4c6a, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:

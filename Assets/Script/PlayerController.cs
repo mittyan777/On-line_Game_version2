@@ -100,6 +100,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             StartCoroutine(WaitForOption());
 
             BGM = GameObject.Find("BGM").GetComponent<AudioScript>();
+            killer_skin.GetComponent<AudioSource>().enabled = false;
             Is_PlayMode = true;
             normalLayer = LayerMask.NameToLayer("PlayerNormal");
             outlineLayer = LayerMask.NameToLayer("OutlineVisible");
@@ -190,7 +191,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
             if (this.gameObject.tag == "Killer")
             {
-                killer_skin.GetComponent<AudioSource>().enabled = false;
+              
                 stamina_gage.SetActive(false);
                 GameObject.Find("killerImage").SetActive(true);
                 GameObject.Find("PlayerImage").SetActive(false);

@@ -96,10 +96,14 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     void Update()
     {
         if (Gamestart == false) return;
-        if (PhotonNetwork.IsMasterClient && !Start_BGM_trigger)
+        if (PhotonNetwork.IsMasterClient)
         {
-            audioScript.Change_PlayAudio(BGM_File);
-            Start_BGM_trigger = true;
+            if (!Start_BGM_trigger)
+            {
+                photonView.RPC(nameof(RPC_Start_BGM), RpcTarget.All);
+
+                Start_BGM_trigger = true;
+            }
         }
 
 
@@ -632,7 +636,11 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         }
     }
 
+    [PunRPC]
+    void RPCkakuhoOF(string target)
+    {
 
+    }
 
     public void StopDrone_Ability()
     {
@@ -806,16 +814,9 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         photonView.RPC(nameof(RPCkakuho), RpcTarget.All, target);
     }
     [PunRPC]
-    void RPCkakuhoOF(string target)
+    void RPC_Start_BGM()
     {
-        if (target == "Player")
-        {
-            kakuho_UI[0].SetActive(false);
-        }
-        else if (target == "Player2")
-        {
-            kakuho_UI[1].SetActive(false);
-        }
+        audioScript.Change_PlayAudio(BGM_File);
     }
     public void kakuhoOF(string target)
     {
