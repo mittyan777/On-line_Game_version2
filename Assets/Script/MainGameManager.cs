@@ -788,7 +788,6 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void Game_over_count2(string target_name)
     {
-        if (!PhotonNetwork.IsMasterClient) return;
         Debug.Log($"救助: {target_name}");
         // DesPlayer -= 1;
         // Debug.Log($"[Master] DesPlayer-- → {DesPlayer}");
@@ -800,13 +799,6 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         else if (target_name == "Player2")
         {
             p2_caught = false;
-        }
-
-        // 念のためisLeavingもリセット（ギリギリで救助された場合など）
-        if (!p1_caught || !p2_caught)
-        {
-            isLeaving = false;
-            CancelInvoke("Jail_count"); // ゲームオーバーカウントダウンをキャンセル
         }
     }
 
