@@ -2450,17 +2450,13 @@ MonoBehaviour:
   Manager: {fileID: 0}
   animator: {fileID: 2282378611798100388}
   passwordUI: {fileID: 0}
-  memo:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   Notepad: {fileID: 0}
   Mermaid: {fileID: 5112321646563768848}
   Mermaid_Face: {fileID: 1222535870967195358}
   killer_skin: {fileID: 1887280012626429673}
   Ghost_skin: {fileID: 8662054926774346186}
   killer_player: {fileID: 0}
+  effect: {fileID: 6813416509558619124, guid: 3b7f2c753d435d647a80f1f047a113e3, type: 3}
   skillDuration: 5
   itemslot: {fileID: 1527663049212576414}
   skillslot: {fileID: 2350115178791440717}
@@ -3125,10 +3121,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: "\u6C7A\u5B9A"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1f0b2e41ae24f8a41ad1be41b1b55724, type: 2}
+  m_sharedMaterial: {fileID: -1118352201282441705, guid: 1f0b2e41ae24f8a41ad1be41b1b55724, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3158,7 +3154,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535

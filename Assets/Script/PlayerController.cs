@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [SerializeField] public GameObject killer_skin;
     [SerializeField] public GameObject Ghost_skin;
     [SerializeField] GameObject killer_player;
+    [SerializeField] GameObject effect;
     float killerdistance;
     bool killerplayer_trigger = false;
 
@@ -654,6 +655,19 @@ public class PlayerController : MonoBehaviourPunCallbacks
                             {
 
                                 Manager.GetComponent<MainGameManager>().killer_Securing(hit.collider.gameObject.tag);
+
+                            }
+                        }
+                    }
+                    else if (hit.collider.gameObject.tag == "dummy_Player" )
+                    {
+                        if (gameObject.tag == "Killer")
+                        {
+                            select.text = "[F]捕まえる";
+                            if (Input.GetKeyDown("f"))
+                            {
+                                Instantiate(effect, new Vector3(hit.collider.transform.position.x, hit.collider.transform.position.y + 2, hit.collider.transform.position.z), Quaternion.identity);
+                                Destroy(hit.collider.gameObject);
 
                             }
                         }
