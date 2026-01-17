@@ -680,7 +680,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void RPCcaught(string target_name)
     {
-        if (!PhotonNetwork.IsMasterClient) return;
+        //if (!PhotonNetwork.IsMasterClient) return;
 
         Debug.Log("回数確認");
         DesPlayer++;
