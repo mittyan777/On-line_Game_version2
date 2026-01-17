@@ -947,9 +947,13 @@ public class PlayerController : MonoBehaviourPunCallbacks
             }
           
         }
+
+    }
+    private void OnCollisionExit(Collision collision)
+    {
         if (gameObject.tag != "Killer")
         {
-            if (collision.gameObject.tag == "Floor")
+            if (collision.gameObject.tag == "Jail")
             {
                 Manager.GetComponent<MainGameManager>().Game_over_of();
                 detainee_name = "";
@@ -957,10 +961,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 Manager.GetComponent<MainGameManager>().kakuhoOF(gameObject.tag);
             }
         }
-    }
-    private void OnCollisionExit(Collision collision)
-    {
-      
     }
     IEnumerator Trap()
     {

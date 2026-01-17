@@ -742,6 +742,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void Game_over_count2()
     {
+        if (!PhotonNetwork.IsMasterClient) return;
         DesPlayer -= 1;
     }
     //アウトライン透過能力

@@ -18,6 +18,15 @@ public class Gamestart_count_controller : MonoBehaviour
     }
     public void count()
     {
-        GameStart_count.GetComponent<GameStart_count>().count -= 1;
+        if (gameObject.name == "Gamestart_count")
+        {
+            GameStart_count.GetComponent<GameStart_count>().count -= 1;
+        }
+        if (gameObject.name == "StartText")
+        {
+            Destroy(gameObject);
+        }
+
     }
+
 }

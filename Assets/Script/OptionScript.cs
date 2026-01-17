@@ -18,6 +18,8 @@ public class OptionScript : MonoBehaviour
 
     AudioScript audioScript;
 
+    [SerializeField] GameObject []Confirmation;
+
     bool Opening_Options;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -98,7 +100,10 @@ public class OptionScript : MonoBehaviour
         Opening_Options = true;
         SwitchWindow(Option_Window, Controller_Options);
     }
-
+    public void windowOF()
+    {
+        Close_OptionWindow();
+    }
 
     //オプション画面を閉じる
     private void Close_OptionWindow()
@@ -109,6 +114,16 @@ public class OptionScript : MonoBehaviour
 
         // 閉じる時にもセーブ
         gameSettings.Save();
+    }
+    public void Selection()
+    {
+        Confirmation[0].SetActive(true);
+        Confirmation[1].SetActive(true);
+    }
+    public void Selection_cancel()
+    {
+        Confirmation[0].SetActive(false);
+        Confirmation[1].SetActive(false);
     }
 
     void OnDisable()
