@@ -2,6 +2,7 @@ using Photon.Pun;
 using System.Collections;
 using TMPro;
 using UniGLTF.Extensions.VRMC_vrm;
+using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -406,13 +407,18 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
             // if (Input.GetKeyDown("h"))
             // {
-            //     if (Game_Clear_trigger == false)
-            //     {
-            //         Manager.GetComponent<MainGameManager>().Game_Clear(gameObject.tag);
-            //         Game_Clear_trigger = true;
-            //     }
-            //     //Manager.GetComponent<MainGameManager>().Game_over();
-            // }
+            //    Manager.GetComponent<MainGameManager>().killer_Securing(GameObject.FindWithTag("Player").gameObject.tag);
+            //    // if (Game_Clear_trigger == false)
+            //    // {
+            //    //     Manager.GetComponent<MainGameManager>().Game_Clear(gameObject.tag);
+            //    //     Game_Clear_trigger = true;
+            //    // }
+            //    //Manager.GetComponent<MainGameManager>().Game_over();
+            //}
+            // if(Input.GetKeyDown("j"))
+            //{
+            //    Manager.GetComponent<MainGameManager>().killer_Securing(GameObject.FindWithTag("Player2").gameObject.tag);
+            //}
 
         }
         if (photonView.IsMine && sceneName == "lobby")

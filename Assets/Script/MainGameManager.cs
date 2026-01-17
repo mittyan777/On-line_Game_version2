@@ -577,11 +577,11 @@ public class MainGameManager : MonoBehaviourPunCallbacks
 
         if (hasCalledGameOver) return;
         hasCalledGameOver = true;
-        photonView.RPC(nameof(Game_over_count), RpcTarget.All);
+     
     }
     public void Game_over_of()
     {
-        if (!PhotonNetwork.IsMasterClient) return;
+       // if (!PhotonNetwork.IsMasterClient) return;
 
         //if (!hasCalledGameOver) return;
         hasCalledGameOver = false;
@@ -639,7 +639,14 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void RPCkakuhoOF(string target)
     {
-
+        if (target == "Player")
+        {
+            kakuho_UI[0].SetActive(false);
+        }
+        else if (target == "Player2")
+        {
+            kakuho_UI[1].SetActive(false);
+        }
     }
 
     public void StopDrone_Ability()
@@ -673,6 +680,12 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void RPCcaught(string target_name)
     {
+        if (!PhotonNetwork.IsMasterClient) return;
+
+        Debug.Log("回数確認");
+        DesPlayer++;
+
+        Debug.Log($"[Master] DesPlayer = {DesPlayer}");
         StartCoroutine(caught(target_name));
 
     }
@@ -687,7 +700,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         yield return new WaitForSeconds(3f);
         photonView.RPC(nameof(RPCkiller_Securing2), RpcTarget.All, target_name);
         yield return new WaitForSeconds(1f);
-
+        photonView.RPC(nameof(Game_over_count), RpcTarget.All);
         Game_over();
     }
     [PunRPC]
@@ -744,12 +757,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void Game_over_count()
     {
-        if (!PhotonNetwork.IsMasterClient) return;
-
-        Debug.Log("回数確認");
-        DesPlayer++;
-
-        Debug.Log($"[Master] DesPlayer = {DesPlayer}");
+     
 
 
     }
@@ -757,7 +765,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void Game_over_count2()
     {
-        if (!PhotonNetwork.IsMasterClient) return;
+        //if (!PhotonNetwork.IsMasterClient) return;
 
         DesPlayer -= 1;
         Debug.Log($"[Master] DesPlayer-- → {DesPlayer}");
