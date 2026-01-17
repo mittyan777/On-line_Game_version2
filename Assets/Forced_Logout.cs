@@ -16,9 +16,14 @@ public class Forced_Logout: MonoBehaviourPunCallbacks
         // マスタークライアントだけがシーン遷移を指示する
         if (PhotonNetwork.IsMasterClient)
         {
-            PhotonNetwork.LeaveRoom();
+            Debug.Log("ルームから切断します...");
+            PhotonNetwork.LocalPlayer.CustomProperties = new ExitGames.Client.Photon.Hashtable();
+            PhotonNetwork.LocalPlayer.TagObject = null;
+            PhotonNetwork.LeaveRoom(); // 切断開始 -> 完了するとOnLeftRoomが呼ばれる
             Title_control.errorWindow2 = true;
             PhotonNetwork.LoadLevel("Title");
+
+
         }
     }
 }
