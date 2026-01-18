@@ -48,7 +48,7 @@ public class ItemSelect : MonoBehaviourPunCallbacks
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         if(gameObject.tag == "killer")
         {
-            SelectingSlot.SetActive(false);
+            //SelectingSlot.SetActive(false);
         }
         if (scroll > 0f)
         {
@@ -76,68 +76,71 @@ public class ItemSelect : MonoBehaviourPunCallbacks
         }
         if (photonView.IsMine)
         {
-            if (Current_ItemNum == 0)
+            if ((gameObject.tag != "Kille"))
             {
-                torabasami.SetActive(false);
-                Stop_device.SetActive(false);
-                tora_Installation_position.SetActive(false);
-                if (gameObject.tag == "Player")
+                if (Current_ItemNum == 0)
                 {
-                    Playersw.SetActive(true);
-                }
-                else if (gameObject.tag == "Player2")
-                {
-                    Playersw2.SetActive(true);
-                }
-            }
-            else if (Current_ItemNum == 1)
-            {
-                Playersw.SetActive(false);
-                Playersw2.SetActive(false);
-                Stop_device.SetActive(false);
-                if (gameObject.tag == "Player")
-                {
-                    if (tora == true)
+                    torabasami.SetActive(false);
+                    Stop_device.SetActive(false);
+                    tora_Installation_position.SetActive(false);
+                    if (gameObject.tag == "Player")
                     {
-                        torabasami.SetActive(true);
-                        tora_Installation_position.SetActive(true);
+                        Playersw.SetActive(true);
                     }
-                    else
+                    else if (gameObject.tag == "Player2")
                     {
-                        tora_Installation_position.SetActive(false);
+                        Playersw2.SetActive(true);
                     }
                 }
-                else if (gameObject.tag == "Player2")
+                else if (Current_ItemNum == 1)
                 {
-                    if (tora == true)
+                    Playersw.SetActive(false);
+                    Playersw2.SetActive(false);
+                    Stop_device.SetActive(false);
+                    if (gameObject.tag == "Player")
                     {
-                        torabasami.SetActive(true);
-                        tora_Installation_position.SetActive(true);
+                        if (tora == true)
+                        {
+                            torabasami.SetActive(true);
+                            tora_Installation_position.SetActive(true);
+                        }
+                        else
+                        {
+                            tora_Installation_position.SetActive(false);
+                        }
                     }
-                    else
+                    else if (gameObject.tag == "Player2")
                     {
-                        tora_Installation_position.SetActive(false);
+                        if (tora == true)
+                        {
+                            torabasami.SetActive(true);
+                            tora_Installation_position.SetActive(true);
+                        }
+                        else
+                        {
+                            tora_Installation_position.SetActive(false);
+                        }
                     }
                 }
-            }
-            else if (Current_ItemNum == 2)
-            {
-                Playersw.SetActive(false);
-                Playersw2.SetActive(false);
-                torabasami.SetActive(false);
-                Stop_device.SetActive(true);
-                tora_Installation_position.SetActive(false);
-             
-            }
-            if (tora == true)
-            {
-                ItemSlots[1].GetComponent<Image>().sprite = ItemImages[1].sprite;
-                ItemSlots[1].GetComponent<Image>().color = UnityEngine.Color.white;
-            }
+                else if (Current_ItemNum == 2)
+                {
+                    Playersw.SetActive(false);
+                    Playersw2.SetActive(false);
+                    torabasami.SetActive(false);
+                    Stop_device.SetActive(true);
+                    tora_Installation_position.SetActive(false);
 
-            if (Stop_effect.transform.localScale == new Vector3(1.5f, 1.5f, 1.5f))
-            {
-                photonView.RPC(nameof(RPCstop), RpcTarget.All);
+                }
+                if (tora == true)
+                {
+                    ItemSlots[1].GetComponent<Image>().sprite = ItemImages[1].sprite;
+                    ItemSlots[1].GetComponent<Image>().color = UnityEngine.Color.white;
+                }
+
+                if (Stop_effect.transform.localScale == new Vector3(1.5f, 1.5f, 1.5f))
+                {
+                    photonView.RPC(nameof(RPCstop), RpcTarget.All);
+                }
             }
 
         }

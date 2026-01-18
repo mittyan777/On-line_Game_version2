@@ -84,6 +84,7 @@ MonoBehaviour:
   - RPCPlay
   - RPCMEMO
   - RPC_Start_BGM
+  - RPC_tutorial_BGM
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

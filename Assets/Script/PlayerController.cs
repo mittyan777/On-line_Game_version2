@@ -91,6 +91,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     bool sekin = false;
     GameObject Option;
     bool cursor = false;
+    [SerializeField] AudioSource memo;
 
     // Start is called before the first frame update
     void Start()
@@ -477,7 +478,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             if (GameObject.FindWithTag("Killer") != null) { killerdistance = Vector3.Distance(transform.position, killer_player.transform.position); }
         }
-
+     
 
 
 
@@ -527,6 +528,14 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
                         transform.rotation = Quaternion.Euler(0f, side, 0f);
 
+                    }
+                    if (killerdistance <= 10)
+                    {
+                        Manager.GetComponent<MainGameManager>().Face_swap(gameObject.tag);
+                    }
+                    else if (killerdistance > 10)
+                    {
+                        Manager.GetComponent<MainGameManager>().Face_swapOF(gameObject.tag);
                     }
                 }
             }
@@ -731,6 +740,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                         select.text = "[F]メモする";
                         if (Input.GetKey("f"))
                         {
+                            memo.Play();
                             Manager.GetComponent<MainGameManager>().MEMO(hit.collider.GetComponent<Text>().text, hit.collider.name);
                         }
                     }
@@ -739,6 +749,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                         select.text = "[F]メモする";
                         if (Input.GetKey("f"))
                         {
+                            memo.Play();
                             Manager.GetComponent<MainGameManager>().MEMO(hit.collider.GetComponent<Text>().text, hit.collider.name);
                         }
                     }
@@ -747,6 +758,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                         select.text = "[F]メモする";
                         if (Input.GetKey("f"))
                         {
+                            memo.Play();
                             Manager.GetComponent<MainGameManager>().MEMO(hit.collider.GetComponent<Text>().text, hit.collider.name);
                         }
                     }
@@ -755,6 +767,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                         select.text = "[F]メモする";
                         if (Input.GetKey("f"))
                         {
+                            memo.Play();
                             Manager.GetComponent<MainGameManager>().MEMO(hit.collider.GetComponent<Text>().text, hit.collider.name);
                         }
                     }
@@ -1014,6 +1027,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
         Manager.GetComponent<MainGameManager>().name_Record(name, gameObject.tag);
         Record_name.SetActive(false);
     }
-
+    public void Start_skill()
+    {
+        cooltime_Image.GetComponent<Image>().fillAmount = 1;
+    }
 
 }
