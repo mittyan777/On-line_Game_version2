@@ -131,6 +131,8 @@ public class GameStart_count : MonoBehaviourPun
                 GameObject.FindWithTag("Player").transform.position = Start_pos[0].position;
                 GameObject.FindWithTag("Player2").transform.position = Start_pos[1].position;
                 GameObject.FindWithTag("Killer").transform.position = Start_pos[2].position;
+                GameObject.FindWithTag("Killer").GetComponent<PlayerController>().Start_skill();
+                Gamemanager.GetComponent<MainGameManager>().Start_BGM();
             }
             if (StartText != null) StartText.SetActive(true);
             count_text.gameObject.SetActive(false);

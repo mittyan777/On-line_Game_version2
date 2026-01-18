@@ -74,8 +74,10 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     AudioScript audioScript;
 
     public AudioClip BGM_File;
+    public AudioClip BGM_File2;
 
     bool Start_BGM_trigger = false;
+    bool tutorial_BGM_trigger = false;
     [SerializeField] public GameObject optionwindow;
     [SerializeField] GameObject cursor_control;
 
@@ -100,16 +102,16 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     void Update()
     {
         if (Gamestart == false) return;
+
         if (PhotonNetwork.IsMasterClient)
         {
-            if (!Start_BGM_trigger)
+            if (!tutorial_BGM_trigger)
             {
-                photonView.RPC(nameof(RPC_Start_BGM), RpcTarget.All);
+                photonView.RPC(nameof(RPC_tutorial_BGM), RpcTarget.All);
 
-                Start_BGM_trigger = true;
+                tutorial_BGM_trigger = true;
             }
         }
-
 
         if (Player_GameObject_name[0] == null)
         {
@@ -853,10 +855,27 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     {
         photonView.RPC(nameof(RPCkakuho), RpcTarget.All, target);
     }
+    public void Start_BGM()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            if (!Start_BGM_trigger)
+            {
+                photonView.RPC(nameof(RPC_Start_BGM), RpcTarget.All);
+
+                Start_BGM_trigger = true;
+            }
+        }
+    }
     [PunRPC]
     void RPC_Start_BGM()
     {
         audioScript.Change_PlayAudio(BGM_File);
+    }
+    [PunRPC]
+    void RPC_tutorial_BGM()
+    {
+        audioScript.Change_PlayAudio(BGM_File2);
     }
     public void kakuhoOF(string target)
     {
