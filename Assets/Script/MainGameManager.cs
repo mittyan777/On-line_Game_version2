@@ -568,6 +568,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     }
     public void Game_Clear(string a)
     {
+
         photonView.RPC(nameof(Clear), RpcTarget.All, a);
 
     }

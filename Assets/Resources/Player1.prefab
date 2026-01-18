@@ -3457,7 +3457,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 333529087
+    m_Bits: 870399999
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -5430,7 +5430,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1719158996708995616, guid: bd0e76dff3d188c40ad3f4a5047c46d0, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1974567529611008454, guid: bd0e76dff3d188c40ad3f4a5047c46d0, type: 3}
       propertyPath: m_Layer
@@ -5469,12 +5469,20 @@ PrefabInstance:
       value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 6031204511912012215, guid: bd0e76dff3d188c40ad3f4a5047c46d0, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6031204511912012215, guid: bd0e76dff3d188c40ad3f4a5047c46d0, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 86070faae772b7043a9a1c4cf39fe725, type: 2}
     - target: {fileID: 6301274898916131841, guid: bd0e76dff3d188c40ad3f4a5047c46d0, type: 3}
       propertyPath: m_Layer
       value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 6301274898916131841, guid: bd0e76dff3d188c40ad3f4a5047c46d0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7611318084721167611, guid: bd0e76dff3d188c40ad3f4a5047c46d0, type: 3}
       propertyPath: m_Layer

@@ -207,7 +207,18 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 GameObject.Find("killerImage").SetActive(false);
                 GameObject.Find("PlayerImage").SetActive(true);
                 GameObject.Find("Player2Image").SetActive(false);
-                Player_camera.GetComponent<Camera>().cullingMask &= ~(1 << LayerMask.NameToLayer("Ghost_skin"));
+                Ghost_skin.layer = 23;
+                int layer = LayerMask.NameToLayer("Ghost_skin2");
+
+                // 親＋子すべてのレイヤーを変更
+                foreach (Transform t in Ghost_skin.GetComponentsInChildren<Transform>())
+                {
+                    t.gameObject.layer = layer;
+                }
+
+                // カメラからそのレイヤーを除外
+                Player_camera.GetComponent<Camera>().cullingMask &= ~(1 << layer);
+
                 Collarchange_switch.sprite = Collarchange_switch_sprite[0];
 
             }
@@ -216,7 +227,18 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 GameObject.Find("killerImage").SetActive(false);
                 GameObject.Find("PlayerImage").SetActive(false);
                 GameObject.Find("Player2Image").SetActive(true);
-                Player_camera.GetComponent<Camera>().cullingMask &= ~(1 << LayerMask.NameToLayer("Ghost_skin"));
+                Ghost_skin.layer = 29;
+                int layer = LayerMask.NameToLayer("Ghost_skin2");
+
+                // 親＋子すべてのレイヤーを変更
+                foreach (Transform t in Ghost_skin.GetComponentsInChildren<Transform>())
+                {
+                    t.gameObject.layer = layer;
+                }
+
+                // カメラからそのレイヤーを除外
+                Player_camera.GetComponent<Camera>().cullingMask &= ~(1 << layer);
+
                 Collarchange_switch.sprite = Collarchange_switch_sprite[1];
 
             }
@@ -361,22 +383,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
                             }
 
                         }
-                        //if (gameObject.tag != "Killer")
-                        //{
-                        //    if (killerdistance <= 20 && sekin == false)
-                        //    {
-                        //        sekin = true;
-                        //        BGM.Change_PlayAudio(tousou_Sound);
-                        //
-                        //        Manager.GetComponent<MainGameManager>().Face_swap(gameObject.tag);
-                        //    }
-                        //    else if (killerdistance >= 20 && sekin == true)
-                        //    {
-                        //        sekin = false;
-                        //        BGM.Change_PlayAudio(Manager.GetComponent<MainGameManager>().BGM_File);
-                        //        Manager.GetComponent<MainGameManager>().Face_swapOF(gameObject.tag);
-                        //    }
-                        //}
 
 
                         Vector3 move = (transform.forward * z + transform.right * x).normalized;
@@ -406,15 +412,17 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 }
             }
 
-            // if (Input.GetKeyDown("h"))
-            // {
-            //    Manager.GetComponent<MainGameManager>().killer_Securing(GameObject.FindWithTag("Player").gameObject.tag);
-            //    // if (Game_Clear_trigger == false)
-            //    // {
-            //    //     Manager.GetComponent<MainGameManager>().Game_Clear(gameObject.tag);
-            //    //     Game_Clear_trigger = true;
-            //    // }
-            //    //Manager.GetComponent<MainGameManager>().Game_over();
+            if (Input.GetKeyDown("h"))
+            {
+
+                if (Game_Clear_trigger == false)
+                {
+                
+                    Manager.GetComponent<MainGameManager>().Game_Clear(gameObject.tag);
+                    Game_Clear_trigger = true;
+                }
+            }
+             
             //}
             // if(Input.GetKeyDown("j"))
             //{

@@ -13,17 +13,26 @@ public class drawntarget1: MonoBehaviourPunCallbacks
     [SerializeField] float distance2;
     [SerializeField] GameObject []target;
     public SpriteRenderer spriteRenderer;
+    bool Start_trigger = false;
     // Start is called before the first frame update
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        transform.position = new Vector3(killer.transform.position.x, transform.position.y, killer.transform.position.z);
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-        killer = GameObject.FindGameObjectWithTag("Killer");
+        if (GameObject.FindGameObjectWithTag("Killer") != null)
+        {
+            killer = GameObject.FindGameObjectWithTag("Killer");
+        }
+        if(killer != null && Start_trigger == false)
+        {
+            transform.position = new Vector3(killer.transform.position.x, transform.position.y, killer.transform.position.z);
+            Start_trigger = true;
+        }
         target[0] = GameObject.Find("drawn2");
         if (photonView.IsMine)
         {
