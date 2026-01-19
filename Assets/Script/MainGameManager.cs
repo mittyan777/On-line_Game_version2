@@ -54,6 +54,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     [SerializeField] public bool red = false;
     public bool Gamestart = false;
     bool isLeaving = false;
+    bool isLeaving2 = false;
     public bool hasCalledGameOver = false;
 
     int Game_completer;
@@ -102,7 +103,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     void Update()
     {
         if (Gamestart == false) return;
-
+        //Debug.Log(isLeaving);
         if (PhotonNetwork.IsMasterClient)
         {
             if (!tutorial_BGM_trigger)
@@ -415,15 +416,25 @@ public class MainGameManager : MonoBehaviourPunCallbacks
             photonView.RPC(nameof(Clear_load), RpcTarget.All);
 
         }
-        if (Game_completer == 1 && (p1_caught || p2_caught) && !isLeaving)
+        if (Game_completer == 1 && (p1_caught || p2_caught) && !isLeaving2)
         {
-            isLeaving = true;
+            isLeaving2 = true;
             if (PhotonNetwork.IsMasterClient)
             {
                 Invoke(nameof(Game_Clear_Scene), 4);
               
             }
             photonView.RPC(nameof(Clear_load), RpcTarget.All);
+        }
+        if (PhotonNetwork.IsMasterClient)
+        {
+            // 両方のフラグが立っていたらゲームオーバー処理へ
+            if (p1_caught && p2_caught && !isLeaving)
+            {
+                Debug.LogError("全員捕獲完了。4秒後にゲームオーバー遷移します。");
+                isLeaving = true;
+                Invoke(nameof(Game_over), 4); // 4秒後にJail_countを呼ぶ
+            }
         }
 
 
@@ -714,16 +725,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
             p2_caught = true;
         }
 
-        if (PhotonNetwork.IsMasterClient)
-        {
-            // 両方のフラグが立っていたらゲームオーバー処理へ
-            if (p1_caught && p2_caught && !isLeaving)
-            {
-                Debug.LogError("全員捕獲完了。4秒後にゲームオーバー遷移します。");
-                isLeaving = true;
-                Invoke(nameof(Game_over), 4); // 4秒後にJail_countを呼ぶ
-            }
-        }
+       
         Debug.LogError($"捕獲確認: {target_name}");
         Debug.LogError($"{p1_caught},{p2_caught}");
 
