@@ -415,6 +415,16 @@ public class MainGameManager : MonoBehaviourPunCallbacks
             photonView.RPC(nameof(Clear_load), RpcTarget.All);
 
         }
+        if (Game_completer == 1 && (p1_caught || p2_caught) && !isLeaving)
+        {
+            isLeaving = true;
+            if (PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.LoadLevel("Game_Clear");
+            }
+            photonView.RPC(nameof(Clear_load), RpcTarget.All);
+        }
+
 
         // if (DesPlayer >= 2 && !isLeaving)
         // {
