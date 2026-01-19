@@ -420,7 +420,8 @@ public class MainGameManager : MonoBehaviourPunCallbacks
             isLeaving = true;
             if (PhotonNetwork.IsMasterClient)
             {
-                PhotonNetwork.LoadLevel("Game_Clear");
+                Invoke(nameof(Game_Clear_Scene), 4);
+              
             }
             photonView.RPC(nameof(Clear_load), RpcTarget.All);
         }
@@ -436,7 +437,10 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         // }
 
     }
-
+    public void Game_Clear_Scene()
+    {
+        PhotonNetwork.LoadLevel("Game_Clear");
+    }
     public void jail_doa_control()
     {
         DoorController door = jail_doa.GetComponent<DoorController>();
