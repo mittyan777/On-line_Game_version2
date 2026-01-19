@@ -43,41 +43,43 @@ public class ItemSelect : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        Stop_device_cooltime.fillAmount -= Time.deltaTime / 8;    
+        if ((gameObject.tag != "Kille"))
+        {
+            Stop_device_cooltime.fillAmount -= Time.deltaTime / 8;
 
-        float scroll = Input.GetAxis("Mouse ScrollWheel");
-        if(gameObject.tag == "killer")
-        {
-            //SelectingSlot.SetActive(false);
-        }
-        if (scroll > 0f)
-        {
-            Debug.Log("ホイール上");
-            if (Current_ItemNum <= 0)
+            float scroll = Input.GetAxis("Mouse ScrollWheel");
+            if (gameObject.tag == "killer")
             {
-                Current_ItemNum = MAX_ITEMSLOTS - 1;
+                //SelectingSlot.SetActive(false);
             }
-            else
+            if (scroll > 0f)
             {
-                Current_ItemNum--;
+                Debug.Log("ホイール上");
+                if (Current_ItemNum <= 0)
+                {
+                    Current_ItemNum = MAX_ITEMSLOTS - 1;
+                }
+                else
+                {
+                    Current_ItemNum--;
+                }
             }
-        }
-        else if (scroll < 0f)
-        {
-            Debug.Log("ホイール下");
-            if (Current_ItemNum >= MAX_ITEMSLOTS - 1)
+            else if (scroll < 0f)
             {
-                Current_ItemNum = 0;
+                Debug.Log("ホイール下");
+                if (Current_ItemNum >= MAX_ITEMSLOTS - 1)
+                {
+                    Current_ItemNum = 0;
+                }
+                else
+                {
+                    Current_ItemNum++;
+                }
             }
-            else
+            if (photonView.IsMine)
             {
-                Current_ItemNum++;
-            }
-        }
-        if (photonView.IsMine)
-        {
-            if ((gameObject.tag != "Kille"))
-            {
+
+
                 if (Current_ItemNum == 0)
                 {
                     torabasami.SetActive(false);
@@ -141,8 +143,9 @@ public class ItemSelect : MonoBehaviourPunCallbacks
                 {
                     photonView.RPC(nameof(RPCstop), RpcTarget.All);
                 }
-            }
 
+
+            }
         }
 
         // --- ここで null チェック ---

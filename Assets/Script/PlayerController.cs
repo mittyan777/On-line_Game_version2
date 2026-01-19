@@ -157,7 +157,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [PunRPC]
     void RPCStart()
     {
-        Debug.Log("OKOK");
+    
         if (gameObject.tag == "Player")
         {
             map_icon[0].SetActive(true);
@@ -194,6 +194,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
             if (this.gameObject.tag == "Killer")
             {
+                GetComponent<ItemSelect>().enabled = false;
                 killer_skin.GetComponent<AudioSource>().enabled = false;
                 stamina_gage.SetActive(false);
                 GameObject.Find("killerImage").SetActive(true);
@@ -702,31 +703,34 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
                     else if (hit.collider.CompareTag("Prison_door"))
                     {
-                        Animator animator = hit.collider.gameObject.GetComponent<Animator>();
-                        if (animator.GetBool("open") == false)
+                        if (gameObject.layer != 20)
                         {
-                            if (gameObject.tag != detainee_name)
+                            Animator animator = hit.collider.gameObject.GetComponent<Animator>();
+                            if (animator.GetBool("open") == false)
                             {
-                                select.text = "[F]開ける";
+                                if (gameObject.tag != detainee_name)
+                                {
+                                    select.text = "[F]開ける";
+                                    if (Input.GetKeyDown("f"))
+                                    {
+                                        DoorController door = hit.collider.GetComponent<DoorController>();
+                                        if (door != null)
+                                        {
+                                            door.SetOpen(true);
+                                        }
+                                    }
+                                }
+                            }
+                            else if (animator.GetBool("open") == true)
+                            {
+                                select.text = "[F]閉める";
                                 if (Input.GetKeyDown("f"))
                                 {
                                     DoorController door = hit.collider.GetComponent<DoorController>();
                                     if (door != null)
                                     {
-                                        door.SetOpen(true);
+                                        door.SetOpen(false);
                                     }
-                                }
-                            }
-                        }
-                        else if (animator.GetBool("open") == true)
-                        {
-                            select.text = "[F]閉める";
-                            if (Input.GetKeyDown("f"))
-                            {
-                                DoorController door = hit.collider.GetComponent<DoorController>();
-                                if (door != null)
-                                {
-                                    door.SetOpen(false);
                                 }
                             }
                         }
