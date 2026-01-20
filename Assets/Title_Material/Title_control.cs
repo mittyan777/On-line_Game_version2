@@ -14,7 +14,6 @@ public class Title_control : MonoBehaviourPunCallbacks
     [SerializeField] GameObject StartButton_obj;
     [SerializeField] GameObject RoomSelect_obj;
     [SerializeField] GameObject fade;
-    [SerializeField] AudioClip Title_BGM; 
 
     AudioScript audioScript;
     bool Start_trigger;
@@ -25,6 +24,10 @@ public class Title_control : MonoBehaviourPunCallbacks
     [SerializeField] GameObject errorWindow_UI2;
     static public bool errorWindow = false;
     static public bool errorWindow2 = false;
+
+    [SerializeField] private GameSettingsSO gameSettings;
+    [SerializeField] AudioClip TitleBGM;
+
 
     // Start is called before the first frame update
     void Start()
@@ -42,8 +45,9 @@ public class Title_control : MonoBehaviourPunCallbacks
         if (GameObject.Find("BGM") != null)
         {
             audioScript = GameObject.Find("BGM").GetComponent<AudioScript>();
+            audioScript.Reset_AudioValue(gameSettings.masterVolume);
+            audioScript.Change_PlayAudio(TitleBGM);
         }
-        audioScript.Change_PlayAudio(Title_BGM);
         Cursor.lockState = CursorLockMode.None;
     }
 
