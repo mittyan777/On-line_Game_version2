@@ -9492,10 +9492,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d96b1910c166f641b8af5d58679f36a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 404613800}
   StartButton_obj: {fileID: 344712942}
   RoomSelect_obj: {fileID: 1546563151}
   fade: {fileID: 1479163723}
+  Title_BGM: {fileID: 8300000, guid: 550d0ebcc964a6a4abb7b22b2349d055, type: 3}
   errorWindow_UI: {fileID: 2131754649}
   errorWindow_UI2: {fileID: 703488466}
 --- !u!4 &1741113911
@@ -10916,6 +10916,10 @@ PrefabInstance:
     - target: {fileID: 636768122007021782, guid: cf307893f6272c396ab05a459b600754, type: 3}
       propertyPath: m_Name
       value: BGM
+      objectReference: {fileID: 0}
+    - target: {fileID: 5610789202518082418, guid: cf307893f6272c396ab05a459b600754, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6137469369861585524, guid: cf307893f6272c396ab05a459b600754, type: 3}
       propertyPath: m_Volume

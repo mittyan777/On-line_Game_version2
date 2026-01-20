@@ -414,16 +414,16 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 }
             }
 
-            if (Input.GetKeyDown("h"))
-            {
-
-                if (Game_Clear_trigger == false)
-                {
-                
-                    Manager.GetComponent<MainGameManager>().Game_Clear(gameObject.tag);
-                    Game_Clear_trigger = true;
-                }
-            }
+           // if (Input.GetKeyDown("h"))
+           // {
+           //
+           //     if (Game_Clear_trigger == false)
+           //     {
+           //     
+           //         Manager.GetComponent<MainGameManager>().Game_Clear(gameObject.tag);
+           //         Game_Clear_trigger = true;
+           //     }
+           // }
              
             //}
             // if(Input.GetKeyDown("j"))

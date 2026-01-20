@@ -14,6 +14,7 @@ public class Title_control : MonoBehaviourPunCallbacks
     [SerializeField] GameObject StartButton_obj;
     [SerializeField] GameObject RoomSelect_obj;
     [SerializeField] GameObject fade;
+    [SerializeField] AudioClip Title_BGM; 
 
     AudioScript audioScript;
     bool Start_trigger;
@@ -42,7 +43,7 @@ public class Title_control : MonoBehaviourPunCallbacks
         {
             audioScript = GameObject.Find("BGM").GetComponent<AudioScript>();
         }
-        audioScript.Change_PlayAudio(null);
+        audioScript.Change_PlayAudio(Title_BGM);
         Cursor.lockState = CursorLockMode.None;
     }
 
