@@ -142,3 +142,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: df6c23b0d09a82c988d68020bcb450c2, type: 2}
+  MaxVolumeLimit: 0.4

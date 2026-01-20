@@ -9492,12 +9492,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d96b1910c166f641b8af5d58679f36a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 404613800}
   StartButton_obj: {fileID: 344712942}
   RoomSelect_obj: {fileID: 1546563151}
   fade: {fileID: 1479163723}
   errorWindow_UI: {fileID: 2131754649}
   errorWindow_UI2: {fileID: 703488466}
+  gameSettings: {fileID: 11400000, guid: fe6ba2858b381e0619b7903a5539ae72, type: 2}
+  audioS: {fileID: 8300000, guid: d9749eb2498685946a6122438026a986, type: 3}
 --- !u!4 &1741113911
 Transform:
   m_ObjectHideFlags: 0
