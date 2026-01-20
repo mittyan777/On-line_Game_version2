@@ -110,7 +110,7 @@ public class AudioScript : MonoBehaviour
     {
         float vol = value * MaxVolumeLimit;
         // Mathf.Log10(0) はエラーになるため、最小値に注意
-        if (value <= 0.0001f)
+        if (vol <= 0.0001f)
         {
             // スライダーが0の時は無音(-80dB)にする
             return -80f;
@@ -118,7 +118,7 @@ public class AudioScript : MonoBehaviour
         else
         {
             // 0.0〜1.0 をデシベル変換する公式: 20 * log10(値)
-            return Mathf.Log10(value) * 20f;
+            return Mathf.Log10(vol) * 20f;
         }
     }
 

@@ -9498,6 +9498,8 @@ MonoBehaviour:
   Title_BGM: {fileID: 8300000, guid: 550d0ebcc964a6a4abb7b22b2349d055, type: 3}
   errorWindow_UI: {fileID: 2131754649}
   errorWindow_UI2: {fileID: 703488466}
+  gameSettings: {fileID: 11400000, guid: fe6ba2858b381e0619b7903a5539ae72, type: 2}
+  audioS: {fileID: 8300000, guid: d9749eb2498685946a6122438026a986, type: 3}
 --- !u!4 &1741113911
 Transform:
   m_ObjectHideFlags: 0
