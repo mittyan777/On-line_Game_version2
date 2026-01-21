@@ -755,6 +755,8 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         GameObject.FindWithTag(target_name).GetComponent<PlayerController>().Trap_trigger = true;
         GameObject.FindWithTag(target_name).GetComponent<PlayerController>().fade_trigger = true;
         GameObject.FindWithTag(target_name).GetComponent<PlayerController>().Mermaid.SetActive(false);
+        GameObject.FindWithTag(target_name).GetComponent<CapsuleCollider>().enabled = false;
+        GameObject.FindWithTag(target_name).GetComponent<Rigidbody>().isKinematic = true;
         Instantiate(effect, new Vector3(GameObject.FindWithTag(target_name).transform.position.x, GameObject.FindWithTag(target_name).transform.position.y + 2, GameObject.FindWithTag(target_name).transform.position.z), Quaternion.identity);
     }
     [PunRPC]
@@ -764,6 +766,8 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         GameObject.FindWithTag(target_name).GetComponent<PlayerController>().fade_trigger = false;
         GameObject.FindWithTag(target_name).GetComponent<PlayerController>().Trap_trigger = false;
         GameObject.FindWithTag(target_name).GetComponent<PlayerController>().Mermaid.SetActive(true);
+        GameObject.FindWithTag(target_name).GetComponent<CapsuleCollider>().enabled = true;
+        GameObject.FindWithTag(target_name).GetComponent<Rigidbody>().isKinematic = false;
     }
 
     public void killer_skin(string target)

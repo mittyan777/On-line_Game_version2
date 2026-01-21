@@ -981,22 +981,22 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
 
             }
+         
+                if (collision.gameObject.tag == "Floor")
+                {
+                    Manager.GetComponent<MainGameManager>().Game_over_of(gameObject.tag);
+                    detainee_name = "";
+                    collision.gameObject.name = Back_name;
+                    Manager.GetComponent<MainGameManager>().kakuhoOF(gameObject.tag);
+                }
+            
 
         }
 
     }
     private void OnCollisionExit(Collision collision)
     {
-        if (gameObject.tag != "Killer")
-        {
-            if (collision.gameObject.tag == "Jail")
-            {
-                Manager.GetComponent<MainGameManager>().Game_over_of(gameObject.tag);
-                detainee_name = "";
-                collision.gameObject.name = Back_name;
-                Manager.GetComponent<MainGameManager>().kakuhoOF(gameObject.tag);
-            }
-        }
+       
     }
     IEnumerator Trap()
     {
@@ -1009,8 +1009,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
     IEnumerator END()
     {
         fade_trigger = true;
+        GetComponent<CapsuleCollider>().enabled = false;
+        GetComponent<Rigidbody>().isKinematic = true;
         yield return new WaitForSeconds(4f);
         Manager.GetComponent<MainGameManager>().Game_Clear(gameObject.tag);
+        GetComponent<CapsuleCollider>().enabled = true;
+        GetComponent<Rigidbody>().isKinematic = false;
         fade_trigger = false;
         //PhotonResetManager.Instance.BackToTitle();
 
