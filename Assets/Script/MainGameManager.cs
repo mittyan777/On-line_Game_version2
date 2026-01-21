@@ -700,8 +700,12 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void RPC_Face_swap(string target_name)
     {
-        GameObject.FindWithTag(target_name).GetComponent<PlayerController>().Mermaid.GetComponent<ExpressionController>().preset = GameObject.FindWithTag(target_name).GetComponent<PlayerController>().preset;
-        GameObject.FindWithTag(target_name).GetComponent<PlayerController>().Mermaid.GetComponent<ExpressionController>()._value = 1f;
+       
+        
+            GameObject.FindWithTag(target_name).GetComponent<PlayerController>().Mermaid.GetComponent<ExpressionController>().preset = GameObject.FindWithTag(target_name).GetComponent<PlayerController>().preset;
+            GameObject.FindWithTag(target_name).GetComponent<PlayerController>().Mermaid.GetComponent<ExpressionController>()._value = 1f;
+        
+      
     }
     [PunRPC]
     void RPC_Face_swapOF(string target_name)

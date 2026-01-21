@@ -12,7 +12,7 @@ public class ExpressionController : MonoBehaviour
     // Customを選択した場合はここに表情名を入力する（例: "Smile", "Blink_L"など）
     public string customName;
 
-    [Range(0, 1f)] public float _value;
+    [Range(0, 100f)] public float _value;
 
     void Awake()
     {
@@ -21,6 +21,8 @@ public class ExpressionController : MonoBehaviour
         {
             _expression = _vrm.Runtime.Expression;
         }
+ 
+
     }
 
     void Update()

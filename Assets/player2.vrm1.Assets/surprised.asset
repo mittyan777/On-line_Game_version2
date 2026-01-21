@@ -17,6 +17,18 @@ MonoBehaviour:
   - RelativePath: Face
     Index: 5
     Weight: 1
+  - RelativePath: Face
+    Index: 21
+    Weight: 1
+  - RelativePath: Face
+    Index: 22
+    Weight: 1
+  - RelativePath: Face
+    Index: 30
+    Weight: 0.386
+  - RelativePath: Face
+    Index: 33
+    Weight: 0.79999995
   MaterialColorBindings: []
   MaterialUVBindings: []
   IsBinary: 0
