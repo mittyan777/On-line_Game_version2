@@ -27,6 +27,7 @@ public class Title_control : MonoBehaviourPunCallbacks
 
     [SerializeField] private GameSettingsSO gameSettings;
     [SerializeField] AudioClip TitleBGM;
+    [SerializeField] GameObject option;
 
 
     // Start is called before the first frame update
@@ -85,6 +86,17 @@ public class Title_control : MonoBehaviourPunCallbacks
         {
             ConnectRoom();
         }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (option.activeSelf == false)
+            {
+                option.SetActive(true);
+            }
+            else
+            {
+                option.SetActive(false);
+            }
+        }
     }
     public void error_ext()
     {
@@ -118,7 +130,10 @@ public class Title_control : MonoBehaviourPunCallbacks
             }
         }
     }
-
+    public void exit()
+    {
+        Application.Quit();//ゲームプレイ終了
+    }
     public void ConnectRoom()
     {
         isConnecting = true; // 処理中フラグを立てる

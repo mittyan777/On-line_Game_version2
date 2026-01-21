@@ -319,6 +319,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 {
                     photonView.RPC(nameof(RPCStart), RpcTarget.All);
                 }
+                if(gameObject.tag != "Killer")
+                {
+                    killer_skin.GetComponent<AudioSource>().Play();
+                }
             }
             if (passwordUI != null)
             {

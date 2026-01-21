@@ -93,6 +93,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         Cursor.lockState = CursorLockMode.None;
 
         audioScript = GameObject.Find("BGM").GetComponent<AudioScript>();
+   
     }
     void Awake()
     {
@@ -132,7 +133,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
             Player = GameObject.FindGameObjectWithTag("Player");
             //Null発生
             Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.white);
-            Player.transform.position = new Vector3(210f, 2f, -31f);
+            Player.transform.position = new Vector3(210f, 2f, -35f);
 
         }
         if (Player2 == null)
@@ -140,7 +141,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
             Player2 = GameObject.FindGameObjectWithTag("Player2");
             //Null発生
             Player2.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.white);
-            Player2.transform.position = new Vector3(210f, 2f, -31f);
+            Player2.transform.position = new Vector3(210f, 2f, -35f);
         }
         if (killer == null)
         {
@@ -881,10 +882,12 @@ public class MainGameManager : MonoBehaviourPunCallbacks
     }
     public void Start_BGM()
     {
+        
         if (PhotonNetwork.IsMasterClient)
         {
             if (!Start_BGM_trigger)
             {
+               
                 photonView.RPC(nameof(RPC_Start_BGM), RpcTarget.All);
 
                 Start_BGM_trigger = true;
