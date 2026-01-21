@@ -133,7 +133,7 @@ public class MainGameManager : MonoBehaviourPunCallbacks
             Player = GameObject.FindGameObjectWithTag("Player");
             //Null発生
             Player.GetComponent<Outline>().outlineFillMaterial.SetColor("_OutlineColor", UnityEngine.Color.white);
-            Player.transform.position = new Vector3(210f, 2f, -35f);
+            Player.transform.position = new Vector3(213f, 2f, -35f);
 
         }
         if (Player2 == null)
