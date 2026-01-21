@@ -45,27 +45,27 @@ public class GameOver_manager : MonoBehaviour
 
 
 
-        if (MainGameManager.Player_GameObject_name[0] == "Player1(Clone)" && p1 == true)
+        if (MainGameManager.Player_GameObject_name[0] == "Player1(Clone)" && p1 == false)
         {
             p1_obj[0].SetActive(true);
         }
-        if (MainGameManager.Player_GameObject_name[0] == "Player2(Clone)" && p1 == true)
+        if (MainGameManager.Player_GameObject_name[0] == "Player2(Clone)" && p1 == false)
         {
             p1_obj[1].SetActive(true);
         }
-        if (MainGameManager.Player_GameObject_name[0] == "Player3(Clone)" && p1 == true)
+        if (MainGameManager.Player_GameObject_name[0] == "Player3(Clone)" && p1 == false)
         {
             p1_obj[2].SetActive(true);
         }
-        if (MainGameManager.Player_GameObject_name[1] == "Player1(Clone)" && p2 == true)
+        if (MainGameManager.Player_GameObject_name[1] == "Player1(Clone)" && p2 == false)
         {
             p2_obj[0].SetActive(true);
         }
-        if (MainGameManager.Player_GameObject_name[1] == "Player2(Clone)" && p2 == true)
+        if (MainGameManager.Player_GameObject_name[1] == "Player2(Clone)" && p2 == false)
         {
             p2_obj[1].SetActive(true);
         }
-        if (MainGameManager.Player_GameObject_name[1] == "Player3(Clone)" && p2 == true)
+        if (MainGameManager.Player_GameObject_name[1] == "Player3(Clone)" && p2 == false)
         {
             p2_obj[2].SetActive(true);
         }

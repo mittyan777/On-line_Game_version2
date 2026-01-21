@@ -835,7 +835,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             }
             else
             {
-                MoveSpeed = 6;
+                MoveSpeed = 5;
             }
             if (stamina < 1)
             {
