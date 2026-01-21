@@ -384,6 +384,10 @@ public class MainGameManager : MonoBehaviourPunCallbacks
                 TimerLabel.gameObject.SetActive(true);
                 CountTimer -= Time.deltaTime;
             }
+            if(CountTimer <= 100)
+            {
+                TimerLabel.color = UnityEngine.Color.red;
+            }
             if (CountTimer <= 0f)
             {
                 CountTimer = 0f;
