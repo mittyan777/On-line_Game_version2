@@ -203,6 +203,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 Manager.GetComponent<MainGameManager>().killer_skin(gameObject.tag);
                 Player_camera.GetComponent<Camera>().cullingMask &= ~(1 << LayerMask.NameToLayer("killer_skin"));
                 GameObject.FindWithTag("Collar_Image").SetActive(false);
+                my_name.rectTransform.position = new Vector3(my_name.rectTransform.position.x, my_name.rectTransform.position.y + 1, my_name.rectTransform.position.z);
             }
             else if (this.gameObject.tag == "Player")
             {
@@ -1020,6 +1021,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         fade_trigger = true;
         GetComponent<CapsuleCollider>().enabled = false;
         GetComponent<Rigidbody>().isKinematic = true;
+        my_name.rectTransform.position = new Vector3(my_name.rectTransform.position.x, my_name.rectTransform.position.y + 1, my_name.rectTransform.position.z);
         yield return new WaitForSeconds(4f);
         Manager.GetComponent<MainGameManager>().Game_Clear(gameObject.tag);
         GetComponent<CapsuleCollider>().enabled = true;

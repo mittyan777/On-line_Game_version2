@@ -2453,6 +2453,8 @@ GameObject:
   - component: {fileID: 6776881545079635909}
   - component: {fileID: 2184910105145418214}
   - component: {fileID: 2874582856743986126}
+  - component: {fileID: 3110735664710552759}
+  - component: {fileID: 2927800004309869873}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -2576,6 +2578,45 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3110735664710552759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6470415288022485861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 2927800004309869873}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &2927800004309869873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6470415288022485861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &6472946647513607643
 GameObject:
   m_ObjectHideFlags: 0
@@ -3295,6 +3336,7 @@ MonoBehaviour:
   skillslot: {fileID: 3768823053192889979}
   cooltime_Image: {fileID: 1505809362247938283}
   Trap_trigger: 0
+  tora: {fileID: 0}
   Drone_Player_Detection: {fileID: 7615181719771109817}
   fade: {fileID: 5469223870378087034}
   fade_trigger: 0
