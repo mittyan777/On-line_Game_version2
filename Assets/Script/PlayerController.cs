@@ -1010,6 +1010,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     {
         Trap_trigger = true;
         tora.GetComponent<AudioSource>().Play();
+        Manager.GetComponent<MainGameManager>().Trap_animation(tora.GetComponent<PhotonView>().ViewID);
         yield return new WaitForSeconds(5f);
         Manager.GetComponent<MainGameManager>().Trap(tora.GetComponent<PhotonView>().ViewID);
        

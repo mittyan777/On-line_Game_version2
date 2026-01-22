@@ -86,6 +86,7 @@ MonoBehaviour:
   - RPC_Start_BGM
   - RPC_tutorial_BGM
   - RPC_Trap
+  - RPC_Trap_animation
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

@@ -898,8 +898,13 @@ public class MainGameManager : MonoBehaviourPunCallbacks
             }
         }
     }
+    public void Trap_animation(int viewID)
+    {
+        photonView.RPC(nameof(RPC_Trap_animation), RpcTarget.All, viewID);
+    }
     public void Trap(int viewID)
     {
+       
         photonView.RPC(nameof(RPC_Trap), RpcTarget.All, viewID);
     }
     [PunRPC]
@@ -909,6 +914,15 @@ public class MainGameManager : MonoBehaviourPunCallbacks
         if (target != null)
         {
             PhotonNetwork.Destroy(target.gameObject);
+        }
+    }
+    [PunRPC]
+    void RPC_Trap_animation(int viewID)
+    {
+        PhotonView target = PhotonView.Find(viewID);
+        if (target != null)
+        {
+            target.GetComponent<Animator>().enabled = true;
         }
     }
 
