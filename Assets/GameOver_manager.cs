@@ -23,6 +23,8 @@ public class GameOver_manager : MonoBehaviour
 
     bool p1;
     bool p2;
+
+    [SerializeField] GameObject option;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +46,17 @@ public class GameOver_manager : MonoBehaviour
         }
 
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (option.activeSelf == false)
+            {
+                option.SetActive(true);
+            }
+            else
+            {
+                option.SetActive(false);
+            }
+        }
 
         if (MainGameManager.Player_GameObject_name[0] == "Player1(Clone)" && p1 == false)
         {

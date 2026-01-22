@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [SerializeField] GameObject effect;
     float killerdistance;
     bool killerplayer_trigger = false;
+    bool killer_skin_trigger = false;
 
     [Header("アウトライン能力")]
     [SerializeField] float skillDuration = 5f; // 壁越しアウトラインの持続時間
@@ -320,9 +321,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 {
                     photonView.RPC(nameof(RPCStart), RpcTarget.All);
                 }
-                if(gameObject.tag != "Killer")
+                if(gameObject.tag != "Killer" && killer_player != null && killer_skin_trigger == false)
                 {
-                    killer_skin.GetComponent<AudioSource>().Play();
+                    killer_player.GetComponent<PlayerController>().killer_skin.GetComponent<AudioSource>().Play();
+                    killer_skin_trigger = true;
                 }
             }
             if (passwordUI != null)

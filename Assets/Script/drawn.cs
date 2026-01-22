@@ -11,16 +11,16 @@ public class drawn : MonoBehaviourPunCallbacks
     private NavMeshAgent _navMeshAgent;
 
     [SerializeField]
-    private float chaseDistance = 10f; // ƒvƒŒƒCƒ„[‚ğ’Ç‚¢‚©‚¯‚é‹——£
+    private float chaseDistance = 10f; // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’è¿½ã„ã‹ã‘ã‚‹è·é›¢
 
     [SerializeField]
-    private float wanderRadius = 20f; // œpœjƒGƒŠƒA‚Ì”¼Œa
+    private float wanderRadius = 20f; // å¾˜å¾Šã‚¨ãƒªã‚¢ã®åŠå¾„
 
     [SerializeField]
-    private float wanderInterval = 10f; // œpœjƒ|ƒCƒ“ƒg‚ğ•ÏX‚·‚éŠÔŠu
+    private float wanderInterval = 10f; // å¾˜å¾Šãƒã‚¤ãƒ³ãƒˆã‚’å¤‰æ›´ã™ã‚‹é–“éš”
 
     [SerializeField]
-    private float StoppingTime = 10f; // ƒhƒ[ƒ“’â~ŠÔ
+    private float StoppingTime = 10f; // ãƒ‰ãƒ­ãƒ¼ãƒ³åœæ­¢æ™‚é–“
 
     private float StoppingCountTime = 0f;
 
@@ -29,7 +29,7 @@ public class drawn : MonoBehaviourPunCallbacks
     private bool siren = false;
     private bool MoveDisabled = false;
 
-    private Transform targetPlayer; // ’ÇÕ‘ÎÛ
+    private Transform targetPlayer; // è¿½è·¡å¯¾è±¡
 
     [SerializeField] private GameObject marker;
     [SerializeField] GameObject SmokeParticle;
@@ -57,14 +57,14 @@ public class drawn : MonoBehaviourPunCallbacks
             distance = Vector3.Distance(GameObject.FindWithTag("Player").transform.position, transform.position);
             distance2 = Vector3.Distance(GameObject.FindWithTag("Player2").transform.position, transform.position);
         }
-        // ’â~’†‚Ìˆ—
+        // åœæ­¢ä¸­ã®å‡¦ç†
         if (MoveDisabled)
         {
             _navMeshAgent.isStopped = true;
             StoppingCountTime -= Time.deltaTime;
             if (StoppingCountTime <= 0f)
             {
-                MoveDisabled = false; // ƒhƒ[ƒ“Än“®
+                MoveDisabled = false; // ãƒ‰ãƒ­ãƒ¼ãƒ³å†å§‹å‹•
                 SmokeParticle.SetActive(false);
             }
         }
@@ -73,7 +73,7 @@ public class drawn : MonoBehaviourPunCallbacks
             _navMeshAgent.isStopped = false;
         }
 
-        // ’ÇÕ or œpœj
+        // è¿½è·¡ or å¾˜å¾Š
         if (isChasing && targetPlayer != null)
         {
             _navMeshAgent.SetDestination(targetPlayer.position);
@@ -120,22 +120,22 @@ public class drawn : MonoBehaviourPunCallbacks
 
     private void OnTriggerEnter(Collider other)
     {
-        // ƒvƒŒƒCƒ„[’ÇÕŠJn
-        if (other.CompareTag("Drone Player Detection") && !other.CompareTag("Killer"))
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼è¿½è·¡é–‹å§‹
+        if (other.CompareTag("Drone Player Detection") && other.transform.parent.tag != "Killer")
         {
             if (!MoveDisabled)
             {
-                photonView.RPC(nameof(rockon), RpcTarget.All, other.gameObject.tag);
+                photonView.RPC(nameof(rockon), RpcTarget.All, other.transform.parent.tag);
          
             }
         }
 
-        // ƒhƒ[ƒ“’â~
+        // ãƒ‰ãƒ­ãƒ¼ãƒ³åœæ­¢
         if (other.CompareTag("DroneStopper") && !other.CompareTag("Killer"))
         {
             MoveDisabled = true;
             StoppingCountTime = StoppingTime;
-            Debug.Log("’â~ƒGƒŠƒAN“ü -> " + other.tag);
+            Debug.Log("åœæ­¢ã‚¨ãƒªã‚¢ä¾µå…¥ -> " + other.tag);
         }
     }
     [PunRPC]
@@ -148,11 +148,11 @@ public class drawn : MonoBehaviourPunCallbacks
         targetPlayer = a.transform;
 
 
-        Debug.Log("’ÇÕŠJn -> " + a.tag);
+        Debug.Log("è¿½è·¡é–‹å§‹ -> " + a.tag);
     }
     private void OnTriggerExit(Collider other)
     {
-        // ƒvƒŒƒCƒ„[’ÇÕI—¹
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼è¿½è·¡çµ‚äº†
         if (other.CompareTag("Drone Player Detection"))
         {
             photonView.RPC(nameof(rockof), RpcTarget.All, other.gameObject.tag);
@@ -167,12 +167,12 @@ public class drawn : MonoBehaviourPunCallbacks
         isChasing = false;
         siren = false;
         targetPlayer = null;
-        Debug.Log("’ÇÕI—¹ -> " + a.tag);
+        Debug.Log("è¿½è·¡çµ‚äº† -> " + a.tag);
     }
     void LateUpdate()
     {
         Vector3 pos = transform.position;
-        pos.y = 7.4f; // ŒÅ’è‚µ‚½‚¢‚‚³
+        pos.y = 7.4f; // å›ºå®šã—ãŸã„é«˜ã•
         transform.position = pos;
     }
 
