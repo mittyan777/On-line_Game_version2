@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [SerializeField] GameObject skillslot;
     [SerializeField] GameObject cooltime_Image;
     public bool Trap_trigger = false;
-    GameObject tora;
+    public GameObject tora;
     [SerializeField] GameObject Drone_Player_Detection;
     [SerializeField] Image fade;
     public bool fade_trigger = false;
@@ -400,8 +400,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     }
                     else
                     {
-                        x = 0;
-                        z = 0;
+                        Vector3 velocity = Vector3.zero;
+                        rb.velocity = velocity;
                     }
                 }
                 else
@@ -926,8 +926,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
             if (other.gameObject.tag == "bear trap")
             {
                 tora = other.gameObject;
-                Debug.Log("iii");
+                //Debug.Log("iii");
                 StartCoroutine(Trap());
+               
+
             }
         }
         if (other.gameObject.tag == "tutorial")
@@ -1002,11 +1004,14 @@ public class PlayerController : MonoBehaviourPunCallbacks
     {
        
     }
+    
     IEnumerator Trap()
     {
         Trap_trigger = true;
+        tora.GetComponent<AudioSource>().Play();
         yield return new WaitForSeconds(5f);
-        Destroy(tora);
+        Manager.GetComponent<MainGameManager>().Trap(tora.GetComponent<PhotonView>().ViewID);
+       
         Trap_trigger = false;
     }
 

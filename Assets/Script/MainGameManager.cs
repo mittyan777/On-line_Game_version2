@@ -898,6 +898,22 @@ public class MainGameManager : MonoBehaviourPunCallbacks
             }
         }
     }
+    public void Trap(int viewID)
+    {
+        photonView.RPC(nameof(RPC_Trap), RpcTarget.All, viewID);
+    }
+    [PunRPC]
+    void RPC_Trap(int viewID)
+    {
+        PhotonView target = PhotonView.Find(viewID);
+        if (target != null)
+        {
+            PhotonNetwork.Destroy(target.gameObject);
+        }
+    }
+
+
+
     [PunRPC]
     void RPC_Start_BGM()
     {
